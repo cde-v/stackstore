@@ -1,5 +1,3 @@
-var mongoose = require('mongoose');
-
 var orderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +20,4 @@ var orderSchema = new mongoose.Schema({
     	default: Date.now
     }    
 });
-
-mongoose.model('Order', orderSchema);
 
