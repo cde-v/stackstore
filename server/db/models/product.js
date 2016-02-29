@@ -4,8 +4,12 @@ var mongoose = require('mongoose');
 
 var db = require('../../db');
 
-var Product = new mongoose.Schema({
+var productSchema = new mongoose.Schema({
 	
+	itemId: {
+		type: String,
+		required: true
+	},
 	brand: {
 		type: String,
 		required: true
@@ -41,7 +45,16 @@ var Product = new mongoose.Schema({
 	tags: {
 		type: [String]
 	},
+	reviews: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Reviews'
+	}],
 	description: String
 });
 
-module.exports = db.model('Product', Product);
+Product.virtual('rating')
+.get(function({
+
+}))
+
+module.exports = db.model('Product', productSchema);

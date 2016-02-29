@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var db = require('../../db');
 
-var Reviews = new mongoose.Schema({
+var reviewSchema = new mongoose.Schema({
 	product:{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Product'
@@ -24,4 +24,4 @@ var Reviews = new mongoose.Schema({
 	}
 });
 
-module.exports = db.model('Reviews', Reviews);
+module.exports = db.model('Reviews', reviewSchema);
