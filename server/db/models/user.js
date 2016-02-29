@@ -5,21 +5,27 @@ var _ = require('lodash');
 var shortid = require('shortid');
 var db = require('../db');
 var userSchema = new mongoose.Schema({
-  _id: {
+  id: {
     type: String,
     unique: true,
     default: shortid.generate
   },
-  name: {
+  photoUrl: {
     type: String
   },
-  shipping_address: {
+  firstName: {
     type: String
   },
-  billing_address: {
+  lastName: {
     type: String
   },
-  phone_number: {
+  shipAddress: {
+    type: String
+  },
+  billAddress: {
+    type: String
+  },
+  phoneNumber: {
     type: String
   },
   payment_info: {
@@ -56,27 +62,27 @@ var userSchema = new mongoose.Schema({
     tokenSecret: String,
     unique: true
   },
-  current_cart: {
-    type: String,
+  currentCart: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Cart'
-  },
+  }],
   isAdmin: {
     type: Boolean,
     default: false
   },
-  previous_orders: {
-    type: [mongoose.Schema.Types.ObjectId],
+  previousOrders: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Order'
-  },
-  reviews: {
-    type: [mongoose.Schema.Types.ObjectId],
+  }],
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Review'
-  }
+  }],
+  paymentProfiles: [{
+    cc: { type: String, required: true}
+  }]
 });
-var User = mongoose.model('User', userSchema);
-module.exports = {
-  User: User
-};
+mongoose.model('User', userSchema);
 // // method to remove sensitive information from user objects before sending them out
 // schema.methods.sanitize = function() {
 //   return _.omit(this.toJSON(), ['password', 'salt']);
