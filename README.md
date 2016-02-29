@@ -1,30 +1,14 @@
-# stackstore
-PLANNING
 DATA/MODELS
 
 -Users{
+	-_id
 	-types{
 		-guest
 		-email
 		-google
 		-fbook
 	}
-	-Cart{
-		-USER
-		-product-info
-		-Actions{
-			-CHECKOUT
-			-edit quantity
-			-remove
-		}
-		-Total{
-			sub
-			tax
-			opt fees
-			shipping
-			totl
-		}
-	}
+	-Cart._id
 	-Account{
 		personal info
 			-name
@@ -38,28 +22,7 @@ DATA/MODELS
 	}
 
 }
--products{
-	info{
-		-brand
-		-name
-		-pic
-		-price
-		-quantity
-		-availability
-		-option ex:size color etc
-	}
-	-Reviews
-	-Desc
-	-num prev orders/popul
 
-	
-}
--Reviews{
-	Rating
-	products
-	author
-	text/review
-}	
 -Orders{
 	-Users
 		-cart
@@ -71,15 +34,54 @@ DATA/MODELS
 		-fulfilled
 		-cancled
 		-error
-	-Return Eligibility
+	-Returns{
+		-request
+		-received
+		-cancled
+		-refunded
+	}
 
 }
--Returns{
-	-request
-	-received
-	-cancled
-	-refunded
+
+-Cart{
+	-_id
+	-USER._id
+	-product-info
+	-Actions{
+		-CHECKOUT
+		-edit quantity
+		-remove
+	}
+	-Total{
+		sub
+		tax
+		opt fees
+		shipping
+		totl
+	}
+}
+-products{
+	info{
+		-brand
+		-name
+		-pic
+		-price
+		-quantity
+		-availability
+		-option ex:size color etc
+	}
+	-Desc
+	-num prev orders/popul
+	-Reviews{
+		Rating
+		products
+		author
+		text/review
+	}	
 }
 
 
--Admin
+
+-Admin{
+
+}
