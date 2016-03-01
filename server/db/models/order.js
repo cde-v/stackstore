@@ -35,12 +35,12 @@ orderSchema.methods.changeOrderStatus = function(status) {
   if (status === 'shipped') {
     this.shipDate = Date.now();
   }
-
+  return this.save();
+  }
 
 orderSchema.methods.changeReturnStatus = function(status) {
   this.returnStatus = status;
 }
-
 
 orderSchema.statics.findOneOrder = function(id) {
   return mongoose
@@ -48,5 +48,4 @@ orderSchema.statics.findOneOrder = function(id) {
   .findById(id);
 }
 
-
-module.exports = mongoose.model('Order', orderSchema);
+mongoose.model('Order', orderSchema);
