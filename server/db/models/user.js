@@ -44,23 +44,23 @@ var userSchema = new mongoose.Schema({
     id: String,
     username: String,
     token: String,
-    tokenSecret: String,
-    unique: true,
+    tokenSecret: String
+    // unique: true
   },
   facebook: {
     id: String,
     username: String,
     token: String,
-    tokenSecret: String,
-    unique: true,
+    tokenSecret: String
+    // unique: true
   },
   google: {
     id: String,
     username: String,
     email: String,
     token: String,
-    tokenSecret: String,
-    unique: true
+    tokenSecret: String
+    // unique: true
   },
   currentCart: [{
     type: mongoose.Schema.Types.ObjectId,
