@@ -3,8 +3,10 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 
-var Order = require('./order');
-var Review = require('./order');
+var db = require('../../db');
+
+// var Order = require('./order');
+// var Review = require('./order');
 
 var userSchema = new mongoose.Schema({});
 userSchema.methods.getUserReviews = getUserReviews;
