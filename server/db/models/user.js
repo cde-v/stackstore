@@ -69,14 +69,6 @@ var userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  previousOrders: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Order'
-  }],
-  reviews: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review'
-  }],
   paymentProfiles: [{
     ccCardholder: { type: String, required: true },
     ccType: { type: String, required: true },
@@ -88,6 +80,14 @@ var userSchema = new mongoose.Schema({
 userSchema.virtual('fullname').get(function() {
   return this.firstName + " " + this.lastName;
 });
+
+userSchema.methods.getUserOrders = function() {
+  return mongoose
+  .model('Order')
+  .find({user: this._id})
+  .populate('user');
+};
+
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize = function() {
