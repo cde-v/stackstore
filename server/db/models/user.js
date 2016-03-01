@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var shortid = require('shortid');
-var db = require('../db');
+// var db = require('../db');
 var userSchema = new mongoose.Schema({
   id: {
     type: String,

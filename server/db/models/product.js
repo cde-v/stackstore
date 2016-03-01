@@ -53,8 +53,8 @@ var productSchema = new mongoose.Schema({
 });
 
 Product.virtual('rating')
-.get(function({
+.get(function(){
 
-}))
+});
 
 module.exports = db.model('Product', productSchema);
