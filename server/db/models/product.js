@@ -52,9 +52,9 @@ var productSchema = new mongoose.Schema({
   description: String
 });
 
-Product.virtual('rating')
-  .get(function({
+// Product.virtual('rating')
+//   .get(function({
 
-    });
+//     });
 
-    module.exports = db.model('Product', productSchema);
+db.model('Product', productSchema);

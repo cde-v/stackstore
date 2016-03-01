@@ -27,7 +27,7 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  Cart.create({}).then(result => res.json(result));
+  Cart.create({/*USER INFO, SESSION INFO*/}).then(result => res.json(result));
 });
 
 //flesh out checkout function

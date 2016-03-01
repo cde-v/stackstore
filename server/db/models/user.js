@@ -48,20 +48,20 @@ userSchema = ({
     id: String,
     username: String,
     token: String,
-    tokenSecret: String,
+    tokenSecret: String
   },
   facebook: {
     id: String,
     username: String,
     token: String,
-    tokenSecret: String,
+    tokenSecret: String
   },
   google: {
     id: String,
     username: String,
     email: String,
     token: String,
-    tokenSecret: String,
+    tokenSecret: String
   },
   currentCart: [{
     type: mongoose.Schema.Types.ObjectId,
