@@ -13,7 +13,7 @@ var orderSchema = new mongoose.Schema({
   },
   orderStatus: {
     type: String,
-    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error']
+    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
   },
   returnStatus: {
     type: String,
@@ -38,14 +38,17 @@ orderSchema.methods.changeOrderStatus = function(status) {
   return this.save();
   }
 
-orderSchema.methods.changeReturnStatus = function(status) {
-  this.returnStatus = status;
-}
-
-orderSchema.statics.findOneOrder = function(id) {
+orderSchema.statics.getOneOrder = function(id) {
   return mongoose
   .model('Order')
   .findById(id);
 }
 
+
+orderSchema.statics.getAllOrders = function() {
+  return mongoose
+  .model('Order').find({});  
+}
+
 mongoose.model('Order', orderSchema);
+
