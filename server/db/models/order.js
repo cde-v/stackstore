@@ -40,12 +40,18 @@ orderSchema.methods.changeOrderStatus = function(status) {
 
 orderSchema.methods.changeReturnStatus = function(status) {
   this.returnStatus = status;
+  return this.save();
 }
 
-orderSchema.statics.findOneOrder = function(id) {
+orderSchema.statics.getOneOrder = function(id) {
   return mongoose
   .model('Order')
   .findById(id);
+}
+
+orderSchema.statics.getAllOrders = function() {
+  return mongoose
+  .model('Order').find({});  
 }
 
 mongoose.model('Order', orderSchema);
