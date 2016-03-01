@@ -21,16 +21,17 @@ router.param('orderId', function (req, res, next, id) {
 router.get('/orders/:orderId', function (req, res, next) {
   req.order.getOneOrder(req.params.orderId)
   .then(function (order) {
-    res.send(order);
+    res.json(order);
   })
   .then(null, next);
 });
 
 //get all orders
 router.get('/orders', function (req, res, next) {
-  req.order.getAllOrders()
+  mongoose.model('order')
+  .getAllOrders()
   .then(function (orders) {
-    res.send(orders);
+    res.json(orders);
   })
   .then(null, next);
 });
@@ -40,7 +41,7 @@ router.post('/orders', function (req, res, next){
   mongoose.model('order')
   .create(req.body)
   .then(function (newOrder) {
-    res.status(201).send(newOrder);
+    res.status(201).json(newOrder);
   })
   .then(null, next);
 })
@@ -58,16 +59,8 @@ router.delete('/orders/:orderId', function (req, res, next){
 router.put('/orders/:orderId', function (req, res, next){
   req.order.changeOrderStatus(req.body.orderStatus)
   .then(function(order){
-    res.send(order);
+    res.json(order);
   })
   .then(null, next);
 })
 
-//update return status
-router.put('/orders/:orderId', function (req, res, next){
-  req.order.changeReturnStatus(req.body.returnStatus)
-  .then(function(order){
-    res.send(order);
-  })
-  .then(null, next);
-})

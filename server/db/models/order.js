@@ -13,7 +13,7 @@ var orderSchema = new mongoose.Schema({
   },
   orderStatus: {
     type: String,
-    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error']
+    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
   },
   returnStatus: {
     type: String,
@@ -37,11 +37,6 @@ orderSchema.methods.changeOrderStatus = function(status) {
   }
   return this.save();
   }
-
-orderSchema.methods.changeReturnStatus = function(status) {
-  this.returnStatus = status;
-  return this.save();
-}
 
 orderSchema.statics.getOneOrder = function(id) {
   return mongoose
