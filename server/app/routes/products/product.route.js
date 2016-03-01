@@ -1,66 +1,69 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser')
+var router = require('express').Router();
+var Product = require('mongoose').model('Product');
 
 module.exports = router;
 
 //------ GET ALL ITEMS
 router.get('/', function (req, res, next) {
-	mongoose.model('Product')
-	.find(req.query)
+	Product.find(req.query)
 	.then(data=>{
-		res.send(data);
+		if(!data.length) res.sendStatus(404);
+		else res.send(data);
 	}, err=>{
-		res.sendStatus(404);
+		next(err)
 	})
 });
 
 //------ GET ONE ITEM ENTRY
 router.get('/:itemId', function (req, res, next) {
-  mongoose.model('Product')
-  .find({itemId: req.params.itemId})
-  .then(data=>{
-    res.send(data[0]);
-  }, err=>{
-  	res.sendStatus(404);
-  })
+	Product.find({itemId: req.params.itemId})
+	.then(data=>{
+		if(!data.length) res.sendStatus(404);
+		else res.send(data[0]);
+	}, err=>{
+		next(err)
+	})
 });
 
 //------ CREATE ITEM ENTRY
 router.post('/', function(req, res, next){
-	mongoose.model('Product')
-	.create(req.body)
+	Product.create(req.body)
 	.then(data=>{
 		res.status(201).send(data)
+	}, err=>{
+		next(err)
 	})
 })
 
 //------ UPDATE ITEM ENTRY
 roiuter.put('/:itemId', function(req, res, next){
-	mongoose.model('Product')
-	.find({itemId: req.params.itemId})
+	Product.find({itemId: req.params.itemId})
 	.then(data=>{
-		for(var key in req.body){
-			data[0][key] = req.body[key];
+		if(!data.length) res.sendStatus(404);
+		else {
+			for(var key in req.body){
+				data[0][key] = req.body[key];
+			}
+			data[0].save()
+			res.send(data[0])
 		}
-		data[0].save()
-		res.send(data[0])
 	}, err=>{
-		res.sendStatus(404)
+		next(err)
 	})
 })
 
 //------ DELETE ITEM ENTRY
 roiuter.delete('/:itemId', function(req, res, next){
-	mongoose.model('Product')
-	.find({itemId: req.params.itemId})
+	Product.find({itemId: req.params.itemId})
 	.then(data=>{
-		data[0].remove()
-		res.send(data[0])
+		if(!data.length) res.sendStatus(404);
+		else {
+			data[0].remove()
+			res.send(data[0])
+		}
 	}, err=>{
-		res.sendStatus(404)
+		next(err)
 	})
 })
