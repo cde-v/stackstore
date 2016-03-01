@@ -44,9 +44,11 @@ orderSchema.statics.getOneOrder = function(id) {
   .findById(id);
 }
 
+
 orderSchema.statics.getAllOrders = function() {
   return mongoose
   .model('Order').find({});  
 }
 
 mongoose.model('Order', orderSchema);
+
