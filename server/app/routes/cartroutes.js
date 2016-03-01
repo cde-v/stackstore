@@ -1,41 +1,52 @@
 //using router instead of app
 //creating req.params for userid
 
-var app = require('express');
+var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
-var Order = require('mongoose').model('Order'); //how to get mongoose models?
+module.exports = router;
+// var Order = require('mongoose').model('Order'); //how to get mongoose models?
 
-app.get('/:id', function(req, res, next) {
-  Cart.findOne({ _id: req.params.id })
-    .then(result => {
-      result.total = result.getTotal();
-      res.json(result);
+router.param('id', function(req, res, next, id) {
+  Cart.findById(id).exec()
+    .then(function(cart) {
+      if (!cart) throw HttpError(404);
+      req.cart = cart;
+      next();
     })
-    .catch(res.send); //different error function
+    .then(null, next);
+});
+
+router.get('/', function(req, res) {
+  Cart.find({})
+    .then(results => res.json(results))
+    .catch(console.error);
+});
+
+router.get('/:id', function(req, res) {
+  res.json(req.cart);
+});
+
+router.post('/', function(req, res) {
+  Cart.create({}).then(result => res.json(result));
 });
 
 //flesh out checkout function
-app.post('/:id/checkout', function(req, res, next) {
-  Order.create({}).then(result => res.json(result));
+router.post('/:id/checkout', function(req, res) {
+  // Order.create({ /*something in here*/ }).then(result => res.json(result));
 });
 
-app.put('/:id/quantity', function(req, res, next) {
-  // use a bodyparsing middleware
-  Cart.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-    .then(result => res.json(result))
-    .catch(res.send); //different error function
+router.put('/:id/:itemId', function(req, res) {
+  res.json(req.cart.editQuantity(req.params.itemId, req.body.quantity));
 });
 
-app.delete('/:id', function(req, res, next) {
-  Cart.findOne({ _id: req.params.id })
-    .then(result => {
-      result.items = [];
-      result.save();
-      res.json(result);
-    }).catch(res.send); //improve error handling
+router.delete('/:id', function(req, res) {
+  req.cart.items = [];
+
+  //does save return the saved thing?
+  res.json(req.cart.save());
 });
 
-app.delete('/:id/:itemId', function(req, res, next) {
+router.delete('/:id/:itemId', function(req, res) {
   Cart.findOne({ _id: req.params.id })
     .then(result => res.json(result.removeItem(req.params.itemId)))
     .catch(res.send); //different error function

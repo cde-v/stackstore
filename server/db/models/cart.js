@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var cartSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  session: { type: string },
+  session: { type: String },
   items: [{
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     quantity: { type: Number }
@@ -11,22 +11,33 @@ var cartSchema = new mongoose.Schema({
 
 cartSchema.methods.editQuantity = function(id, qty) {
   var cart = this;
+  var found = false;
 
   cart.items.forEach(function(item) {
-    if (item.product == id) item.quantity = qty;
+    if (item.product === id) {
+      console.log(qty);
+      item.quantity = +qty;
+      found = true;
+    }
   });
 
-  return cart.save();
+  if (!found) cart.items.push({ product: id, quantity: +qty });
+
+  //does save return the saved thing?
+  cart.save();
+  return cart;
 };
 
 cartSchema.methods.removeItem = function(id) {
   var cart = this;
 
   cart.items.forEach(function(item, ind) {
-    if (item.product == id) cart.items.splice(ind, 1);
+    if (item.product === id) cart.items.splice(ind, 1);
   });
 
-  return cart.save();
+  //does save return the saved thing?
+  cart.save();
+  return cart;
 };
 
 cartSchema.methods.getTotal = function() {
@@ -37,4 +48,4 @@ cartSchema.methods.getTotal = function() {
   }, 0);
 };
 
-mongoose.model('Cart', cartSchema);
+module.exports = mongoose.model('Cart', cartSchema);
