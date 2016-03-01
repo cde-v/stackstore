@@ -20,6 +20,7 @@ name in the environment files.
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
+var chance = require('chance');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 
@@ -35,6 +36,13 @@ var seedUsers = function () {
             password: 'potus'
         }
     ];
+
+    for(var i = 0; i < 30; i++){
+        users.push({
+            email:chance.email(),
+            password:chance.word()
+        });
+    }
 
     return User.createAsync(users);
 
