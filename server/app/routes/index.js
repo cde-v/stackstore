@@ -4,7 +4,7 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 router.use('/cart', require('./cartroutes.js'));
-router.use('/products', require('./product.route.js'));
+router.use('/products', require('./products.js'));
 
 // Make sure this is after all of
 // the registered routes!
