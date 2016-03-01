@@ -8,6 +8,7 @@ var productSchema = new mongoose.Schema({
 	
 	itemId: {
 		type: String,
+		unique:true,
 		required: true
 	},
 	brand: {
