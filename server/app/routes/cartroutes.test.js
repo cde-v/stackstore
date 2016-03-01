@@ -91,7 +91,7 @@ describe('Cart Routes:', function() {
     });
   });
 
-  //describe('POST /cart/:id/checkout', function(){})
+  //describe('POST /cart/:id/checkout', function(){}) needs orders
 
   describe('PUT /cart/:id/:itemId', function() {
     var cart;
@@ -142,9 +142,9 @@ describe('Cart Routes:', function() {
     });
 
     //need product to remove product
-    it('removes a specific item from the cart', function(done) {
-      done();
-    });
+    // it('removes a specific item from the cart', function(done) {
+    //   done();
+    // });
   });
 
 });
