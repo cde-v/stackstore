@@ -85,7 +85,7 @@ userSchema.methods.getUserOrders = function() {
   return mongoose
   .model('Order')
   .find({user: this._id})
-  .populate()
+  .populate('user');
 };
 
 // method to remove sensitive information from user objects before sending them out
