@@ -1,7 +1,8 @@
 var expect = require('chai').expect,
   request = require('supertest'),
-  app = require('../index.js'),
+  // app = require('../index.js'), how to require app
   Cart = require('mongoose').model('Cart'),
+  Product = require('mongoose').model('Product'),
   agent = request.agent(app);
 
 describe('Cart Routes:', function() {
@@ -132,19 +133,35 @@ describe('Cart Routes:', function() {
 
   describe('DELETE /cart/:id/:itemId', function() {
     var cart;
+    var prod;
 
     before(function(done) {
       Cart.create({}).then(created => {
         cart = created;
-        //put a product into cart
+        return Product.create({
+          itemId:"123",
+          brand:"shoe",
+          name:"shoes",
+          price:300,
+          stock:5,
+          availability:true
+        });
+      }).then(product => {
+        prod = product;
+        cart.items.push({product:product._id, quantity:1});
+        cart.save();
         done();
       });
     });
 
-    //need product to remove product
-    // it('removes a specific item from the cart', function(done) {
-    //   done();
-    // });
+    it('removes a specific item from the cart', function(done) {
+      agent
+        .delete('/api/cart/' + cart._id + "/" + prod._id)
+        .expect(function(res){
+          expect(res.items.length).to.be(0);
+          done();
+        });
+    });
   });
 
 });

@@ -38,7 +38,7 @@ router.post('/', function(req, res, next){
 })
 
 //------ UPDATE ITEM ENTRY
-roiuter.put('/:itemId', function(req, res, next){
+router.put('/:itemId', function(req, res, next){
 	Product.find({itemId: req.params.itemId})
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
@@ -55,7 +55,7 @@ roiuter.put('/:itemId', function(req, res, next){
 })
 
 //------ DELETE ITEM ENTRY
-roiuter.delete('/:itemId', function(req, res, next){
+router.delete('/:itemId', function(req, res, next){
 	Product.find({itemId: req.params.itemId})
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);

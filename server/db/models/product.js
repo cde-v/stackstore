@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 
 var db = require('../../db');
 
-var productSchema = new mongoose.Schema({
 
+var productSchema = new mongoose.Schema({
   itemId: {
     type: String,
     required: true
@@ -57,6 +57,4 @@ var productSchema = new mongoose.Schema({
 
 //     });
 
-<<<<<<< HEAD
-db.model('Product', productSchema);
-
+mongoose.model('Product', productSchema);

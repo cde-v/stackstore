@@ -1,4 +1,3 @@
-
 'use strict';
 var mongoose = require('mongoose');
 var db = require('../../db');
@@ -21,4 +20,5 @@ var reviewSchema = new mongoose.Schema({
     required: true
   }
 });
-db.model('Reviews', reviewSchema);
+mongoose.model('Reviews', reviewSchema);
+

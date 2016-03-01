@@ -37,7 +37,7 @@ router.post('/', function(req, res, next){
 });
 
 //------ EDIT REVIEW
-roiuter.put('/:id', function(req, res, next){
+router.put('/:id', function(req, res, next){
 	Reviews.find({_id: req.params.id})
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
@@ -52,7 +52,7 @@ roiuter.put('/:id', function(req, res, next){
 });
 
 //------ DELETE REVIEW
-roiuter.delete('/:id', function(req, res, next){
+router.delete('/:id', function(req, res, next){
 	Reviews.find({_id: req.params.id})
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
