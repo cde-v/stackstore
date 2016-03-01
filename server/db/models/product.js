@@ -6,57 +6,57 @@ var db = require('../../db');
 
 var productSchema = new mongoose.Schema({
 
-	itemId: {
-		type: String,
-		unique:true,
-		required: true
-	},
-	brand: {
-		type: String,
-		required: true
-	},
-	name: {
-		type: String,
-		required: true
-	},
-	images: {
-		type: [String]
-	},
-	price: {
-		type: Number,
-		required: true
-	},
-	stock: {
-		type: Number,
-		required: true
-	},
-	prevOrders: {
-		type: Number,
-		default:0
-	},
-	sizes: {
-		type: [Number],
-		required: true
-	},
-	availability: {
-		type: Boolean,
-		default: false,
-		required: true
-	},
-	tags: {
-		type: [String]
-	},
-	reviews: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Reviews'
-	}],
-	description: String
+  itemId: {
+    type: String,
+    required: true
+  },
+  brand: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  images: {
+    type: [String]
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  stock: {
+    type: Number,
+    required: true
+  },
+  prevOrders: {
+    type: Number,
+    default: 0
+  },
+  sizes: {
+    type: [Number],
+    required: true
+  },
+  availability: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  tags: {
+    type: [String]
+  },
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Reviews'
+  }],
+  description: String
 });
 
-
 // Product.virtual('rating')
-// .get(function(){
+//   .get(function({
 
-// });
+//     });
 
-module.exports = db.model('Product', productSchema);
+<<<<<<< HEAD
+db.model('Product', productSchema);
+
