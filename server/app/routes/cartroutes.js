@@ -4,7 +4,7 @@
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 module.exports = router;
-// var Order = require('mongoose').model('Order'); //how to get mongoose models?
+// var Order = require('mongoose').model('Order');
 
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
@@ -36,18 +36,18 @@ router.post('/:id/checkout', function(req, res) {
 });
 
 router.put('/:id/:itemId', function(req, res) {
+	console.log("hi", req.body);
   res.json(req.cart.editQuantity(req.params.itemId, req.body.quantity));
 });
 
 router.delete('/:id', function(req, res) {
   req.cart.items = [];
 
-  //does save return the saved thing?
   res.json(req.cart.save());
 });
 
 router.delete('/:id/:itemId', function(req, res) {
   Cart.findOne({ _id: req.params.id })
     .then(result => res.json(result.removeItem(req.params.itemId)))
-    .catch(res.send); //different error function
+    .catch(err => res.sendStatus(404));
 });

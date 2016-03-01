@@ -14,8 +14,7 @@ cartSchema.methods.editQuantity = function(id, qty) {
   var found = false;
 
   cart.items.forEach(function(item) {
-    if (item.product === id) {
-      console.log(qty);
+    if (item._id == id) {
       item.quantity = +qty;
       found = true;
     }
@@ -23,7 +22,6 @@ cartSchema.methods.editQuantity = function(id, qty) {
 
   if (!found) cart.items.push({ product: id, quantity: +qty });
 
-  //does save return the saved thing?
   cart.save();
   return cart;
 };
@@ -35,7 +33,6 @@ cartSchema.methods.removeItem = function(id) {
     if (item.product === id) cart.items.splice(ind, 1);
   });
 
-  //does save return the saved thing?
   cart.save();
   return cart;
 };
