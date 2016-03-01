@@ -57,4 +57,6 @@ var productSchema = new mongoose.Schema({
 
 //     });
 
+<<<<<<< HEAD
 db.model('Product', productSchema);
+
