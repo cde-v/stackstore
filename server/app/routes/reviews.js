@@ -4,8 +4,7 @@ var router = require('express').Router();
 var Reviews = require('mongoose').model('Reviews');
 
 module.exports = router;
-
-//------ GET ALL REVIEWS BY ITEM
+//------ GET ALL REVIEWS BY USER
 router.get('/user/:userId', function (req, res, next) {
 	Reviews.find({user: req.params.userId})
 	.then(data=>{
@@ -16,7 +15,7 @@ router.get('/user/:userId', function (req, res, next) {
 	})
 });
 
-//------ GET ALL REVIEWS BY USER
+//------ GET ALL REVIEWS BY ITEM
 router.get('/item/:itemId', function (req, res, next) {
 	Reviews.find({itemId: req.params.itemId})
 	.then(data=>{
