@@ -1,8 +1,9 @@
-'use strict';
+// 'use strict';
 
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
-var db = require('../../db');
+// var db = require('../../db');
+
 
 var productSchema = new mongoose.Schema({
   itemId: {
