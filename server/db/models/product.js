@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var db = require('../../db');
 
 var productSchema = new mongoose.Schema({
-	
+
 	itemId: {
 		type: String,
 		unique:true,
@@ -53,9 +53,10 @@ var productSchema = new mongoose.Schema({
 	description: String
 });
 
-Product.virtual('rating')
-.get(function({
 
-}))
+// Product.virtual('rating')
+// .get(function(){
+
+// });
 
 module.exports = db.model('Product', productSchema);
