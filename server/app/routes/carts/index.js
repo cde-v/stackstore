@@ -14,7 +14,7 @@ router.param('id', function(req, res, next, id) {
       next();
     })
     .then(null, function(err) {
-        res.sendStatus(500);
+      res.sendStatus(500);
     });
 });
 
@@ -54,4 +54,3 @@ router.delete('/:id', function(req, res) {
   req.cart.save();
   res.json(req.cart);
 });
-
