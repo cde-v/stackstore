@@ -15,14 +15,17 @@ cartSchema.methods.editQuantity = function(id, qty) {
   var cart = this;
   var found = false;
 
-  cart.items.forEach(function(item) {
-    if (item.product._id === id) {
-      item.quantity = qty;
-      found = true;
-    }
-  });
+  if (!qty) cart.removeItem(id);
+  else {
+    cart.items.forEach(function(item) {
+      if (item.product === id) {
+        item.quantity = qty;
+        found = true;
+      }
+    });
 
-  if (!found) cart.items.push({ product: id, quantity: qty });
+    if (!found) cart.items.push({ product: id, quantity: qty });
+  }
 
   cart.save();
 
@@ -43,18 +46,21 @@ cartSchema.methods.removeItem = function(id) {
   return cart;
 };
 
-// cartSchema.methods.getTotal = function() {
-//   var cart = this;
-//   var total = 0;
+cartSchema.statics.getTotal = function(id) {
+  var carts = this;
+  var total = 0;
 
-//   cart.populate('items.product').exec();
+  return carts.findOne({ _id: id })
+    .populate('items.product')
+    .exec(function(error, populatedCart) {
+      return populatedCart;
+    }).then(populatedCart => {
+      populatedCart.items.forEach(function(item) {
+        total += item.product.price;
+      });
+      return total;
+    });
 
-//   cart.items.forEach(function(item) {
-//     console.log(item);
-//     total += item.product.price;
-//   });
-  
-//   return total;
-// };
+};
 
 mongoose.model('Cart', cartSchema);

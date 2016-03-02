@@ -46,6 +46,7 @@ describe('Cart', function() {
   before(function(done) {
     Promise.all([p1, p2, p3, cart]).then(results => {
       cart = results[3];
+      p1 = results[0];
       cart.items = [
         { product: results[0]._id, quantity: 1 },
         { product: results[1]._id, quantity: 1 },
@@ -84,8 +85,10 @@ describe('Cart', function() {
   });
 
   it('can calculate a total price of the cart', function(done) {
-    expect(cart.getTotal()).to.equal(300);
-    done();
+    Cart.getTotal(cart._id).then(price => {
+      expect(price).to.equal(300);
+      done();
+    }).catch(done);
   });
 
   Cart.remove({});
