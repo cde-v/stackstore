@@ -1,16 +1,16 @@
 var mongoose = require('mongoose');
-var User = require('./user');
-var Cart = require('./cart');
+var Product = require('./product');
 
 var orderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  cart: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cart'
-  },
+  items: [{
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+    quantity: { type: Number },
+    _id: false
+  }]
   orderStatus: {
     type: String,
     enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
@@ -20,12 +20,11 @@ var orderSchema = new mongoose.Schema({
     enum: ['created', 'received', 'canceled', 'refunded']
   },
   shipDate: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
   orderDate: {
     type: Date,
-    default: Date.now()
+    default: Date.now
   },
 });
 
@@ -36,19 +35,17 @@ orderSchema.methods.changeOrderStatus = function(status) {
     this.shipDate = Date.now();
   }
   return this.save();
-  }
+}
 
 orderSchema.statics.getOneOrder = function(id) {
   return mongoose
-  .model('Order')
-  .findById(id);
+    .model('Order')
+    .findById(id);
 }
-
 
 orderSchema.statics.getAllOrders = function() {
   return mongoose
-  .model('Order').find({});  
+    .model('Order').find({});
 }
 
 mongoose.model('Order', orderSchema);
-
