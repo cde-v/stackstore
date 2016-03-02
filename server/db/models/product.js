@@ -14,6 +14,10 @@ var productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  style: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -25,30 +29,14 @@ var productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  stock: {
-    type: Number,
-    required: true
-  },
   prevOrders: {
     type: Number,
     default: 0
   },
-  sizes: {
-    type: [Number],
-    required: true
-  },
-  availability: {
-    type: Boolean,
-    default: false,
-    required: true
-  },
+  sizes:{},
   tags: {
     type: [String]
   },
-  reviews: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Reviews'
-  }],
   description: String
 });
 

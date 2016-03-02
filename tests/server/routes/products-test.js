@@ -8,97 +8,98 @@ var expect = require('chai').expect;
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
-var supertest = require('supertest');
 var app = require('../../../server/app');
+var supertest = require('supertest');
+var agent = supertest.agent(app);
+var fs = require('fs')
 
-describe('Members Route', function () {
+describe('Products Route', function () {
+	
+	function dropAll () {
+		return Product.remove({})
+		
+	}
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
 		mongoose.connect(dbURI, done);
 	});
 
-
-	afterEach('Clear test database', function (done) {
-		clearDB(done);
-	});
-
-	describe('Unauthenticated request', function () {
-
-		var guestAgent;
-
-		beforeEach('Create guest agent', function () {
-			guestAgent = supertest.agent(app);
-		});
-
-		it('should get a 401 response', function (done) {
-			guestAgent.get('/api/members/secret-stash')
-				.expect(401)
-				.end(done);
-		});
-
-	});
-
-
 	describe('products', function () {
 
-		var product;
+		var shoe1 = {
+			itemId: 'ADYB750B',
+			brand:'Adidas',
+			style:'sneaker',
+			name:'Yeezy Boost 750',
+			images: ['img1','img2'],
+			price: 500,
+			prevOrders: 2,
+			sizes: {
+				6:3,
+				7:3,
+				8:3,
+			},
+			tags:['Yeezy','black','Sneaker'],
+			description: 'Made of pure gold'
+		};
 
-		before(function (done) {
-			Product.create({
-				itemId: {
-					type: String,
-					unique:true,
-					required: true
-				},
-				brand: {
-					type: String,
-					required: true
-				},
-				name: {
-					type: String,
-					required: true
-				},
-				images: {
-					type: [String]
-				},
-				price: {
-					type: Number,
-					required: true
-				},
-				stock: {
-					type: Number,
-					required: true
-				},
-				prevOrders: {
-					type: Number,
-					default:0
-				},
-				sizes: {
-					type: [Number],
-					required: true
-				},
-				availability: {
-					type: Boolean,
-					default: false,
-					required: true
-				},
-				tags: {
-					type: [String]
-				},
-				// reviews: [{
-				// 	type: mongoose.Schema.Types.ObjectId,
-				// 	ref: 'Reviews'
-				// }],
-				description: 'Made of pure gold'
-			}, function (err, a) {
+		var shoe2 = {
+			itemId: 'ADYB350T',
+			brand:'Adidas',
+			style:'sneaker',
+			name:'Yeezy Boost 350',
+			images: ['img1','img2', 'img3'],
+			price: 300,
+			prevOrders: 4,
+			sizes: {
+				'6':3,
+				'7':3,
+				'8':3,
+			},
+			tags:['Yeezy','Tan','Sneaker'],
+			description: 'Made of pure gold'
+		};
+
+		var shoe3 = {
+			itemId: 'NKSBDMC',
+			brand:'Nike',
+			style:'sneaker',
+			name:'SB Dunks Money Cat',
+			images: ['img1','img2', 'img3'],
+			price: 200,
+			prevOrders: 4,
+			sizes: {
+				'6':3,
+				'7':3,
+				'8':3,
+			},
+			tags:['SB','Cats','Sneaker'],
+			description: 'Cats Cats Cats'
+		};
+
+		var createdShoe
+
+		beforeEach(function (done) {
+			Product.create(shoe1, function (err, shoe) {
 				if (err) return done(err);
-				
+				createdShoe = shoe;
+				done();
+			});
+		});
+		beforeEach(function (done) {
+			Product.create(shoe2, function (err, a) {
+				if (err) return done(err);
 				done();
 			});
 		});
 
-		
+		afterEach('Clear test database', function (done) {
+			Product.remove({})
+			.then(function(){
+				done()
+			})
+		});
 
 		it('GET all', function (done) {
 			agent
@@ -112,127 +113,115 @@ describe('Members Route', function () {
 			});
 		});
 
-		var createdBook;
-
-		xit('POST one', function (done) {
+		it('GET one', function (done) {
 			agent
-			.post('/api/books')
-			.send({
-				title: 'Book Made By Test',
-				author: author._id,
-				chapters: [chapter._id]
-			})
-			.expect(201)
-			.end(function (err, res) {
-				if (err) return done(err);
-				expect(res.body.title).to.equal('Book Made By Test');
-				createdBook = res.body;
-				done();
-			});
-		});
-		
-		xit('GET one', function (done) {
-			agent
-			.get('/api/books/' + createdBook._id)
+			.get('/api/products/ADYB750B')
 			.expect(200)
 			.end(function (err, res) {
 				if (err) return done(err);
-				expect(res.body.title).to.equal(createdBook.title);
+				expect(res.body.name).to.equal('Yeezy Boost 750');
 				done();
 			});
 		});
 
-		xit('GET one that doesn\'t exist', function (done) {
-			agent
-			.get('/api/books/123abcnotamongoid')
-			.expect(404)
-			.end(done);
-		});
-		
-		xit('PUT one', function (done) {
-			agent
-			.put('/api/books/' + createdBook._id)
-			.send({
-				title: 'Book Updated By Test'
-			})
-			.expect(200)
-			.end(function (err, res) {
-				if (err) return done(err);
-				expect(res.body.title).to.equal('Book Updated By Test');
-				done();
-			});
-		});
-
-		xit('PUT one that doesn\'t exist', function (done) {
-			agent
-			.put('/api/books/123abcnotamongoid')
-			.send({title: 'Attempt To Update Book Title'})
-			.expect(404)
-			.end(done);
-		});
-		
-		xit('DELETE one', function (done) {
-			agent
-			.delete('/api/books/' + createdBook._id)
-			.expect(204)
-			.end(function (err, res) {
-				if (err) return done(err);
-				Book.findById(createdBook._id, function (err, b) {
-					if (err) return done(err);
-					expect(b).to.be.null;
-					done();
-				});
-			});
-		});
-
-		xit('DELETE one that doesn\'t exist', function (done) {
-			agent
-			.delete('/api/books/123abcnotamongoid')
-			.expect(404)
-			.end(done);
-		});
-
-		xit('GET with query string filter', function (done) {
+		it('GET with query string filter', function (done) {
 			agent
 			// remember that in query strings %20 means a single whitespace character
-			.get('/api/books?title=Best%20Book%20Ever')
+			.get('/api/products?name=Yeezy%20Boost%20750')
 			.expect(200)
 			.end(function (err, res) {
 				if (err) return done(err);
 				expect(res.body).to.be.instanceof(Array);
 				expect(res.body).to.have.length(1);
+				expect(res.body[0].name).to.equal('Yeezy Boost 750');
 				done();
 			});
 		});
+
+		it('POST one', function (done) {
+			agent
+			.post('/api/products/')
+			.send(shoe3)
+			.expect(201)
+			.end(function (err, res) {
+				if (err) return done(err);
+				expect(res.body.name).to.equal('SB Dunks Money Cat');
+				done();
+			});
+		});
+		
+
+		it('GET one that doesn\'t exist', function (done) {
+			agent
+			.get('/api/products/123abcnotamongoid')
+			.expect(404)
+			.end(done);
+		});
+		
+		it('PUT one', function (done) {
+			agent
+			.put('/api/products/ADYB750B')
+			.send({prevOrders:5})
+			.expect(200)
+			.end(function (err, res) {
+				if (err) return done(err);
+				expect(res.body.prevOrders).to.equal(5);
+				console.log(res.body.sizes)
+				done();
+			});
+		});
+
+		it('PUT UPDATE size', function (done) {
+			agent
+			.put('/api/products/ADYB750B')
+			.send({sizes:{6:7}})
+			.expect(200)
+			.end(function (err, res) {
+				if (err) return done(err);
+				expect(res.body.sizes[6]).to.equal(7);
+				console.log(res.body.sizes)
+				done();
+			});
+		});
+
+		it('PUT one that doesn\'t exist', function (done) {
+			agent
+			.put('/api/products/123abcnotamongoid')
+			.send({name: 'Attempt To Update Stock'})
+			.expect(404)
+			.end(done);
+		});
+		
+		it('DELETE one', function (done) {
+			agent
+			.delete('/api/products/ADYB750B')
+			.expect(200)
+			.end(function (err, res) {
+				if (err) return done(err);
+				Product.find({}, function (err, shoe) {
+					if (err) return done(err);
+					expect(shoe).to.be.instanceof(Array);
+					expect(shoe).to.have.length(1);
+					done();
+				});
+			});
+		});
+
+		it('DELETE one that doesn\'t exist', function (done) {
+			agent
+			.delete('/api/products/123abcnotamongoid')
+			.expect(404)
+			.end(function (err, res) {
+				if (err) return done(err);
+				Product.find({}, function (err, shoe) {
+					if (err) return done(err);
+					expect(shoe).to.be.instanceof(Array);
+					expect(shoe).to.have.length(2);
+					done();
+				});
+			});
+		});
+
 	});
-
-
-	// describe('Authenticated request', function () {
-
-	// 	var loggedInAgent;
-
-	// 	var userInfo = {
-	// 		email: 'joe@gmail.com',
-	// 		password: 'shoopdawoop'
-	// 	};
-
-	// 	beforeEach('Create a user', function (done) {
-	// 		User.create(userInfo, done);
-	// 	});
-
-	// 	beforeEach('Create loggedIn user agent and authenticate', function (done) {
-	// 		loggedInAgent = supertest.agent(app);
-	// 		loggedInAgent.post('/login').send(userInfo).end(done);
-	// 	});
-
-	// 	it('should get with 200 response and with an array as the body', function (done) {
-	// 		loggedInAgent.get('/api/members/secret-stash').expect(200).end(function (err, response) {
-	// 			if (err) return done(err);
-	// 			expect(response.body).to.be.an('array');
-	// 			done();
-	// 		});
-	// 	});
-
-	// });
 
 });
