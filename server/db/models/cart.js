@@ -14,16 +14,18 @@ var cartSchema = new mongoose.Schema({
 cartSchema.methods.editQuantity = function(id, qty) {
   var cart = this;
   var found = false;
-
-  cart.items.forEach(function(item) {
-    if (item.product._id === id) {
-      if (!qty) cart.removeItem(id);
-      item.quantity = qty;
-      found = true;
-    }
-  });
-
-  if (!found) cart.items.push({ product: id, quantity: qty });
+  
+  if (!qty) cart.removeItem(id);
+  else {
+    cart.items.forEach(function(item) {
+      if (item.product._id === id) {
+        item.quantity = qty;
+        found = true;
+      }
+    });
+  
+    if (!found) cart.items.push({ product: id, quantity: qty });
+  }
 
   cart.save();
 
