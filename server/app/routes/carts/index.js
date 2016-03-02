@@ -1,9 +1,8 @@
-//using router instead of app
-//creating req.params for userid
+//using req.user.cart instead of an in url
+//all of these routes assume a logged in user
 
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
-module.exports = router;
 var Order = require('mongoose').model('Order');
 
 router.param('id', function(req, res, next, id) {
@@ -18,6 +17,7 @@ router.param('id', function(req, res, next, id) {
     });
 });
 
+//should be admin only
 router.get('/', function(req, res) {
   Cart.find({})
     .then(results => res.json(results))
@@ -35,9 +35,33 @@ router.post('/', function(req, res) {
   });
 });
 
-//flesh out checkout function
+/* IN PROGRESS */
 router.post('/:id/checkout', function(req, res) {
-  // Order.create({ /*something in here*/ }).then(result => res.json(result));
+  //processing payment info
+  //validation of req.user.cart with cart id
+
+  var toPurchase = [];
+  var price = 0;
+  Cart.findOne({_id:req.params.id})
+    .populate('items.product')
+    .exec((error, cart) => cart)
+    .then(cart => {
+      cart.items.forEach(item =>{
+        if(item.product.sizes.indexOf(item.size) > -1) {
+          price += item.product.price;
+          toPurchase.push(item);
+        }
+      });
+      
+      Order.create({
+        items: toPurchase,
+        orderStatus: 'created',
+        user: req.user._id
+        // total: price  **** add price here?
+      });
+
+
+    }).catch(()=>res.sendStatus(500));
 });
 
 router.put('/:id/:itemId', function(req, res) {
@@ -54,3 +78,5 @@ router.delete('/:id', function(req, res) {
   req.cart.save();
   res.json(req.cart);
 });
+
+module.exports = router;
