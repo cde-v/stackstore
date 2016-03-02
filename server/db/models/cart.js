@@ -1,48 +1,44 @@
 var mongoose = require('mongoose');
 
 var cartSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  session: { type: String },
-  items: [{
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-    quantity: { type: Number }
-  }]
-});
 
-cartSchema.methods.editQuantity = function(id, qty) {
-  var cart = this;
-  var found = false;
+	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	session: {type: String},
+	items: [{product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+			quantity: {type: Number}
+	}]
+}); 
 
-  cart.items.forEach(function(item) {
-    if (item._id == id) {
-      item.quantity = +qty;
-      found = true;
-    }
-  });
+cartSchema.methods.checkOut = function(){
+	//route?
+};
 
-  if (!found) cart.items.push({ product: id, quantity: +qty });
+cartSchema.methods.editQuantity = function (id, qty) {
+	var cart = this;
 
-  cart.save();
-  return cart;
+	cart.items.forEach(function(item){
+		if(item.product == id) item.quantity = qty;
+	});
 };
 
 cartSchema.methods.removeItem = function(id) {
-  var cart = this;
+	var cart = this;
 
-  cart.items.forEach(function(item, ind) {
-    if (item.product === id) cart.items.splice(ind, 1);
-  });
-
-  cart.save();
-  return cart;
+	cart.items.forEach(function(item, ind){
+		if(item.product == id) cart.items.splice(ind, 1);
+	});
 };
 
-cartSchema.methods.getTotal = function() {
-  var cart = this;
-  cart.populate('items');
-  return cart.items.reduce(function(prev, curr) {
-    return prev + curr.price;
-  }, 0);
+cartSchema.methods.clearCart = function(){
+	//route?
 };
 
-module.exports = mongoose.model('Cart', cartSchema);
+cartSchema.methods.getTotal = function(){
+	var cart = this;
+	cart.populate('items');
+	return cart.items.reduce(function(prev, curr){
+		return prev + curr.price;
+	}, 0);
+};
+
+mongoose.model('Cart', cartSchema);
