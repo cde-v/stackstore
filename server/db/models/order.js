@@ -7,7 +7,7 @@ var orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  cart: {
+  cart: { //ask about
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Cart'
   },

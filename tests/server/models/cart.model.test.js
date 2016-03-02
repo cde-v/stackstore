@@ -10,7 +10,7 @@ var Product = require('mongoose').model('Product');
 var Promise = require('bluebird');
 
 
-describe('Cart', function(){
+xdescribe('Cart', function(){
 	var p1 = Product.create({
 		          itemId:"1",
 		          brand:"shoe",

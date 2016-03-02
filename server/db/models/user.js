@@ -1,125 +1,85 @@
-'use strict';
-var crypto = require('crypto');
-var mongoose = require('mongoose');
-var _ = require('lodash');
+(function() {
+  'use strict';
 
-var db = require('../../db');
+  var crypto = require('crypto');
+  var _ = require('lodash');
 
-// var Order = require('./order');
-// var Review = require('./order');
+  var mongoose = require('mongoose');
+  require('./order');
+  require('./review');
+  var Order = mongoose.model('Order');
+  var Review = mongoose.model('Reviews');
 
-var userSchema = new mongoose.Schema({});
-userSchema.methods.getUserReviews = getUserReviews;
-userSchema.methods.getUserOrders = getUserOrders;
-userSchema.methods.sanitize = sanitize;
-userSchema.statics.generateSalt = generateSalt;
-userSchema.statics.encryptPassword = encryptPassword;
-userSchema.methods.correctPassword = correctPassword;
-userSchema.pre('save', preSave);
+  var userSchema = new mongoose.Schema();
 
-userSchema = ({
-  firstName: {
-    type: String
-  },
-  lastName: {
-    type: String
-  },
-  photoUrl: {
-    type: String
-      // default profile pic, no images currently to point to
-      // default: '/images/default-photo.jpg' 
-  },
-  shipAddress: {
-    type: String
-  },
-  phoneNumber: {
-    type: String
-  },
-  payment_info: {
-    type: String
-  },
-  email: {
-    type: String
-  },
-  password: {
-    type: String,
-  },
-  salt: {
-    type: String
-  },
-  twitter: {
-    id: String,
-    username: String,
-    token: String,
-    tokenSecret: String
-  },
-  facebook: {
-    id: String,
-    username: String,
-    token: String,
-    tokenSecret: String
-  },
-  google: {
-    id: String,
-    username: String,
-    email: String,
-    token: String,
-    tokenSecret: String
-  },
-  currentCart: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cart'
-  }],
-  isAdmin: {
-    type: Boolean,
-    default: false
-  },
-  paymentProfiles: [{
-    ccCardholder: { type: String, required: true },
-    ccType: { type: String, required: true },
-    ccNum: { type: String, required: true },
-    ccBillingAddress: { type: String, required: true }
-  }]
-});
+  userSchema.static('generateSalt', generateSalt);
+  userSchema.static('encryptPassword', encryptPassword);
+  userSchema.method('correctPassword', correctPassword);
+  userSchema.method('sanitize', sanitize);
+  userSchema.method('getUserReviews', getUserReviews);
+  userSchema.method('getUserOrders', getUserOrders);
+  userSchema.pre('save', preSave);
 
-var getUserOrders = function() {
-  return Order
-    .find({ user: this._id });
-};
+  userSchema.add({ email: { type: String } });
+  userSchema.add({ password: { type: String } });
+  userSchema.add({ salt: { type: String } });
+  userSchema.add({ lastName: { type: String } });
+  userSchema.add({ firstName: { type: String } });
+  userSchema.add({ photoUrl: { type: String, default: '#' } });
+  userSchema.add({ shipAddress: { type: String } });
+  userSchema.add({ phoneNumber: { type: String } });
+  userSchema.add({ twitter: { id: String, username: String, token: String, tokenSecret: String } });
+  userSchema.add({ facebook: { id: String, username: String, token: String, tokenSecret: String } });
+  userSchema.add({ google: { id: String, username: String, token: String, tokenSecret: String } });
+  userSchema.add({ paymentProfiles: [{ ccCardholder: { type: String, required: true }, ccType: { type: String, required: true }, ccNum: { type: String, required: true }, ccBillingAddress: { type: String, required: true } }] });
+  userSchema.add({ currentCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }] });
+  userSchema.add({ isAdmin: { type: Boolean, default: false } });
 
-var getUserReviews = function() {
-  return Review
-    .find({ user: this._id });
-};
-
-// method to remove sensitive information from user objects before sending them out
-var sanitize = function() {
-  return _.omit(this.toJSON(), ['password', 'salt']);
-};
-
-// generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
-// are all used for local authentication security.
-var generateSalt = function() {
-  return crypto.randomBytes(16).toString('base64');
-};
-
-var encryptPassword = function(plainText, salt) {
-  var hash = crypto.createHash('sha1');
-  hash.update(plainText);
-  hash.update(salt);
-  return hash.digest('hex');
-};
-
-var correctPassword = function(candidatePassword) {
-  return encryptPassword(candidatePassword, this.salt) === this.password;
-};
-
-var preSave = function(next) {
-  if(this.isModified('password')) {
-    this.salt = this.constructor.generateSalt();
-    this.password = this.constructor.encryptPassword(this.password, this.salt);
+  function getUserOrders() {
+    /*jshint validthis:true */
+    return Order
+      .find({ user: this._id });
   }
-  next();
-};
 
-mongoose.model('User', userSchema);
+  function getUserReviews() {
+    /*jshint validthis:true */
+    return Review
+      .find({ author: this._id });
+  }
+
+  // remove sensitive information from user objects before sending
+  function sanitize() {
+    /*jshint validthis:true */
+    return _.omit(this.toJSON(), ['password', 'salt']);
+  }
+
+  // local authentication security
+  function generateSalt() {
+    return crypto.randomBytes(16).toString('base64');
+  }
+
+  // local authentication security
+  function encryptPassword(plainText, salt) {
+    var hash = crypto.createHash('sha1');
+    hash.update(plainText);
+    hash.update(salt);
+    return hash.digest('hex');
+  }
+
+  // local authentication security
+  function correctPassword(candidatePassword) {
+    return encryptPassword(candidatePassword, this.salt) === this.password;
+  }
+
+  // local authentication security
+  function preSave(next) {
+    if(this.isModified('password')) {
+      this.salt = this.constructor.generateSalt();
+      this.password = this.constructor.encryptPassword(this.password, this.salt);
+    }
+    next();
+  }
+
+  mongoose.model('User', userSchema);
+
+})();

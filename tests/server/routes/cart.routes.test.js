@@ -7,7 +7,7 @@ var expect = require('chai').expect,
   Product = require('mongoose').model('Product'),
   agent = request.agent(app);
 
-describe('Cart Routes:', function() {
+xdescribe('Cart Routes:', function() {
   before(function(done){
     Cart.remove({})
         .then(() => done());
