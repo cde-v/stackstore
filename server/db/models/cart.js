@@ -23,7 +23,7 @@ cartSchema.methods.editQuantity = function(id, qty) {
         found = true;
       }
     });
-
+    
     if (!found) cart.items.push({ product: id, quantity: qty });
   }
 
