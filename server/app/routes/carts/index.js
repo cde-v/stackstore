@@ -4,7 +4,7 @@
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 module.exports = router;
-// var Order = require('mongoose').model('Order');
+var Order = require('mongoose').model('Order');
 
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
@@ -13,7 +13,9 @@ router.param('id', function(req, res, next, id) {
       req.cart = cart;
       next();
     })
-    .then(null, next);
+    .then(null, function(err) {
+      res.sendStatus(500);
+    });
 });
 
 router.get('/', function(req, res) {
@@ -27,7 +29,10 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  Cart.create({/*USER INFO, SESSION INFO*/}).then(result => res.json(result));
+  Cart.create({}).then(result => {
+    result.save();
+    res.json(result);
+  });
 });
 
 //flesh out checkout function
@@ -36,18 +41,16 @@ router.post('/:id/checkout', function(req, res) {
 });
 
 router.put('/:id/:itemId', function(req, res) {
-	console.log("hi", req.body);
   res.json(req.cart.editQuantity(req.params.itemId, req.body.quantity));
+});
+
+router.delete('/:id/:itemId', function(req, res) {
+  req.cart.removeItem(req.params.itemId);
+  res.json(req.cart);
 });
 
 router.delete('/:id', function(req, res) {
   req.cart.items = [];
-
-  res.json(req.cart.save());
-});
-
-router.delete('/:id/:itemId', function(req, res) {
-  Cart.findOne({ _id: req.params.id })
-    .then(result => res.json(result.removeItem(req.params.itemId)))
-    .catch(err => res.sendStatus(404));
+  req.cart.save();
+  res.json(req.cart);
 });
