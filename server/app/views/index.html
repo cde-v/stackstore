@@ -38,7 +38,72 @@
 </head>
 <body ng-app="StackStore">
     <!-- <navbar></navbar> -->
+<!-- Main container -->
+<div class="page-container">
+    <!-- Navigation Bloc -->
+    <div id="b-nav" class="bloc-container">
+        <div id="bloc-nav" class="d-mode">
+            <div class="bloc bgc-outer-space d-bloc" id="nav-bloc">
+                <div class="container">
+                    <nav class="navbar row">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo" width="40" />KickStack</a>
+                            <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+                                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-1">
+                            <ul class="site-navigation nav navbar-nav">
+                                <li>
+                                    <a ui-sref="home" class="fadeIn animated">Home</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="productsList" class="fadeIn animated">Shop</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="login">Login</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="signup">Signup</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="guide">Guide</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation Bloc END -->
+    <div id="main" ui-view>
+    </div>
+    <!-- Footer - bloc-16 -->
+<div class="bloc bgc-outer-space d-bloc" id="bloc-16">
+    <div class="container bloc-md">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <div class="col-sm-3 text-center">
+                    <a class="social-lg" href="#"><span class="fa fa-twitter icon-lg icon-aqua"></span></a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a class="social-lg" href="#"><span class="fa fa-facebook-square icon-lg"></span></a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a class="social-lg" href="#"><span class="fa fa-tumblr-square icon-lg"></span></a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a class="social-lg" href="#"><span class="fa fa-instagram icon-lg"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer - bloc-16 END -->
 
-    <div id="main" ui-view></div>
+
+</div>
+<!-- Main container END -->
 </body>
 </html>

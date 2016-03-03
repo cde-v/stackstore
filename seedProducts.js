@@ -12,7 +12,7 @@ var seedProducts = function () {
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 Black',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Boost-350-b.jpg','img2'],
             price: 500,
             prevOrders: 2,
             sizes: {
@@ -33,7 +33,7 @@ var seedProducts = function () {
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 Tan',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Boost-350-t.jpg','img2'],
             price: 500,
             prevOrders: 2,
             sizes: {
@@ -54,7 +54,7 @@ var seedProducts = function () {
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 White',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Boost-350-w.jpg','img2'],
             price: 500,
             prevOrders: 2,
             sizes: {
@@ -75,7 +75,7 @@ var seedProducts = function () {
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 750 Black',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Boost-750-b.jpg','img2'],
             price: 800,
             prevOrders: 2,
             sizes: {
@@ -96,7 +96,7 @@ var seedProducts = function () {
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 750 Gray',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Boost-750-g.jpg','img2'],
             price: 800,
             prevOrders: 2,
             sizes: {
@@ -117,7 +117,7 @@ var seedProducts = function () {
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Black',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Air-b.jpg','img2'],
             price: 1500,
             prevOrders: 2,
             sizes: {
@@ -138,7 +138,7 @@ var seedProducts = function () {
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Tan',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Air-t.jpg','img2'],
             price: 1500,
             prevOrders: 2,
             sizes: {
@@ -159,7 +159,7 @@ var seedProducts = function () {
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Gray',
-            images: ['img1','img2'],
+            images: ['img/product/Yeezy-Air-g.jpg','img2'],
             price: 1500,
             prevOrders: 2,
             sizes: {
