@@ -1,69 +1,70 @@
-// Instantiate all models
-var mongoose = require('mongoose');
-require('../../../server/db/models');
-var User = mongoose.model('User');
+// // Instantiate all models
+// var mongoose = require('mongoose');
+// require('../../../server/db/models');
+// var User = mongoose.model('User');
 
-var expect = require('chai').expect;
+// var expect = require('chai').expect;
 
-var dbURI = 'mongodb://localhost:27017/testingDB';
-var clearDB = require('mocha-mongoose')(dbURI);
+// var dbURI = 'mongodb://localhost:27017/testingDB';
+// var clearDB = require('mocha-mongoose')(dbURI);
 
-var supertest = require('supertest');
-var app = require('../../../server/app');
+// var supertest = require('supertest');
+// var app = require('../../../server/app');
 
-describe('Members Route', function () {
+// describe('Members Route', function () {
 
-	beforeEach('Establish DB connection', function (done) {
-		if (mongoose.connection.db) return done();
-		mongoose.connect(dbURI, done);
-	});
 
-	afterEach('Clear test database', function (done) {
-		clearDB(done);
-	});
+// 	beforeEach('Establish DB connection', function (done) {
+// 		if (mongoose.connection.db) return done();
+// 		mongoose.connect(dbURI, done);
+// 	});
 
-	describe('Unauthenticated request', function () {
+// 	afterEach('Clear test database', function (done) {
+// 		clearDB(done);
+// 	});
 
-		var guestAgent;
+// 	describe('Unauthenticated request', function () {
 
-		beforeEach('Create guest agent', function () {
-			guestAgent = supertest.agent(app);
-		});
+// 		var guestAgent;
 
-		it('should get a 401 response', function (done) {
-			guestAgent.get('/api/members/secret-stash')
-				.expect(401)
-				.end(done);
-		});
+// 		beforeEach('Create guest agent', function () {
+// 			guestAgent = supertest.agent(app);
+// 		});
 
-	});
+// 		it('should get a 401 response', function (done) {
+// 			guestAgent.get('/api/members/secret-stash')
+// 				.expect(401)
+// 				.end(done);
+// 		});
 
-	describe('Authenticated request', function () {
+// 	});
 
-		var loggedInAgent;
+// 	describe('Authenticated request', function () {
 
-		var userInfo = {
-			email: 'joe@gmail.com',
-			password: 'shoopdawoop'
-		};
+// 		var loggedInAgent;
 
-		beforeEach('Create a user', function (done) {
-			User.create(userInfo, done);
-		});
+// 		var userInfo = {
+// 			email: 'joe@gmail.com',
+// 			password: 'shoopdawoop'
+// 		};
 
-		beforeEach('Create loggedIn user agent and authenticate', function (done) {
-			loggedInAgent = supertest.agent(app);
-			loggedInAgent.post('/login').send(userInfo).end(done);
-		});
+// 		beforeEach('Create a user', function (done) {
+// 			User.create(userInfo, done);
+// 		});
 
-		it('should get with 200 response and with an array as the body', function (done) {
-			loggedInAgent.get('/api/members/secret-stash').expect(200).end(function (err, response) {
-				if (err) return done(err);
-				expect(response.body).to.be.an('array');
-				done();
-			});
-		});
+// 		beforeEach('Create loggedIn user agent and authenticate', function (done) {
+// 			loggedInAgent = supertest.agent(app);
+// 			loggedInAgent.post('/login').send(userInfo).end(done);
+// 		});
 
-	});
+// 		it('should get with 200 response and with an array as the body', function (done) {
+// 			loggedInAgent.get('/api/members/secret-stash').expect(200).end(function (err, response) {
+// 				if (err) return done(err);
+// 				expect(response.body).to.be.an('array');
+// 				done();
+// 			});
+// 		});
 
-});
+// 	});
+
+// });

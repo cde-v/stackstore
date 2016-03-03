@@ -1,6 +1,3 @@
-var dbURI = 'mongodb://localhost:27017/testingDB';
-var clearDB = require('mocha-mongoose')(dbURI);
-
 require('../../../server/db/models');
 
 var expect = require('chai').expect;
@@ -8,7 +5,6 @@ var mongoose = require('mongoose');
 var Cart = require('mongoose').model('Cart');
 var Product = require('mongoose').model('Product');
 var Promise = require('bluebird');
-
 
 describe('Cart', function() {
   var p1 = Product.create({
