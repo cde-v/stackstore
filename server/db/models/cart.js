@@ -11,7 +11,6 @@ var cartSchema = new mongoose.Schema({
   }]
 });
 
-
 cartSchema.methods.editQuantity = function(id, size, qty) {
   var cart = this;
   var found = false;
@@ -24,7 +23,7 @@ cartSchema.methods.editQuantity = function(id, size, qty) {
         found = true;
       }
     });
-    
+
     if (!found) cart.items.push({ product: id, quantity: qty, size: size });
   }
 
@@ -38,7 +37,7 @@ cartSchema.methods.removeItem = function(id, size) {
   var idx = -1;
 
   cart.items.forEach(function(item, ind) {
-    if (item.product.toString() === id && item.produce.size === size) idx = ind;
+    if (item.product.toString() === id && item.size === size) idx = ind;
   });
 
   if (idx >= 0) cart.items.splice(idx, 1);

@@ -8,7 +8,7 @@ var expect = require('chai').expect,
   agent = request.agent(app);
 var promise = require('bluebird');
 
-describe('Cart Routes:', function() {
+xdescribe('Cart Routes:', function() {
   before(function(done) {
     Cart.remove({})
       .then(() => done());
