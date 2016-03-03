@@ -5,6 +5,8 @@
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 var Order = require('mongoose').model('Order');
+var Product = require('mongoose').model('Product');
+var Promise = require('Bluebird');
 
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
@@ -46,6 +48,47 @@ router.post('/', function(req, res) {
     });
 });
 
+router.post('/checkoutGuest', function(req, res){
+  //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
+  var productPromises = [];
+  var cart = req.body.cart;
+
+  cart.items.forEach(function(item){
+    productPromises.push(Product.findById(item.product._id));
+  });
+
+  Promise.all(productPromises)
+    .then(promiseArray => {
+      var toPurchase = []
+      promiseArray.forEach(function(product, ind){
+        if(product.sizes[cart.items[ind].size]){
+          toPurchase.push({
+            itemId: product.itemId,
+            brand: product.brand,
+            name: product.name,
+            price: +product.price,
+            size: +size,
+            quantity: +quantity
+          });
+
+          product.sizes[cart.items[ind].size] -= cart.items[ind].quantity;
+          product.save();
+        }
+      });
+      return toPurchase;
+    }).then(toPurchase => {
+      Order.create({
+        items: toPurchase,
+        orderStatus: 'created',
+        shipAddress: req.body.shipAddress,
+        billAddress: req.body.billAddress
+        }).then(function(order){
+          res.json(order);
+        });
+    });
+
+});
+
 /* IN PROGRESS */
 router.post('/:id/checkout', function(req, res) {
   //processing payment info
@@ -71,7 +114,7 @@ router.post('/:id/checkout', function(req, res) {
             quantity: +item.quantity
           });
 
-          item.product.sizes[item.size]--;
+          item.product.sizes[item.size]-=item.quantity;
           item.product.save();
         }
       });
@@ -80,7 +123,9 @@ router.post('/:id/checkout', function(req, res) {
         items: toPurchase,
         orderStatus: 'created',
         shipAddress: shipAddress,
-        billAddress: billAddress
+        billAddress: billAddress,
+        userId: req.user._id
+        //userId?
       });
     }).then(order => {
       cart1.items = [];
