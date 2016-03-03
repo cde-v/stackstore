@@ -25,18 +25,20 @@ router.get('/allcarts', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-  Cart.find({_id:req.user.cart})
+  Cart.find({ _id: req.user.cart })
     .then(cart => {
       res.json(cart);
     });
 });
 
-// why do i need this route?
+// changing from local cart to db cart
 router.post('/', function(req, res) {
-  Cart.create({}).then(result => {
-    result.save();
-    res.json(result);
-  });
+  var items = req.body.items;
+  Cart.create({ user: req.user._id, items: items })
+    .then(result => {
+      result.save();
+      res.json(result);
+    });
 });
 
 /* IN PROGRESS */
@@ -46,12 +48,12 @@ router.post('/checkout', function(req, res) {
   var billAddress = req.body.billAddress;
   var toPurchase = [];
   // var price = 0;
-  Cart.findOne({_id:req.user.cart})
+  Cart.findOne({ _id: req.user.cart })
     .populate('items.product')
     .exec((error, cart) => cart)
     .then(cart => {
-      cart.items.forEach(item =>{
-        if(item.product.sizes[item.size]) {
+      cart.items.forEach(item => {
+        if (item.product.sizes[item.size]) {
           // price += item.product.price;
           toPurchase.push({
             itemId: item.product.itemId,
@@ -66,39 +68,39 @@ router.post('/checkout', function(req, res) {
           item.product.save();
         }
       });
-      
+
       return Order.create({
         items: toPurchase,
         orderStatus: 'created',
         userId: req.user._id,
         shipAddress: shipAddress,
         billAddress: billAddress
-        // total: price  **** add price here?
+          // total: price  **** add price here?
       });
-    }).then(order =>{
+    }).then(order => {
       cart.items = [];
       cart.save();
       res.send(order);
-    }).catch(()=>res.sendStatus(500));
+    }).catch(err => res.sendStatus(500));
 });
 
 router.put('/:itemId', function(req, res) {
-  Cart.find({_id:req.user.cart})
+  Cart.find({ _id: req.user.cart })
     .then(cart => {
-      res.json(cart.editQuantity(req.params.itemId, req.body.quantity));
+      res.json(cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity));
     });
 });
 
-router.delete('/:itemId', function(req, res) {
-  Cart.find({_id:req.user.cart})
+router.delete('/:itemId/:size', function(req, res) {
+  Cart.find({ _id: req.user.cart })
     .then(cart => {
-      cart.removeItem(req.params.itemId);
+      cart.removeItem(req.params.itemId, req.params.size);
       res.json(cart);
     });
 });
 
 router.delete('/', function(req, res) {
-  Cart.find({_id:req.user.cart})
+  Cart.find({ _id: req.user.cart })
     .then(cart => {
       cart.items = [];
       cart.save();
