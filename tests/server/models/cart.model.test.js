@@ -1,6 +1,3 @@
-var dbURI = 'mongodb://localhost:27017/testingDB';
-var clearDB = require('mocha-mongoose')(dbURI);
-
 require('../../../server/db/models');
 
 var expect = require('chai').expect;
