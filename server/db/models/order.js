@@ -1,16 +1,23 @@
 var mongoose = require('mongoose');
-var Product = require('./product');
 
 var orderSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+  userId: {
+    type: Number
+  },
+  shipAddress: {
+    type: String
+  },
+  billAddress:{
+    type: String
   },
   items: [{
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-    quantity: { type: Number },
-    _id: false
-  }]
+    itemId: String,
+    quantity: Number,
+    brand: String,
+    name: String,
+    price: Number,
+    size: Number
+  }],
   orderStatus: {
     type: String,
     enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
