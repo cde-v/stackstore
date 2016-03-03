@@ -42,17 +42,26 @@ router.post('/', function(req, res) {
 /* IN PROGRESS */
 router.post('/checkout', function(req, res) {
   //processing payment info
-
+  var shipAddress = req.body.shipAddress;
+  var billAddress = req.body.billAddress;
   var toPurchase = [];
-  var price = 0;
+  // var price = 0;
   Cart.findOne({_id:req.user.cart})
     .populate('items.product')
     .exec((error, cart) => cart)
     .then(cart => {
       cart.items.forEach(item =>{
         if(item.product.sizes[item.size]) {
-          price += item.product.price;
-          toPurchase.push(item);
+          // price += item.product.price;
+          toPurchase.push({
+            itemId: item.product.itemId,
+            brand: item.product.brand,
+            name: item.product.name,
+            price: item.product.price,
+            size: item.size,
+            quantity: item.quantity
+          });
+
           item.product.sizes[item.size]--;
           item.product.save();
         }
@@ -61,7 +70,9 @@ router.post('/checkout', function(req, res) {
       return Order.create({
         items: toPurchase,
         orderStatus: 'created',
-        user: req.user._id
+        userId: req.user._id,
+        shipAddress: shipAddress,
+        billAddress: billAddress
         // total: price  **** add price here?
       });
     }).then(order =>{
