@@ -44,9 +44,9 @@ describe('Cart', function() {
       cart = results[3];
       p1 = results[0];
       cart.items = [
-        { product: results[0]._id, quantity: 1 },
-        { product: results[1]._id, quantity: 1 },
-        { product: results[2]._id, quantity: 1 }
+        { product: results[0]._id, quantity: 1, size: 2 },
+        { product: results[1]._id, quantity: 1, size: 1 },
+        { product: results[2]._id, quantity: 1, size: 2 }
       ];
       done();
     });
@@ -59,7 +59,7 @@ describe('Cart', function() {
   });
 
   it('can edit the quantity of a product', function(done) {
-    cart.editQuantity(p1._id, 3);
+    cart.editQuantity(p1._id, 2, 3);
 
     expect(cart.items[0].quantity).to.equal(3);
     expect(cart.items).to.have.length(3);
@@ -67,14 +67,14 @@ describe('Cart', function() {
   });
 
   it('can remove a product from the cart', function(done) {
-    cart.removeItem(cart.items[0].product.toString());
+    cart.removeItem(cart.items[0].product.toString(), 2);
 
     expect(cart.items).to.have.length(2);
     done();
   });
 
   it('can not remove something that is not there', function(done) {
-    cart.removeItem(123);
+    cart.removeItem(123, 2);
 
     expect(cart.items).to.have.length(2);
     done();

@@ -6,6 +6,7 @@ router.use('/members', require('./members'));
 router.use('/cart', require('./carts'));
 router.use('/products', require('./products/products.js'));
 router.use('/reviews', require('./reviews.js'));
+router.use('/orders', require('./order.js'));
 
 // Make sure this is after all of
 // the registered routes!
