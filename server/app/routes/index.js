@@ -3,7 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 
 router.use('/members', require('./members'));
-router.use('/cart', require('./carts'));
+router.use('/cart', require('./carts/index.js'));
 router.use('/products', require('./products/products.js'));
 router.use('/reviews', require('./reviews.js'));
 router.use('/orders', require('./order.js'));

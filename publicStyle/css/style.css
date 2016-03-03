@@ -515,6 +515,10 @@ iframe{
 	color:#47454B!important;
 	border-color:#47454B!important;
 }
+#cartProduct{
+  color: black;
+  margin-bottom: 10px;
+}
 /* Icon colour styles */
 
 .icon-cornflower-blue{
@@ -713,4 +717,8 @@ iframe{
     .video-bg-contianer{
         display:none;
     }
+}
+
+#cartTitle{
+	color:black;
 }
