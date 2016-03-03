@@ -1,7 +1,7 @@
 //localStorage
 
 app.factory('CartFactory', function($http){
-	var Cart = {};
+/*	var Cart = {};
 
 	//if logged in, keep changes in database
 	//if guest user, keep cart in localstorage
@@ -30,5 +30,8 @@ app.factory('CartFactory', function($http){
 	};
 
 	return Cart;
+	*/
+
+	
 
 });
