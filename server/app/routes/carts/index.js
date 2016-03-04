@@ -11,20 +11,18 @@ var Promise = require('Bluebird');
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
     .then(function(cart) {
-      if (!cart) res.sendStatus(500);
+      if (!cart) next(new Error("Cart Not Found!"));
       req.cart = cart;
       next();
     })
-    .then(null, function(err) {
-      throw new Error(err);
-    });
+    .then(null, next);
 });
 
 //should be admin only
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
   Cart.find({})
     .then(results => res.json(results))
-    .catch(console.error);
+    .then(null, next);
 });
 
 router.get('/:id', function(req, res) {
@@ -35,7 +33,7 @@ router.get('/:id', function(req, res) {
     })
     .then(cart => {
       res.json(cart);
-    });
+    }, next);
 });
 
 // changing from local cart to db cart
@@ -43,12 +41,11 @@ router.post('/', function(req, res) {
   var items = req.body.items;
   Cart.create({ user: req.user._id, items: items })
     .then(result => {
-      result.save();
       res.json(result);
-    });
+    }, next);
 });
 
-router.post('/checkoutGuest', function(req, res){
+router.post('/checkoutGuest', function(req, res, next){
   //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
   var productPromises = [];
   var cart = req.body.cart;
@@ -77,15 +74,14 @@ router.post('/checkoutGuest', function(req, res){
       });
       return toPurchase;
     }).then(toPurchase => {
-      Order.create({
+      return Order.create({
         items: toPurchase,
         orderStatus: 'created',
         shipAddress: req.body.shipAddress,
         billAddress: req.body.billAddress
-        }).then(function(order){
-          res.json(order);
         });
-    });
+    }).then(newOrder => res.json(newOrder)
+    ).then(null, next);
 
 });
 
@@ -128,9 +124,9 @@ router.post('/:id/checkout', function(req, res) {
         //userId?
       });
     }).then(order => {
-      cart1.items = [];
-      cart1.save();
       res.json(order);
+      cart1.items = [];
+      return cart1.save();
     }).catch(err => res.sendStatus(500));
 });
 
@@ -140,14 +136,13 @@ router.put('/:id/:itemId', function(req, res) {
 });
 
 router.delete('/:id/:itemId/:size', function(req, res) {
-    req.cart.removeItem(req.params.itemId, req.params.size);
-    res.json(req.cart);
+    req.cart.removeItem(req.params.itemId, req.params.size)
+    .then(saved => res.json(req.cart), next);
 });
 
 router.delete('/:id', function(req, res) {
     req.cart.items = [];
-    cart.save();
-    res.json(cart);
+    cart.save().then(saved => res.json(cart), next);
 });
 
 module.exports = router;

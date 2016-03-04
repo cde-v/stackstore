@@ -27,9 +27,7 @@ cartSchema.methods.editQuantity = function(id, size, qty) {
     if (!found) cart.items.push({ product: id, quantity: qty, size: size });
   }
 
-  cart.save();
-
-  return cart;
+  return cart.save();
 };
 
 cartSchema.methods.removeItem = function(id, size) {
@@ -41,9 +39,7 @@ cartSchema.methods.removeItem = function(id, size) {
   });
 
   if (idx >= 0) cart.items.splice(idx, 1);
-  cart.save();
-
-  return cart;
+  return cart.save();
 };
 
 cartSchema.statics.getTotal = function(id) {
