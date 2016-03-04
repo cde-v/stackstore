@@ -515,10 +515,44 @@ iframe{
 	color:#47454B!important;
 	border-color:#47454B!important;
 }
-#cartProduct{
+
+#cartAllProducts{
   color: black;
-  margin-bottom: 10px;
+  border: 2px solid black;
+  background:transparent;
 }
+
+#cartAllProducts h1{
+  color: black;
+}
+
+#cartAllProducts .table-image{
+	max-width: 200px;
+}
+
+.prod-img{
+	width: 200px;
+}
+
+.prod-qty{
+	width: 120px;
+}
+
+#qty-form{
+	text-align: center;
+}
+
+.prod-price{
+	width: 100px;
+}
+
+tr:nth-child(odd) {background: rgba(255,255,255,0.4)}
+tr:nth-child(even) {background: rgba(100,100,100,0.4)}
+
+#delete {
+	width:50px;
+}
+
 /* Icon colour styles */
 
 .icon-cornflower-blue{
@@ -717,8 +751,4 @@ iframe{
     .video-bg-contianer{
         display:none;
     }
-}
-
-#cartTitle{
-	color:black;
 }
