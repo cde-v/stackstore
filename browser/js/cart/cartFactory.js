@@ -32,17 +32,13 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
     addItem: function(product, size, qty) {
       return $http.put('/api/cart/' + Cart.auth.id + '/' + product._id.toString(), { size: size, quantity: qty })
         .then(res => {
-        	console.log("added");
-          Cart.auth.cart.push({ product: product, size: size, quantity: qty });
-
+	        angular.copy(res.data.items, Cart.auth.cart);
         });
     },
     editQty: function(id, size, qty) {
       return $http.put('/api/cart/' + Cart.auth.id + '/' + id, { size: size, quantity: qty })
         .then(res => {
-        	console.log("RESPONSE", res.data.items);
 	        angular.copy(res.data.items, Cart.auth.cart);
-	        console.log("CART", Cart.auth.cart);
         });
     },
     removeItem: function(id, size) {
