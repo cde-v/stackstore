@@ -518,9 +518,8 @@ iframe{
 
 #cartAllProducts{
   color: black;
-  /*margin: 50px;*/
   border: 2px solid black;
-  background:transparent;!important;
+  background:transparent;
 }
 
 #cartAllProducts h1{
@@ -531,17 +530,16 @@ iframe{
 	max-width: 200px;
 }
 
-#cartView{
-	background-size:cover;
-	background-repeat: no-repeat;
-}
-
 .prod-img{
 	width: 200px;
 }
 
 .prod-qty{
-	width: 100px;
+	width: 120px;
+}
+
+#qty-form{
+	text-align: center;
 }
 
 .prod-price{

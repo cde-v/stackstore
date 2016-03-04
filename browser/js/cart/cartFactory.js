@@ -11,36 +11,51 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
   //if logged in, keep changes in database
   //if guest user, keep cart in localstorage
   Cart.auth = {
+  	cart: [],
     total: 0,
-    getTotal: function() {
-      Cart.auth.cart.forEach(function(item) {
-        Cart.auth.total += item.product.price * item.quantity;
-      });
-      return Cart.auth.total;
-    },
     fetch: function(cartId) {
-      return $http.get('/api/cart/' + id).then(res => {
-        Cart.auth.cart = res.data.items;
+      return $http.get('/api/cart/' + cartId).then(res => {
+        angular.copy(res.data.items, Cart.auth.cart);
+        Cart.auth.id = res.data._id;
         return Cart.auth.cart;
       });
     },
-    addItem: function(product, size, qty, cartId) {
-      return $http.put('/api/cart/' + cartId + '/' + product._id.toString(), { size: size, quantity: qty })
-        .then(res => res.data);
+    getTotal: function() {
+      Cart.auth.total = 0;
+      if (Cart.auth.cart) {
+        Cart.auth.cart.forEach(function(item) {
+          Cart.auth.total += item.product.price * item.quantity;
+        });
+      }
+      return Cart.auth.total;
     },
-    editQty: function(id, size, qty, cartId) {
-      return $http.put('/api/cart/' + cartId + '/' + id, { size: size, quantity: qty })
-        .then(res => res.data);
+    addItem: function(product, size, qty) {
+      return $http.put('/api/cart/' + Cart.auth.id + '/' + product._id.toString(), { size: size, quantity: qty })
+        .then(res => {
+        	console.log("added");
+          Cart.auth.cart.push({ product: product, size: size, quantity: qty });
+
+        });
     },
-    removeItem: function(id, size, cartId) {
-      return $http.delete('/api/cart/' + cartId + '/' + id + '/' + size)
-        .then(res => res.data);
+    editQty: function(id, size, qty) {
+      return $http.put('/api/cart/' + Cart.auth.id + '/' + id, { size: size, quantity: qty })
+        .then(res => {
+        	console.log("RESPONSE", res.data.items);
+	        angular.copy(res.data.items, Cart.auth.cart);
+	        console.log("CART", Cart.auth.cart);
+        });
     },
-    clearCart: function(cartId) {
-      return $http.delete('/api/cart/' + cardId);
+    removeItem: function(id, size) {
+      return $http.delete('/api/cart/' + Cart.auth.id + '/' + id + '/' + size)
+        .then(res => {
+	        angular.copy(res.data.items, Cart.auth.cart);        	
+        });
     },
-    checkout: function(shipAddress, billAddress, cartId) {
-      return $http.post('/api/cart/' + cartId + '/checkout', { shipAddress: shipAddress, billAddress: billAddress })
+    clearCart: function() {
+      return $http.delete('/api/cart/' + Cart.auth.id);
+    },
+    checkout: function(shipAddress, billAddress) {
+      return $http.post('/api/cart/' + Cart.auth.id + '/checkout', { shipAddress: shipAddress, billAddress: billAddress })
         .then(res => res.data);
     }
   };
@@ -55,7 +70,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
       return Cart.auth.total;
     },
     fetch: function() {
-      if(!$localStorage.items) $localStorage.items = [];
+      if (!$localStorage.items) $localStorage.items = [];
       Cart.unauth.cart = $localStorage.items;
       return Cart.unauth.cart;
     },
@@ -92,137 +107,19 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
         })
         .then(res => res.data);
     },
-    getTotal: function(){
-    	return Cart.unauth.cart.reduce(function(prev,curr){
-    		return prev + curr.product.price;
-    	},0);
+    getTotal: function() {
+      return Cart.unauth.cart.reduce(function(prev, curr) {
+        return prev + curr.product.price * curr.quantity;
+      }, 0);
     }
   };
- 
- var cartFactory = Cart.unauth;
- cartFactory.fetch();
-  //for testing
-//   Cart.unauth.cart = [{product:{
-// _id: "56d8c118cfa354676b011dd7",
-// itemId: "ADYB350B",
-// brand: "Adidas",
-// style: "sneaker",
-// name: "Yeezy Boost 350 Black",
-// price: 500,
-// sizes: {
-// 6: 3,
-// 7: 0,
-// 8: 2,
-// 9: 4,
-// 10: 5,
-// 11: 9,
-// 12: 3,
-// 13: 0,
-// 14: 1
-// },
-// description: "Made of pure gold",
-// __v: 0,
-// tags: [
-// "yeezy",
-// "black",
-// "sneaker"
-// ],
-// prevOrders: 2,
-// images: [
-// "img/product/Yeezy-Boost-350-b.jpg",
-// "img2"
-// ]
-// }, quantity:1, size:5},{product:{
-// _id: "56d8c118cfa354676b011dd8",
-// itemId: "ADYB350T",
-// brand: "Adidas",
-// style: "sneaker",
-// name: "Yeezy Boost 350 Tan",
-// price: 500,
-// sizes: {
-// 6: 3,
-// 7: 0,
-// 8: 2,
-// 9: 4,
-// 10: 5,
-// 11: 9,
-// 12: 3,
-// 13: 0,
-// 14: 1
-// },
-// description: "Made of pure gold",
-// __v: 0,
-// tags: [
-// "yeezy",
-// "tan",
-// "sneaker"
-// ],
-// prevOrders: 2,
-// images: [
-// "img/product/Yeezy-Boost-350-t.jpg",
-// "img2"
-// ]
-// }, quantity:1, size:5}, {product:{
-// _id: "56d8c118cfa354676b011dd9",
-// itemId: "ADYB350W",
-// brand: "Adidas",
-// style: "sneaker",
-// name: "Yeezy Boost 350 White",
-// price: 500,
-// sizes: {
-// 6: 3,
-// 7: 0,
-// 8: 2,
-// 9: 4,
-// 10: 5,
-// 11: 9,
-// 12: 3,
-// 13: 0,
-// 14: 1
-// },
-// description: "Made of pure gold",
-// __v: 0,
-// tags: [
-// "yeezy",
-// "white",
-// "sneaker"
-// ],
-// prevOrders: 2,
-// images: [
-// "img/product/Yeezy-Boost-350-w.jpg",
-// "img2"
-// ]
-// }, quantity:1, size:5}, {product:{
-// _id: "56d8c118cfa354676b011dda",
-// itemId: "ADYB750B",
-// brand: "Adidas",
-// style: "sneaker",
-// name: "Yeezy Boost 750 Black",
-// price: 800,
-// sizes: {
-// 6: 3,
-// 7: 0,
-// 8: 2,
-// 9: 4,
-// 10: 5,
-// 11: 9,
-// 12: 3,
-// 13: 0,
-// 14: 1
-// },
-// description: "Made of pure gold",
-// __v: 0,
-// tags: [
-// "yeezy",
-// "black",
-// "sneaker"
-// ],
-// prevOrders: 2,
-// images: [
-// "img/product/Yeezy-Boost-750-b.jpg",
-// "img2"
-// ]
-// }, quantity:1, size:5}];
+
+  var cartFactory = Cart.auth;
+  cartFactory.fetch("56d8a65596446dcb5eb7c221");
+
+  // var cartFactory = Cart.unauth;
+  // cartFactory.fetch();
+  
   var loggedIn;
 
   $rootScope.$on('auth-login-success', function(event, data) {

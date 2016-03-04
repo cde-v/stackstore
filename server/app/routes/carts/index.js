@@ -25,12 +25,9 @@ router.get('/', function(req, res, next) {
     .then(null, next);
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res, next) {
   Cart.findById(req.params.id)
     .populate('items.product')
-    .exec(function(error, popCart){
-      return popCart;
-    })
     .then(cart => {
       res.json(cart);
     }, next);
@@ -131,13 +128,19 @@ router.post('/:id/checkout', function(req, res) {
 });
 
 router.put('/:id/:itemId', function(req, res) {
-    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity);
-    res.json(req.cart);
+    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity)
+      .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart));
 });
 
-router.delete('/:id/:itemId/:size', function(req, res) {
+router.delete('/:id/:itemId/:size', function(req, res, next) {
     req.cart.removeItem(req.params.itemId, req.params.size)
-    .then(saved => res.json(req.cart), next);
+    .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart));
 });
 
 router.delete('/:id', function(req, res) {

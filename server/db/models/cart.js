@@ -15,10 +15,12 @@ cartSchema.methods.editQuantity = function(id, size, qty) {
   var cart = this;
   var found = false;
 
+  console.log("here");
+
   if (!qty) cart.removeItem(id, size);
   else {
     cart.items.forEach(function(item) {
-      if (item.product === id && item.size === size) {
+      if (item.product.toString() == id.toString() && item.size === +size) {
         item.quantity = qty;
         found = true;
       }
@@ -35,10 +37,11 @@ cartSchema.methods.removeItem = function(id, size) {
   var idx = -1;
 
   cart.items.forEach(function(item, ind) {
-    if (item.product.toString() === id && item.size === size) idx = ind;
+    if (item.product.toString() == id && item.size === +size) idx = ind;
   });
 
   if (idx >= 0) cart.items.splice(idx, 1);
+
   return cart.save();
 };
 
