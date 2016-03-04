@@ -18,8 +18,8 @@ app.controller('productDetailCtrl', function ($scope, shoe, ProductList) {
 	$scope.selectSize = function(size){
 		$scope.selSize = size;
 	}
-	$scope.addItem=function(itemid, size, qty, cartId){
-		console.log(itemid, size, qty, cartId);
-	}
+	// $scope.addItem=function(itemid, size, qty, cartId){
+	// 	console.log(itemid, size, qty, cartId);
+	// }
 })
 

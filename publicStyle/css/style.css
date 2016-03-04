@@ -518,7 +518,7 @@ iframe{
 
 #cartAllProducts{
   color: black;
-  margin: 50px;
+  /*margin: 50px;*/
   border: 2px solid black;
   background:transparent;!important;
 }
@@ -532,7 +532,6 @@ iframe{
 }
 
 #cartView{
-	background-image:url("../img/maxresdefault.jpg");
 	background-size:cover;
 	background-repeat: no-repeat;
 }

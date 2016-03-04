@@ -102,127 +102,127 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
  var cartFactory = Cart.unauth;
  cartFactory.fetch();
   //for testing
-  Cart.unauth.cart = [{product:{
-_id: "56d8c118cfa354676b011dd7",
-itemId: "ADYB350B",
-brand: "Adidas",
-style: "sneaker",
-name: "Yeezy Boost 350 Black",
-price: 500,
-sizes: {
-6: 3,
-7: 0,
-8: 2,
-9: 4,
-10: 5,
-11: 9,
-12: 3,
-13: 0,
-14: 1
-},
-description: "Made of pure gold",
-__v: 0,
-tags: [
-"yeezy",
-"black",
-"sneaker"
-],
-prevOrders: 2,
-images: [
-"img/product/Yeezy-Boost-350-b.jpg",
-"img2"
-]
-}, quantity:1, size:5},{product:{
-_id: "56d8c118cfa354676b011dd8",
-itemId: "ADYB350T",
-brand: "Adidas",
-style: "sneaker",
-name: "Yeezy Boost 350 Tan",
-price: 500,
-sizes: {
-6: 3,
-7: 0,
-8: 2,
-9: 4,
-10: 5,
-11: 9,
-12: 3,
-13: 0,
-14: 1
-},
-description: "Made of pure gold",
-__v: 0,
-tags: [
-"yeezy",
-"tan",
-"sneaker"
-],
-prevOrders: 2,
-images: [
-"img/product/Yeezy-Boost-350-t.jpg",
-"img2"
-]
-}, quantity:1, size:5}, {product:{
-_id: "56d8c118cfa354676b011dd9",
-itemId: "ADYB350W",
-brand: "Adidas",
-style: "sneaker",
-name: "Yeezy Boost 350 White",
-price: 500,
-sizes: {
-6: 3,
-7: 0,
-8: 2,
-9: 4,
-10: 5,
-11: 9,
-12: 3,
-13: 0,
-14: 1
-},
-description: "Made of pure gold",
-__v: 0,
-tags: [
-"yeezy",
-"white",
-"sneaker"
-],
-prevOrders: 2,
-images: [
-"img/product/Yeezy-Boost-350-w.jpg",
-"img2"
-]
-}, quantity:1, size:5}, {product:{
-_id: "56d8c118cfa354676b011dda",
-itemId: "ADYB750B",
-brand: "Adidas",
-style: "sneaker",
-name: "Yeezy Boost 750 Black",
-price: 800,
-sizes: {
-6: 3,
-7: 0,
-8: 2,
-9: 4,
-10: 5,
-11: 9,
-12: 3,
-13: 0,
-14: 1
-},
-description: "Made of pure gold",
-__v: 0,
-tags: [
-"yeezy",
-"black",
-"sneaker"
-],
-prevOrders: 2,
-images: [
-"img/product/Yeezy-Boost-750-b.jpg",
-"img2"
-]
-}, quantity:1, size:5}];
+//   Cart.unauth.cart = [{product:{
+// _id: "56d8c118cfa354676b011dd7",
+// itemId: "ADYB350B",
+// brand: "Adidas",
+// style: "sneaker",
+// name: "Yeezy Boost 350 Black",
+// price: 500,
+// sizes: {
+// 6: 3,
+// 7: 0,
+// 8: 2,
+// 9: 4,
+// 10: 5,
+// 11: 9,
+// 12: 3,
+// 13: 0,
+// 14: 1
+// },
+// description: "Made of pure gold",
+// __v: 0,
+// tags: [
+// "yeezy",
+// "black",
+// "sneaker"
+// ],
+// prevOrders: 2,
+// images: [
+// "img/product/Yeezy-Boost-350-b.jpg",
+// "img2"
+// ]
+// }, quantity:1, size:5},{product:{
+// _id: "56d8c118cfa354676b011dd8",
+// itemId: "ADYB350T",
+// brand: "Adidas",
+// style: "sneaker",
+// name: "Yeezy Boost 350 Tan",
+// price: 500,
+// sizes: {
+// 6: 3,
+// 7: 0,
+// 8: 2,
+// 9: 4,
+// 10: 5,
+// 11: 9,
+// 12: 3,
+// 13: 0,
+// 14: 1
+// },
+// description: "Made of pure gold",
+// __v: 0,
+// tags: [
+// "yeezy",
+// "tan",
+// "sneaker"
+// ],
+// prevOrders: 2,
+// images: [
+// "img/product/Yeezy-Boost-350-t.jpg",
+// "img2"
+// ]
+// }, quantity:1, size:5}, {product:{
+// _id: "56d8c118cfa354676b011dd9",
+// itemId: "ADYB350W",
+// brand: "Adidas",
+// style: "sneaker",
+// name: "Yeezy Boost 350 White",
+// price: 500,
+// sizes: {
+// 6: 3,
+// 7: 0,
+// 8: 2,
+// 9: 4,
+// 10: 5,
+// 11: 9,
+// 12: 3,
+// 13: 0,
+// 14: 1
+// },
+// description: "Made of pure gold",
+// __v: 0,
+// tags: [
+// "yeezy",
+// "white",
+// "sneaker"
+// ],
+// prevOrders: 2,
+// images: [
+// "img/product/Yeezy-Boost-350-w.jpg",
+// "img2"
+// ]
+// }, quantity:1, size:5}, {product:{
+// _id: "56d8c118cfa354676b011dda",
+// itemId: "ADYB750B",
+// brand: "Adidas",
+// style: "sneaker",
+// name: "Yeezy Boost 750 Black",
+// price: 800,
+// sizes: {
+// 6: 3,
+// 7: 0,
+// 8: 2,
+// 9: 4,
+// 10: 5,
+// 11: 9,
+// 12: 3,
+// 13: 0,
+// 14: 1
+// },
+// description: "Made of pure gold",
+// __v: 0,
+// tags: [
+// "yeezy",
+// "black",
+// "sneaker"
+// ],
+// prevOrders: 2,
+// images: [
+// "img/product/Yeezy-Boost-750-b.jpg",
+// "img2"
+// ]
+// }, quantity:1, size:5}];
   var loggedIn;
 
   $rootScope.$on('auth-login-success', function(event, data) {
