@@ -515,6 +515,10 @@ iframe{
 	color:#47454B!important;
 	border-color:#47454B!important;
 }
+#cartProduct{
+  color: black;
+  margin-bottom: 10px;
+}
 /* Icon colour styles */
 
 .icon-cornflower-blue{
@@ -535,24 +539,31 @@ iframe{
 }
 
 /* Bloc image backgrounds */
+.shoe-main-img{
+	height: 700px;
+}
 
 .bg-maxresdefault{
-	background-image:url("img/maxresdefault.jpg");
+	background-image:url("../img/maxresdefault.jpg");
 }
 .bg-Yeezy-Boost{
-	background-image:url("img/Yeezy-Boost.jpg");
+	background-image:url("../img/Yeezy-Boost.jpg");
 }
 .bg-YZY350-BLACK-02-lo{
-	background-image:url("img/YZY350_BLACK_02-lo.jpeg");
+	background-image:url("../img/YZY350_BLACK_02-lo.jpeg");
 }
 .bg-adidas-yeezy-boost-350-giveaway-00{
-	background-image:url("img/adidas-yeezy-boost-350-giveaway-00.jpg");
+	background-image:url("../img/adidas-yeezy-boost-350-giveaway-00.jpg");
 }
 .bg-YZY350-BLACK-02-lo{
-	background-image:url('img/YZY350-BLACK-02-lo.jpg');
+	background-image:url('../img/YZY350-BLACK-02-lo.jpg');
 }
 .bg-adidas-yeezy-boost-350-giveaway-00{
-	background-image:url('img/adidas-yeezy-boost-350-giveaway-00.jpg');
+	background-image:url('../img/adidas-yeezy-boost-350-giveaway-00.jpg');
+}
+
+.bg-opaq{
+	background-color: rgba(0, 0, 0, .3);
 }
 
 
@@ -706,4 +717,8 @@ iframe{
     .video-bg-contianer{
         display:none;
     }
+}
+
+#cartTitle{
+	color:black;
 }
