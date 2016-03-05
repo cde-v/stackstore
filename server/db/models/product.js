@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 
 var db = require('../../db');
 
-
 var productSchema = new mongoose.Schema({
   itemId: {
     type: String,
@@ -33,7 +32,29 @@ var productSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  sizes:{},
+  sizes: {
+    5: 0,
+    5.5: 0,
+    6: 0,
+    6.5: 0,
+    7: 0,
+    7.5: 0,
+    8: 0,
+    8.5: 0,
+    9: 0,
+    9.5: 0,
+    10: 0,
+    10.5: 0,
+    11: 0,
+    11.5: 0,
+    12: 0,
+    12.5: 0,
+    13: 0,
+    13.5: 0,
+    14: 0,
+    14.5: 0,
+    15:0
+  },
   tags: {
     type: [String]
   },
