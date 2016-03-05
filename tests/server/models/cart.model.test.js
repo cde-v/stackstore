@@ -10,6 +10,7 @@ describe('Cart', function() {
   var p1 = Product.create({
     itemId: "1",
     brand: "shoe",
+    style: "sneaker",
     name: "shoes",
     price: 300,
     stock: 2,
@@ -20,6 +21,7 @@ describe('Cart', function() {
   var p2 = Product.create({
     itemId: "2",
     brand: "shoe",
+    style: "sneaker",
     name: "shoes",
     price: 200,
     stock: 6,
@@ -30,6 +32,7 @@ describe('Cart', function() {
   var p3 = Product.create({
     itemId: "3",
     brand: "shoe",
+    style: "sneaker",
     name: "shoes",
     price: 100,
     stock: 5,
