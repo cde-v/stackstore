@@ -104,10 +104,10 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
     }
   };
 
-  var cartFactory = {};
+  var cartFactory = Carth.unAuth();
 
   function setCartUnauth(){
-  	Cart.unauth.fetch();
+  	// Cart.unauth.fetch();
   	cartFactory = Cart.unauth;
   	// angular.copy(Cart.unauth, cartFactory);
   	console.log('unauth', cartFactory);
