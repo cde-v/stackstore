@@ -5,11 +5,13 @@
 /*      Built with Blocs
 /*-----------------------------------------------------------------------------------*/
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #FFF;
-    overflow-x: hidden;
+
+body{
+	min-height: 100vh;
+	margin:0;
+	padding:0;
+    background:#FFF;
+    overflow-x:hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -24,8 +26,8 @@ button {
     outline: none!important;
 }
 
-
 /* Prevent ugly blue glow on chrome and safari */
+
 
 
 /* Globals type styling */
@@ -43,14 +45,18 @@ a {
     font-family: "Helvetica";
 }
 
-
-/* Site container width */
-
-.container {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
+#main{
+	min-height: 100%;
 }
+/* Site container width */
+.page-container{
+	height: 100%;
+}
+.container{
+	width:100%;
+	min-height: 100%;
+	padding-left:15px;
+	padding-right:15px;
 
 
 /* = Blocs
@@ -285,6 +291,11 @@ a {
     font-weight: 300;
 }
 
+.lato{
+	font-family: Lato;
+	font-weight: 300;
+}
+
 
 /* = NavBar
 -------------------------------------------------------------- */
@@ -418,6 +429,12 @@ nav .caret {
 .mg-md {
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.mg-xxl{
+	font-size: 100px;
+	margin-top:125px;
+	margin-bottom:250px;
 }
 
 
@@ -796,12 +813,41 @@ tr:nth-child(even) {
     background-image: url('../img/YZY350-BLACK-02-lo.jpg');
 }
 
+<<<<<<< HEAD
+.bg-opaq{
+	background-color: rgba(0, 0, 0, .4);
+}
+.fill{
+	height:100%;
+}
+.home-splash{
+	/*height:300px;*/
+	/*box-sizing: border-box;*/
+}
+.home-a{
+	height:100%;
+	padding-top: 40px;
+
+}
+.home-b{
+	padding:50px 0px;
+}
+.home-c{
+	height:100%;
+	padding-top:350px;
+}
+
+div + .no-items{
+	display: none;
+}
+
 .bg-adidas-yeezy-boost-350-giveaway-00 {
     background-image: url('../img/adidas-yeezy-boost-350-giveaway-00.jpg');
 }
 
 .bg-opaq {
     background-color: rgba(0, 0, 0, .3);
+
 }
 
 

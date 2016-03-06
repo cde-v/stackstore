@@ -13,6 +13,32 @@ app.config(function ($stateProvider) {
 
 app.controller('productCtrl', function ($scope, products) {
 	$scope.catalog = products;
+	$scope.search={};
+	$scope.brand = function(brand){
+		$scope.search.brand = brand;
+	}
+	$scope.style = function(style){
+		$scope.search.style = style;
+	}
+	
+	$scope.order = function(predicate, rev) {
+		$scope.reverse = (rev) ? $scope.reverse=true : $scope.reverse=false;
+		$scope.predicate = predicate;
+	};
+	$scope.sizes = function(size){
+		$scope.selectedSize=size;
+	}
+	$scope.selectedSize = null; 
+})
+
+app.filter('sizeSelect', function(){
+	return function(input, size ){
+		if(!size) return input
+		return input.filter(function(el){
+			console.log(size)
+			if(el.sizes[size]) return true
+		})
+	}
 })
 
 app.factory('ProductList', function ($http) {
