@@ -8,5 +8,5 @@ app.controller('CartController', function($rootScope, $scope, CartFactory, cart)
 		if(login) $rootScope.$broadcast('auth-login-success');
 		else $rootScope.$broadcast('auth-logout-success');
 		$scope.cart = cart;
-	}; d
+	};
 });

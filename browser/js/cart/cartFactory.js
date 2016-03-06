@@ -104,7 +104,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
     }
   };
 
-  var cartFactory = Carth.unAuth();
+  var cartFactory = Cart.unAuth();
 
   function setCartUnauth(){
   	// Cart.unauth.fetch();
