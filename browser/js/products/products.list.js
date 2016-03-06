@@ -72,8 +72,8 @@ app.factory('ProductList', function ($http) {
 			})
 		},
 
-		update: function(info){
-			return $http.put('/api/products/'+product, info)
+		update: function(product, info){
+			return $http.put('/api/products/'+ product, info)
 			.then(function(product){
 				return product.data
 			})
