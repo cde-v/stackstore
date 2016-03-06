@@ -5,6 +5,7 @@ var orderSchema = new mongoose.Schema({
     type: Number
   },
   shipAddress: { 
+    name: String,
     address1: String,
     address2: String,
     city: String,
@@ -12,6 +13,7 @@ var orderSchema = new mongoose.Schema({
     zip: String
   },
   billAddress:{
+    name: String,
     address1: String,
     address2: String,
     city: String,
@@ -28,7 +30,7 @@ var orderSchema = new mongoose.Schema({
   }],
   status: {
     type: String,
-    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
+    enum: ['Created', 'Processing', 'Shipped', 'Fulfilled', 'Canceled', 'Error', 'Disputed']
   },
   returnStatus: {
     type: String,

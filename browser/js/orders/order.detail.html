@@ -1,13 +1,86 @@
-
-<!-- <div class="bloc bgc-white bg-YZY350-BLACK-02-lo d-bloc" id="bloc-6">
-	<div class="container bloc-xxl">
-		<div class="row voffset-lg">
+<!-- <div class="bloc l-bloc bgc-white" id="bloc-16"> -->
+	<div class="container">
+		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="mg-md text-right tc-outer-space ">
-					PLACE HOLDER FOR CART HTML
-				</h1>
+				<div class="panel panel-default">
+					<div class="panel-heading text-left">
+						<h1>
+							Order Details
+						</h1>
+						<h2>{{order.status}}</h2>
+						<h4>Order placed on {{order.orderDate}}</h4>
+						<h4>Order shipped on {{order.shipDate}}</h4>
+					</div>
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="mg-md ">
+											<span class="fa fa-truck"></span>
+											Shipping Address
+										</h4>
+									</div>
+									<div class="panel-body">
+										<h5>{{order.shipAddress.name}}</h5>
+    								<h5>{{order.shipAddress.address1}} {{order.shipAddress.address2}}</h5>
+    								<h5>{{order.shipAddress.city}}, {{order.shipAddress.state}} {{order.shipAddress.zip}}</h5>
+    								</div>
+									</div>
+								
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="mg-md ">
+											<span class="fa fa-credit-card"></span>
+											Billing Address
+										</h4>
+									</div>
+									<div class="panel-body">
+    								<h5>{{order.billAddress.name}}</h5>
+    								<h5>{{order.billAddress.address1}} {{order.billAddress.address2}}</h5>
+    								<h5>{{order.billAddress.city}}, {{order.billAddress.state}} {{order.billAddress.zip}}</h5>			
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-9">
+								<ul class="list-unstyled">
+									<li>
+										<div class="row">
+											<div class="col-sm-3">
+												<img src="img/placeholder-image.png" class="img-responsive" />
+											</div>
+											<div class="col-sm-9">
+												<div class="panel">
+													<div class="panel-body">
+													<table class="table">
+    <div class="text-left" ng-repeat="item in order.items">
+    	<h4>{{item.brand}}</h4>
+    	<h4>{{item.name}}</h4>
+    	<h5>Item ID: {{item.itemId}}</h5>
+    	<h5>Size: {{item.size}}</h5>
+    	<h5>Qty: {{item.quantity}}</h5>
+    	<h5>Price: ${{item.price}}</h5>	
+    	<br>
+    </div>
+   </table>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div> -->
+<div>
 
+
+    
+
+
+
+</div>

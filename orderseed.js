@@ -28,10 +28,22 @@ var seedOrders = function() {
 
   var orders = [{
       userId: 1,
-      shipAddress: '123 Bridge Ln Springfield, MA 03948',
-      billAddress: '123 Bridge Ln Springfield, MA 03948',
-      orderStatus: 'created',
-      orderDate: '2016-03-02T02:54:29.202Z',
+      shipAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      billAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      status: 'Created',
+      orderDate: 'March 2, 2016',
       items: [{
         itemId: 'ADYB350B',
         brand: 'Adidas',
@@ -51,10 +63,22 @@ var seedOrders = function() {
 
     {
       userId: 1,
-      shipAddress: '123 Bridge Ln Springfield, MA 03948',
-      billAddress: '123 Bridge Ln Springfield, MA 03948',
-      orderStatus: 'processing',
-      orderDate: '2016-03-01T02:55:29.202Z',
+      shipAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      billAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      status: 'Processing',
+      orderDate: 'February 3, 2016',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -71,8 +95,20 @@ var seedOrders = function() {
       }]
     }, {
       userId: 1,
-      shipAddress: '123 Bridge Ln Springfield, MA 03948',
-      billAddress: '123 Bridge Ln Springfield, MA 03948',
+      shipAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      billAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
       items: [{
         itemId: 'ADYB640T',
         brand: 'Adidas',
@@ -101,18 +137,28 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderStatus: 'canceled',
-      orderDate: chance.date({
-        year: 2016,
-        month: 2
-      })
+      status: 'Canceled',
+      orderDate: 'February 1, 2016',
     },
 
     {
       userId: 1,
-      shipAddress: '123 Bridge Ln Springfield, MA 03948',
-      billAddress: '343 Dog Dr Hilton, NJ 03348',
-      orderStatus: 'shipped',
+      shipAddress: {
+        name: 'Ann Doe',
+        address1: '343 Dog Dr',
+        address2: '#2',
+        city: 'Hilton',
+        state:'NJ',
+        zip: '03348'
+      },
+      billAddress: {
+        name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      status: 'Shipped',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -127,18 +173,27 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderDate: '2016-03-01T02:54:29.202Z',
-      shipDate: chance.date({
-        year: 2016,
-        month: 3
-      })
+      orderDate: 'March 1, 2016',
+      shipDate: 'March 3, 2016',
     },
 
     {
       userId: 1,
-      shipAddress: '123 Bridge Ln Springfield, MA 03948',
-      billAddress: '123 Bridge Ln Springfield, MA 03948',
-      orderStatus: 'fulfilled',
+      shipAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      billAddress: {
+         name: 'Jane Brown',
+        address1: '123 Bridge Ln',
+        city: 'Springfield',
+        state:'MA',
+        zip: '03948'
+      },
+      status: 'Fulfilled',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -153,19 +208,27 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderDate: chance.date({
-        year: 2016,
-        month: 1
-      }),
-      shipDate: chance.date({
-        year: 2016,
-        month: 2
-      })
+      orderDate: 'January 10, 2016',
+      shipDate: 'January 14, 2016'
     }, {
       userId: 2,
-      shipAddress: '456 Hollow St Springfield, NY 11304',
-      billAddress: '456 Hollow St Springfield, NY 11304',
-      orderStatus: 'fulfilled',
+      shipAddress:{
+        name: 'Alex Green',
+        address1: '456 Hollow St',
+        address2: '#5',
+        city: 'Springfield',
+        state:'NY',
+        zip: '11304'
+      },
+      billAddress: {
+        name: 'Alex Green',
+        address1: '456 Hollow St',
+        address2: '#5',
+        city: 'Springfield',
+        state:'NY',
+        zip: '11304'
+      },
+      status: 'Fulfilled',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -180,19 +243,27 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderDate: chance.date({
-        year: 2016,
-        month: 1
-      }),
-      shipDate: chance.date({
-        year: 2016,
-        month: 2
-      })
+      orderDate: 'January 20, 2016',
+      shipDate: 'January 22, 2016'
     }, {
       userId: 2,
-      shipAddress: '456 Hollow St Springfield, NY 11304',
-      billAddress: '456 Hollow St Springfield, NY 11304',
-      orderStatus: 'fulfilled',
+      shipAddress: {
+        name: 'Alex Green',
+        address1: '456 Hollow St',
+        address2: '#5',
+        city: 'Springfield',
+        state:'NY',
+        zip: '11304'
+      },
+      billAddress: {
+        name: 'Alex Green',
+        address1: '456 Hollow St',
+        address2: '#5',
+        city: 'Springfield',
+        state:'NY',
+        zip: '11304'
+      },
+      status: 'Fulfilled',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -207,19 +278,26 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderDate: chance.date({
-        year: 2016,
-        month: 1
-      }),
-      shipDate: chance.date({
-        year: 2016,
-        month: 2
-      })
+      orderDate: 'February 28, 2016',
+      shipDate: 'March 1, 2016'
     }, {
       userId: 2,
-      shipAddress: '7588 Hello Ln Albany, NY 13334',
-      billAddress: '456 Hollow St Springfield, NY 11304',
-      orderStatus: 'fulfilled',
+      shipAddress: {
+        name: 'Ryan Green',
+        address1: '7588 Hello Ln',
+        city: 'Albany',
+        state:'NY',
+        zip: '13334'
+      },
+      billAddress: {
+        name: 'Alex Green',
+        address1: '456 Hollow St',
+        address2: '#5',
+        city: 'Springfield',
+        state:'NY',
+        zip: '11304'
+      },
+      status: 'Fulfilled',
       items: [{
         itemId: 'ADYB140G',
         brand: 'Nike',
@@ -234,14 +312,8 @@ var seedOrders = function() {
           max: 14
         })
       }],
-      orderDate: chance.date({
-        year: 2016,
-        month: 1
-      }),
-      shipDate: chance.date({
-        year: 2016,
-        month: 2
-      })
+   orderDate: 'February 26, 2016',
+      shipDate: 'February 29, 2016'
     }
   ]
   return Order.createAsync(orders);
