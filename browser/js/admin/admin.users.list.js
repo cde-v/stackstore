@@ -18,6 +18,8 @@ app.controller('adminUserCtrl', function($scope, $state, users, UserList) {
 
   $scope.toggleAdmin = user => UserList.toggleAdmin(user);
 
+  $scope.toggleNeedsPasswordReset = user => UserList.toggleNeedsPasswordReset(user);
+
   $scope.removeUser = user => UserList.destroy(user);
 
 });
@@ -45,5 +47,12 @@ app.factory('UserList', function($http, $state) {
           return product.data;
         });
     },
+    toggleNeedsPasswordReset: function(user) {
+      return $http.put('/api/users/toggleNeedsPasswordReset/' + user._id)
+        .then(function(product) {
+          $state.reload();
+          return product.data;
+        });
+    }
   };
 });
