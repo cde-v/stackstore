@@ -18,14 +18,14 @@ describe('Order Route:', function() {
      */
     it('returns orders if there are any in the DB', function(done) {
       Order.create({
-        orderStatus: 'created'
+        status: 'created'
       }).then(function() {
         agent
           .get('/api/orders')
           .expect(200)
           .expect(function(res) {
             expect(res.body).to.be.an.instanceOf(Array);
-            expect(res.body[0].orderStatus).to.equal('created');
+            expect(res.body[0].status).to.equal('created');
           })
           .end(done);
       }).then(null, done);
@@ -41,7 +41,7 @@ describe('Order Route:', function() {
     before(function(done) {
 
       var order = new Order({
-        orderStatus: 'created'
+        status: 'created'
       });
 
       order.save().then(function(savedOrder) {
@@ -81,12 +81,12 @@ describe('Order Route:', function() {
       agent
         .post('/api/orders')
         .send({
-          orderStatus: 'created'
+          status: 'created'
         })
         .expect(201)
         .expect(function(res) {
           expect(res.body._id).to.not.be.an('undefined');
-          expect(res.body.orderStatus).to.equal('created');
+          expect(res.body.status).to.equal('created');
         })
         .end(done);
     });
@@ -100,7 +100,7 @@ describe('Order Route:', function() {
     before(function(done) {
 
       Order.findOne({
-        orderStatus: 'created'
+        status: 'created'
       }).then(function(order) {
         id = order._id;
         done();
@@ -115,22 +115,22 @@ describe('Order Route:', function() {
       agent
         .put('/api/orders/' + id)
         .send({
-          orderStatus: 'shipped'
+          status: 'shipped'
         })
         .expect(200)
         .expect(function(res) {
           expect(res.body._id).to.not.be.an('undefined');
-          expect(res.body.orderStatus).to.equal('shipped');
+          expect(res.body.status).to.equal('shipped');
         })
         .end(done);
     });
 
     it('saves updates to the DB', function(done) {
       Order.findOne({
-        orderStatus: 'shipped'
+        status: 'shipped'
       }).exec().then(function(order) {
         expect(order).to.exist;
-        expect(order.orderStatus).to.equal('shipped');
+        expect(order.status).to.equal('shipped');
         done();
       }).then(null, done);
     });
@@ -141,7 +141,7 @@ describe('Order Route:', function() {
     before(function(done) {
 
       var order = new Order({
-        orderStatus: 'created'
+        status: 'created'
       });
 
       order.save().then(function(savedOrder) {

@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<a ui-sref="cart" ng-click="addItem(shoe, selSize, 1)" class="btn  btn-d  btn-lg btn-block fadeIn animated"><span class="fa fa-shopping-cart icon-spacer pull-right"></span>Add</a>
+				<button ng-disabled="selSize === 'Size'" ng-click="addItem(shoe, selSize, 1)" class="btn  btn-d  btn-lg btn-block fadeIn animated"><span class="fa fa-shopping-cart icon-spacer pull-right"></span>Add</button>
 			</div>
 		</div>
 	</div>
