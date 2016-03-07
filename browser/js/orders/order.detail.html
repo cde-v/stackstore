@@ -6,9 +6,19 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3><strong>{{order.status}}</strong></h3>
-						<h5>Order placed on {{order.orderDate}}</h5>
-						<h5 ng-bind="shipDate | date:'MM/dd/yyyy'" ng-show="order.status === 'Shipped' || order.status === 'Fulfilled'">Order shipped on {{order.shipDate}}</h5>
-						<h5>Order ID: <a sref='order({id: order._id})'>{{order._id}}</a></h5>
+						<h5>Order placed on {{order.formattedOrderDate}}</h5>
+						<h5 ng-show="order.status === 'Shipped' || order.status === 'Fulfilled'">Order shipped on {{order.formattedShipDate}}</h5>
+						<h5>Order ID: {{order._id}}</h5>
+					<div ng-show="!user.isAdmin">
+						<label>Change Order Status:</label>
+					        <select name="status" ng-model="order.status" ng-change="changeStatus(order, order.status)">
+					            <option>Created</option>
+					            <option>Processing</option>
+					            <option>Shipped</option>
+					            <option>Fulfilled</option>
+					            <option>Canceled</option>
+					        </select>
+					        </div>
 					</div>
 					<div class="panel-body">
 						<div class="pull-left">
