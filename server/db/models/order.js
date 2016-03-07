@@ -54,4 +54,20 @@ orderSchema.methods.changeOrderStatus = function(status) {
   return this.save();
 }
 
+// orderSchema.virtual('shipDate.format').get(function(){
+// var monthNames = [
+//   "January", "February", "March",
+//   "April", "May", "June", "July",
+//   "August", "September", "October",
+//   "November", "December"
+// ];
+
+// var day = this.shipDate.getDate();
+// var monthIndex = this.shipDate.getMonth();
+// var year = this.shipDate.getFullYear();
+
+// this.shipDate = monthNames[monthIndex] + ' ' + day + ', ' + year;
+// return this.shipDate;
+// })
+
 mongoose.model('Order', orderSchema);

@@ -1,4 +1,4 @@
-app.controller('OrderController', function($scope, OrderFactory) {
+app.controller('OrderController', function($scope, OrderFactory, AuthService) {
 
   $scope.getAllOrders = function() {
     return OrderFactory.fetchAll()
@@ -6,6 +6,10 @@ app.controller('OrderController', function($scope, OrderFactory) {
         $scope.orders = orders;
       });
   };
+	AuthService.getLoggedInUser().then(function(user){
+	$scope.user = user;
+	console.log(user);
+})
 
   $scope.getTotal = function(order) {
     $scope.total = 0;
@@ -14,5 +18,15 @@ app.controller('OrderController', function($scope, OrderFactory) {
     });
     return $scope.total;
   };
+
+  $scope.getOrderDate = function(order){
+  	$scope.shipDate = order.shipDate;
+  }
+
+  $scope.changeStatus = function(order, status){
+  	return order.status = status;
+  }
+  
   $scope.getAllOrders();
+
 })
