@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('productCtrl', function ($scope, products) {
+app.controller('productCtrl', function ($scope, products,$rootScope) {
 	$scope.catalog = products;
 	$scope.search={};
 	$scope.brand = function(brand){
@@ -29,13 +29,14 @@ app.controller('productCtrl', function ($scope, products) {
 		$scope.selectedSize=size;
 	}
 	$scope.selectedSize = null; 
+	
+	$rootScope.$on('$stateChange', scrollToTarget('1'))
 })
 
 app.filter('sizeSelect', function(){
 	return function(input, size ){
 		if(!size) return input
 		return input.filter(function(el){
-			console.log(size)
 			if(el.sizes[size]) return true
 		})
 	}
@@ -53,7 +54,7 @@ app.factory('ProductList', function ($http) {
 		getOne: function(product){
 			return $http.get('/api/products/'+product)
 			.then(function(product){
-				console.log(product.data)
+				// console.log(product.data)
 				return product.data
 			})
 		},
@@ -85,6 +86,13 @@ app.factory('ProductList', function ($http) {
 				if(shoe.sizes[key])sizes.push(key)
 			};
 			return sizes;
+		},
+
+		getReviews: function(shoe){
+			return $http.get('/api/reviews/item/'+ shoe._id)
+			.then(function(reviews){
+				return reviews.data
+			})
 		}
 	};
 })

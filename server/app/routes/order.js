@@ -19,7 +19,7 @@ router.param('orderId', function(req, res, next, id) {
 
 //get single order
 router.get('/:orderId', function(req, res, next) {
-  Order.getOneOrder(req.params.orderId)
+  Order.findById(req.params.orderId)
     .then(function(order) {
       res.json(order);
     })
@@ -28,7 +28,7 @@ router.get('/:orderId', function(req, res, next) {
 
 //get all orders
 router.get('/', function(req, res, next) {
-  Order.getAllOrders()
+  Order.find({})
     .then(function(orders) {
       res.json(orders);
     })
@@ -55,7 +55,7 @@ router.delete('/:orderId', function(req, res, next) {
 
 //update order status
 router.put('/:orderId', function(req, res, next) {
-  req.order.changeOrderStatus(req.body.orderStatus)
+  req.order.changeOrderStatus(req.body.status)
     .then(function(order) {
       res.json(order);
     })
