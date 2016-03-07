@@ -8,16 +8,15 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
 
   $rootScope.$storage = $localStorage.items;
 
-  //if logged in, keep changes in database
-  //if guest user, keep cart in localstorage
   Cart.auth = {
   	cart: [],
     total: 0,
     fetch: function(cartId) {
+    	//be able to take find id using user's cart ID
       return $http.get('/api/cart/' + cartId).then(res => {
-        angular.copy(res.data.items, Cart.auth.cart);
+        // angular.copy(res.data.items, Cart.auth.cart);
         Cart.auth.id = res.data._id;
-        return Cart.auth.cart;
+        return res.data.items;
       });
     },
     getTotal: function() {
@@ -59,12 +58,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
   //add total and cart and addtotal to main object
   Cart.unauth = {
     total: 0,
-    getTotal: function() {
-      Cart.auth.cart.forEach(function(item) {
-        Cart.auth.total += item.product.price * item.quantity;
-      })
-      return Cart.auth.total;
-    },
+    cart: [],
     fetch: function() {
       if (!$localStorage.items) $localStorage.items = [];
       Cart.unauth.cart = $localStorage.items;
@@ -104,31 +98,42 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
         .then(res => res.data);
     },
     getTotal: function() {
-      return Cart.unauth.cart.reduce(function(prev, curr) {
+      return Cart.unauth.cart.reduce(function(prev, curr, ind) {
         return prev + curr.product.price * curr.quantity;
       }, 0);
     }
   };
 
-  var cartFactory = Cart.auth;
-  cartFactory.fetch("56d8a65596446dcb5eb7c221");
+  var cartFactory = {};
 
-  // var cartFactory = Cart.unauth;
-  // cartFactory.fetch();
-  
-  var loggedIn;
+  function setCartUnauth(){
+  	Cart.unauth.fetch();
+  	cartFactory = Cart.unauth;
+  	// angular.copy(Cart.unauth, cartFactory);
+  	console.log('unauth', cartFactory);
+  }
+
+  function setCartAuth(){
+    Cart.auth.fetch("56d8a65596446dcb5eb7c221").then(res =>{
+    	// cartFactory = Cart.auth;
+	    angular.copy(Cart.auth, cartFactory);
+	    console.log('auth', cartFactory);
+    });
+  };
+
+  if(loggedIn) {
+  	setCartAuth();
+  }
+  else {
+  	setCartUnauth();
+  }
 
   $rootScope.$on('auth-login-success', function(event, data) {
-    loggedIn = true;
-    console.log(loggedIn);
-    cartFactory = Cart.auth;
-    cartFactory.fetch();
+    setCartAuth();
   });
 
-  $rootScope.$on('auth-session-timeout', function(event, data) {
-    loggedIn = false;
-    cartFactory = Cart.unauth;
-    cartFactory.fetch();
+  $rootScope.$on('auth-logout-success', function(event, data) {
+    setCartUnauth();
   });
 
   return cartFactory;

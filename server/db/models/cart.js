@@ -15,8 +15,6 @@ cartSchema.methods.editQuantity = function(id, size, qty) {
   var cart = this;
   var found = false;
 
-  console.log("here");
-
   if (!qty) cart.removeItem(id, size);
   else {
     cart.items.forEach(function(item) {

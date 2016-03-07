@@ -42,7 +42,7 @@ router.post('/', function(req, res) {
     }, next);
 });
 
-router.post('/checkoutGuest', function(req, res, next){
+router.post('/checkout', function(req, res, next){
   //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
   var productPromises = [];
   var cart = req.body.cart;
@@ -83,7 +83,7 @@ router.post('/checkoutGuest', function(req, res, next){
 });
 
 /* IN PROGRESS */
-router.post('/:id/checkout', function(req, res) {
+router.post('/checkout/:id', function(req, res) {
   //processing payment info
   var shipAddress = req.body.shipAddress;
   var billAddress = req.body.billAddress;

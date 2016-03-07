@@ -4,11 +4,21 @@ var orderSchema = new mongoose.Schema({
   userId: {
     type: Number
   },
-  shipAddress: {
-    type: String
+  shipAddress: { 
+    name: String,
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    zip: String
   },
   billAddress:{
-    type: String
+    name: String,
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    zip: String
   },
   items: [{
     itemId: String,
@@ -18,9 +28,9 @@ var orderSchema = new mongoose.Schema({
     price: Number,
     size: Number
   }],
-  orderStatus: {
+  status: {
     type: String,
-    enum: ['created', 'processing', 'shipped', 'fulfilled', 'canceled', 'error', 'disputed']
+    enum: ['Created', 'Processing', 'Shipped', 'Fulfilled', 'Canceled']
   },
   returnStatus: {
     type: String,
@@ -36,23 +46,12 @@ var orderSchema = new mongoose.Schema({
 });
 
 orderSchema.methods.changeOrderStatus = function(status) {
-  this.orderStatus = status;
+  this.status = status;
 
   if (status === 'shipped') {
     this.shipDate = Date.now();
   }
   return this.save();
-}
-
-orderSchema.statics.getOneOrder = function(id) {
-  return mongoose
-    .model('Order')
-    .findById(id);
-}
-
-orderSchema.statics.getAllOrders = function() {
-  return mongoose
-    .model('Order').find({});
 }
 
 mongoose.model('Order', orderSchema);
