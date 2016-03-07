@@ -1,39 +1,66 @@
-<!-- bloc-14 -->
-<div class="bloc bgc-white bg-adidas-yeezy-boost-350-giveaway-00 d-bloc" id="bloc-14">
+<!-- bloc-17 -->
+<div class="bloc bgc-white bg-adidas-yeezy-boost-350-giveaway-00 d-bloc" id="bloc-17">
 	<div class="container bloc-sm">
 		<div class="row">
 			<div class="col-sm-3">
 				<img src="img/kanye-west.jpg" class="img-responsive img-frame" />
 			</div>
 			<div class="col-sm-9">
-				<h1 class="mg-md text-center">
-
+				<h2 class="mg-md text-center  tc-electric-blue lg-shadow">
+					Hello!
+				</h2>
+				<h1 class="mg-md text-center  lg-shadow">
+					Kanye West
 				</h1>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- bloc-14 END -->
-
-<!-- bloc-15 -->
-<div class="bloc l-bloc bgc-white" id="bloc-15">
+<!-- bloc-17 END -->
+<!-- bloc-18 -->
+<div class="bloc l-bloc bgc-white" id="bloc-18">
 	<div class="container bloc-sm">
 		<div class="row">
 			<div class="col-sm-3">
-				<ul class="list-unstyled">
-				</ul>
+				<div class="panel">
+					<div class="panel-heading bgc-outer-space">
+						<h3 class="mg-clear text-center tc-white sm-shadow">
+							Admin
+						</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<li>
+								<div class="btn-group btn-block">
+									<a href="#" class="btn dropdown-toggle  btn-block btn-sq btn-d btn-clean btn-lg" data-toggle="dropdown" aria-expanded="false"><span class="fa fa-cubes icon-spacer"></span>Orders<span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li>
+											<a href="index.html" class="a-btn a-block">New Orders</a>
+										</li>
+										<li>
+											<a href="index.html" class="a-btn a-block">Options 2</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<div class="btn-group btn-block">
+									<a ui-sref="adminUsersList" class="btn btn-d  btn-clean btn-sq btn-lg btn-block"  aria-expanded="true"><span class="fa fa-group icon-spacer"></span>Users</a>
+								</div>
+							</li>
+							<li>
+								<div class="btn-group btn-block">
+								<a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-9">
-				<h1 class="mg-md text-center ">
-
-					ADMIN PAGE		
-
-					ADMINNY STUFF
-
-				</h1>
 				<h3>
 					<div ng-show="!user.isAdmin">
-						<label>Filter By Order Status:</label>
+						<label>Filter Order By Status:</label>
 						<select name="status" ng-model="order.status">
 							<option>Created</option>
 							<option>Processing</option>
@@ -50,4 +77,4 @@
 		</div>
 	</div>
 </div>
-<!-- bloc-15 END -->
+<!-- bloc-18 END -->
