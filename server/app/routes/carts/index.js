@@ -41,6 +41,7 @@ router.post('/', function(req, res, next) {
       res.json(result);
     }, next);
 });
+
 router.put('/:id/:itemId', function(req, res) {
     req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity)
       .then(saved => {
@@ -48,6 +49,7 @@ router.put('/:id/:itemId', function(req, res) {
         .populate('items.product');
       }).then(popCart => res.json(popCart));
 });
+
 router.delete('/:id/:itemId/:size', function(req, res, next) {
     req.cart.removeItem(req.params.itemId, req.params.size)
     .then(saved => {
@@ -56,16 +58,20 @@ router.delete('/:id/:itemId/:size', function(req, res, next) {
       }).then(popCart => res.json(popCart))
     .catch(next);
 });
+
 router.delete('/:id', function(req, res, next) {
     req.cart.items = [];
     req.cart.save().then(saved => res.json(saved), next);
 });
+
 router.post('/checkout', function(req, res, next){
   //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
   var productPromises = [];
   var token = req.body.token;
   var cart = req.body.cart;
   var toPurchase = [];
+  var user = "";
+  if(req.user) user = req.user._id;
 
   cart.forEach(function(item){
     productPromises.push(Product.findById(item.product._id).exec());
@@ -103,6 +109,7 @@ router.post('/checkout', function(req, res, next){
       })
     }).then(charge => {
       return Order.create({
+        userId: user,
         items: toPurchase,
         orderStatus: 'created',
         shipAddress: req.body.shipAddress,
@@ -111,59 +118,5 @@ router.post('/checkout', function(req, res, next){
     }, next).then(newOrder => res.json(newOrder)
     ).then(null, next);
 });
-/* IN PROGRESS */
-// (Assuming you're using express - expressjs.com)
-// Get the credit card details submitted by the form
 
-// router.post('/checkout/:id', function(req, res, next) {
-//   //processing payment info
-//   var shipAddress = req.body.shipAddress;
-//   var billAddress = req.body.billAddress;
-//   var token = req.body.token;
-//   var toPurchase = [];
-//   var cart1 = req.b;
-
-//   var price = 0;
-//   Cart.findById(req.params.id)
-//     .populate('items.product')
-//     .then(cart => {
-//       console.log(cart)
-//       cart1 = cart;
-//       cart.items.forEach(item => {
-//         if (item.product.sizes[item.size] >= +item.quantity) {
-//           console.log(item);
-//           price += item.product.price;
-//           toPurchase.push({
-//             itemId: item.product.itemId,
-//             brand: item.product.brand,
-//             name: item.product.name,
-//             price: +item.product.price,
-//             size: +item.size,
-//             quantity: +item.quantity
-//           });
-//           item.product.sizes[item.size] -= (+item.quantity);
-//           item.product.save();
-//         }
-//       });
-
-//       return stripe.charges.create({
-//         amount: price, // amount in cents, again
-//         currency: "usd",
-//         source: token,
-//         description: "Example charge"
-//       })
-//     }).then((charge)=>{
-//       return Order.create({
-//         items: toPurchase,
-//         orderStatus: 'Created',
-//         shipAddress: shipAddress,
-//         billAddress: billAddress,
-//         userId: cart1.user
-//       });
-//     },next).then(order => {
-//       res.json(order);
-//       cart1.items = [];
-//       return cart1.save();
-//     }).catch(next);
-// });
 module.exports = router;
