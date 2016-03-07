@@ -127,7 +127,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
   }
 
   function setCartAuth(){
-    Cart.auth.fetch("56ddb0cc24a858528b16acc6").then(res =>{
+    Cart.auth.fetch("56db79e60ccef804e068a725").then(res =>{
 	    angular.copy(Cart.auth, cartFactory);
 	    console.log('auth', cartFactory);
     });
