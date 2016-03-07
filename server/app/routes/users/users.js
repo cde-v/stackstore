@@ -7,13 +7,15 @@ var User = require('mongoose').model('User');
 
 router.param('userId', routerParamUserId);
 router.get('/', getAllUsers);
-router.post('/', postNewUser);
+router.post('/signup', postNewUser);
 router.get('/:userId', getUserById);
 router.delete('/:userId', deleteUserById);
 router.get('/:userId/orders', getUserOrders);
 router.get('/:userId/reviews', getUserReviews);
 router.get('/:userId/cart', getUserCart);
 router.put('/toggleAdmin/:userId', putToggleAdminUser);
+router.put('/toggleNeedsPasswordReset/:userId', putToggleNeedsPasswordReset);
+router.put('/updatePW/:userId', putUpdatePW);
 
 function routerParamUserId(req, res, next, userId) {
   User.findById(userId).exec()
@@ -75,6 +77,23 @@ function getUserCart(req, res, next) {
 
 function putToggleAdminUser(req, res, next) {
   req.requestedUser.toggleAdmin()
+    .then(function(user) {
+      res.json(user);
+    })
+    .then(null, next);
+}
+
+function putToggleNeedsPasswordReset(req, res, next) {
+  req.requestedUser.toggleNeedsPasswordReset()
+    .then(function(user) {
+      res.json(user);
+    })
+    .then(null, next);
+}
+
+function putUpdatePW(req, res, next) {
+  // console.log("req.body in routes", req.body);
+  req.requestedUser.updatePW(req.body)
     .then(function(user) {
       res.json(user);
     })

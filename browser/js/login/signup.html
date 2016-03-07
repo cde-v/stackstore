@@ -1,42 +1,54 @@
 <!-- bloc-12 -->
 <div class="bloc bgc-white bg-Yeezy-Boost d-bloc" id="bloc-12">
-	<div class="container bloc-xxl">
-		<div class="row">
-			<div class="col-sm-4">
-				<span class="empty-column"></span>
-			</div>
-			<div class="col-sm-4">
-				<form id="form-2" novalidate>
-					<h1 class="mg-md text-center">
+  <div class="container bloc-xxl">
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="empty-column"></span>
+      </div>
+      <div class="col-sm-4">
+        <form id="form-2" ng-submit="createUser(SignupForm)" novalidate>
+          <h1 class="mg-md text-center">
 						Sign Up
 					</h1>
-					<div class="form-group">
-						<label>
-							Email
-						</label>
-						<input id="email" class="form-control" type="email" required />
-					</div>
-					<div class="form-group">
-						<label>
-							Password
-						</label>
-						<input id="name" class="form-control" required type="password" />
-					</div>
-					<div class="form-group">
-						<label>
-							Confirm Password
-						</label>
-						<input id="name" class="form-control" required type="password" />
-					</div> 
-					<button class="bloc-button btn btn-d btn-lg btn-block" type="submit">
-						Submit
-					</button>
-				</form>
-			</div>
-			<div class="col-sm-4">
-				<span class="empty-column"></span>
-			</div>
-		</div>
-	</div>
+          <div class="form-group">
+            <label>
+              First Name
+            </label>
+            <input id="firstName" class="form-control" type="text" ng-model="SignupForm.firstName" required />
+          </div>
+          <div class="form-group">
+            <label>
+              Last Name
+            </label>
+            <input id="lastName" class="form-control" type="text" ng-model="SignupForm.lastName" required />
+          </div>
+          <div class="form-group">
+            <label>
+              Email
+            </label>
+            <input id="email" class="form-control" type="email" ng-model="SignupForm.email" required />
+          </div>
+          <div class="form-group">
+            <label>
+              Password
+            </label>
+            <input id="password" class="form-control" type="password" ng-model="SignupForm.password" required />
+          </div>
+          <div class="form-group">
+            <label>
+              Confirm Password
+            </label>
+            <input id="password2" class="form-control" type="password" ng-model="SignupForm.password2" required/>
+          </div>
+          <button class="bloc-button btn btn-d btn-lg btn-block" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="col-sm-4">
+        <span class="empty-column"></span>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- bloc-12 END -->
