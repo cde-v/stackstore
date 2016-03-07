@@ -1,17 +1,18 @@
-app.controller('OrderController', function ($scope, OrderFactory) {
-	
+app.controller('OrderController', function($scope, OrderFactory) {
 
-	// $scope.getOrderById = function(id) {
- //        return OrderFactory.fetchById()
-       
- //      };
+  $scope.getAllOrders = function() {
+    return OrderFactory.fetchAll()
+      .then(function(orders) {
+        $scope.orders = orders;
+      });
+  };
 
-      $scope.getAllOrders = function(){
-      	return OrderFactory.fetchAll()
-      	 .then(function(orders){
-        	$scope.orders = orders;
-        })
-      }
-
-      $scope.getAllOrders();
+  $scope.getTotal = function(order) {
+    $scope.total = 0;
+    order.items.forEach(function(item) {
+      $scope.total += item.price * item.quantity;
+    });
+    return $scope.total;
+  };
+  $scope.getAllOrders();
 })

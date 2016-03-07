@@ -30,7 +30,7 @@ var orderSchema = new mongoose.Schema({
   }],
   status: {
     type: String,
-    enum: ['Created', 'Processing', 'Shipped', 'Fulfilled', 'Canceled', 'Error', 'Disputed']
+    enum: ['Created', 'Processing', 'Shipped', 'Fulfilled', 'Canceled']
   },
   returnStatus: {
     type: String,

@@ -10,12 +10,12 @@ app.directive('order', function(OrderFactory) {
     link: function(scope) {
 
       scope.hasShipped = function(order) {
-        return order.status === 'shipped';
+        return order.status === 'Shipped';
       };
 
       scope.getStatus = function(order) {
         return order.status;
-      }
+      }      
     }
   };
 });
