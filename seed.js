@@ -40,7 +40,7 @@ var seedUsers = function () {
     for(var i = 0; i < 30; i++){
         users.push({
             email:chance.email(),
-            password:chance.word()
+            password: "password"
         });
     }
 
