@@ -23,6 +23,16 @@
         </a>
       </div>
       <div class="col-sm-2">
+        <a ng-click="toggleNeedsPasswordReset(user)">
+          <h5 ng-if="!user.needsPasswordReset">
+            <span class="fa fa-fire text-muted">Trigger Password Reset</span>
+          </h5>
+          <h5 ng-if="user.needsPasswordReset">
+            <span class="fa fa-fire-extinguisher text-success">Un-trigger Password Reset</span>
+          </h5>
+        </a>
+      </div>
+      <div class="col-sm-2">
         <a ng-click="removeUser(user)">
           <h5 ng-if="!user.isAdmin">
             <span class="fa fa-ban text-danger">Delete User</span>

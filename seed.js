@@ -29,10 +29,14 @@ var seedUsers = function () {
     var users = [
         {
             email: 'testing@fsa.com',
+            firstName: 'Tester',
+            lastName: 'McTesterson',
             password: 'password'
         },
         {
             email: 'obama@gmail.com',
+            firstName: 'Barack',
+            lastName: 'Obama',
             password: 'potus'
         }
     ];
@@ -40,7 +44,9 @@ var seedUsers = function () {
     for(var i = 0; i < 30; i++){
         users.push({
             email:chance.email(),
-            password: "password"
+            password: "password",
+            firstName: "Joe/Jane",
+            lastName: "Shoeshopper PhD, Esq, CPA"
         });
     }
 

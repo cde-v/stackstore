@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var cartSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  session: { type: String },
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  // session: { type: String },
   items: [{
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     size: {type: Number},
