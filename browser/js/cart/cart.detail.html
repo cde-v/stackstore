@@ -15,7 +15,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in cart">
+                            <tr ng-repeat="item in CartFactory.cart">
                                 <td class="prod-img">
                                     <a ui-sref="productsDetail({itemId:item.product.itemId})"><img src="{{item.product.images[0]}}" class="img-responsive img-frame table-image" /></a>
                                 </td>
@@ -27,12 +27,12 @@
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" 
-                                                    ng-click = "editQty(item.product._id, item.size, +item.quantity-1)" 
+                                                    ng-click = "CartFactory.editQty(item.product._id, item.size, +item.quantity-1)" 
                                                     type="button">-</button>
                                         </span>
                                         <input id = "qty-form" type="text" class="form-control" ng-model="item.quantity"/>
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" ng-click = "editQty(item.product._id, item.size, +item.quantity+1)"  type="button">+</button>
+                                            <button class="btn btn-default" ng-click = "CartFactory.editQty(item.product._id, item.size, +item.quantity+1)"  type="button">+</button>
                                         </span>
                                     </div>
                                 </td>
@@ -40,14 +40,14 @@
                                     <p>${{item.product.price}}</p>
                                 </td>
                                 <td id="delete">
-                                    <a ng-click="removeItem(item.product._id, item.size)" type="button">X</a>
+                                    <a ng-click="CartFactory.removeItem(item.product._id, item.size)" type="button">X</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td/>
                                 <td/>
                                 <td/>
-                                <td class="prod-price"><b>Total: ${{getTotal()}}</b></td>
+                                <td class="prod-price"><b>Total: ${{CartFactory.getTotal()}}</b></td>
                                 <td/>
                             </tr>
                         </tbody>

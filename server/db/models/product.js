@@ -9,6 +9,10 @@ var productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  department: {
+    type: String,
+    required: true
+  },  
   brand: {
     type: String,
     required: true
@@ -61,9 +65,6 @@ var productSchema = new mongoose.Schema({
   description: String
 });
 
-// Product.virtual('rating')
-//   .get(function({
 
-//     });
 
 mongoose.model('Product', productSchema);
