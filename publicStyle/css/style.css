@@ -1,11 +1,10 @@
-/*-----------------------------------------------------------------------------------*/
 /*      Stackstore
 /*      Built with Blocs
 /*-----------------------------------------------------------------------------------*/
 html{
 	min-height: 100vh;
-
 }
+
 body{
 	/*min-height: 100vh;*/
 	margin:0;
@@ -426,6 +425,7 @@ button{
 
 /* Image Frame */
 .img-frame,.img-frame-md,.img-frame-lg,.img-frame-rd,.img-frame-rd-md,.img-frame-rd-lg{
+
     background:#FFF;
     border:1px solid rgba(0,0,0,0.1);
     box-shadow:0 2px 2px rgba(0,0,0,0.05);
@@ -579,26 +579,31 @@ tr:nth-child(odd) {background: rgba(255,255,255,0.4)}
 tr:nth-child(even) {background: rgba(100,100,100,0.4)}
 
 #delete {
-    width:50px;
+	width:50px;
+}
+
+#payment-info {
+	padding: 20px;
+	background: rgba(255,255,255,0.4)
 }
 
 /* Icon colour styles */
 
 .icon-cornflower-blue{
-    color:#499EFF!important;
-    border-color:#499EFF!important;
+	color:#499EFF!important;
+	border-color:#499EFF!important;
 }
 .icon-electric-blue{
-    color:#6DFCF7!important;
-    border-color:#6DFCF7!important;
+	color:#6DFCF7!important;
+	border-color:#6DFCF7!important;
 }
 .icon-persian-rose{
-    color:#FF31A3!important;
-    border-color:#FF31A3!important;
+	color:#FF31A3!important;
+	border-color:#FF31A3!important;
 }
 .icon-aqua{
-    color:#08F2FF!important;
-    border-color:#08F2FF!important;
+	color:#08F2FF!important;
+	border-color:#08F2FF!important;
 }
 
 /* Bloc image backgrounds */
@@ -676,7 +681,9 @@ div + .no-items{
   background: -o-linear-gradient(right, #560202, #3e0001); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(right, #560202, #3e0001); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to right, #560202 , #3e0001); /* Standard syntax */
-
+}
+.bg-opaq{
+	background-color: rgba(0, 0, 0, .3);
 }
 #splash .empty-column{
 	height: 650px;
@@ -686,7 +693,6 @@ div + .no-items{
 	text-align: center;
 }
 #splash-title{
-
     background-color: rgba(0, 0, 0, .3);
 }
 

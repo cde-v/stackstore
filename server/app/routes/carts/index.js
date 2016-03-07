@@ -34,7 +34,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 // changing from local cart to db cart
-router.post('/', function(req, res) {
+router.post('/', function(req, res, next) {
   var items = req.body.items;
   Cart.create({ user: req.user._id, items: items })
     .then(result => {
@@ -53,7 +53,7 @@ router.post('/checkout', function(req, res, next){
 
   Promise.all(productPromises)
     .then(promiseArray => {
-      var toPurchase = []
+      var toPurchase = [];
       promiseArray.forEach(function(product, ind){
         if(product.sizes[cart.items[ind].size]){
           toPurchase.push({
@@ -61,8 +61,8 @@ router.post('/checkout', function(req, res, next){
             brand: product.brand,
             name: product.name,
             price: +product.price,
-            size: +size,
-            quantity: +quantity
+            size: +cart.items[ind].size,
+            quantity: +cart.items[ind].quantity
           });
 
           product.sizes[cart.items[ind].size] -= cart.items[ind].quantity;
@@ -83,7 +83,7 @@ router.post('/checkout', function(req, res, next){
 });
 
 /* IN PROGRESS */
-router.post('/checkout/:id', function(req, res) {
+router.post('/checkout/:id', function(req, res, next) {
   //processing payment info
   var shipAddress = req.body.shipAddress;
   var billAddress = req.body.billAddress;
@@ -124,7 +124,7 @@ router.post('/checkout/:id', function(req, res) {
       res.json(order);
       cart1.items = [];
       return cart1.save();
-    }).catch(err => res.sendStatus(500));
+    }).catch(next);
 });
 
 router.put('/:id/:itemId', function(req, res) {
@@ -140,12 +140,13 @@ router.delete('/:id/:itemId/:size', function(req, res, next) {
     .then(saved => {
         return Cart.findById(saved._id)
         .populate('items.product');
-      }).then(popCart => res.json(popCart));
+      }).then(popCart => res.json(popCart))
+    .catch(next);
 });
 
-router.delete('/:id', function(req, res) {
+router.delete('/:id', function(req, res, next) {
     req.cart.items = [];
-    cart.save().then(saved => res.json(cart), next);
+    req.cart.save().then(saved => res.json(saved), next);
 });
 
 module.exports = router;
