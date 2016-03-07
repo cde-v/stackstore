@@ -103,9 +103,12 @@
       this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
     if(!this.currentCart){
-      Cart.create({}).then(cart => this.currentCart = cart);
-    }
-    next();
+      Cart.create({}).then(cart => {
+        this.currentCart = cart;
+        next();
+      });
+    }else next();
+    
   }
 
   mongoose.model('User', userSchema);
