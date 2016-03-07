@@ -1,13 +1,27 @@
 //use auth services?
 
-app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
+app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, AuthService) {
   var Cart = {
     auth: {},
     unauth: {}
   };
-  
-  $rootScope.$storage = $localStorage.items;
 
+  var cartFactory = {};
+  var loggedIn;
+
+  AuthService.getLoggedInUser().then(user => {
+    console.log("user", user);
+    if(user){
+      loggedIn = true;
+      setCartAuth();
+    }else{
+      loggedIn = false;
+      setCartUnauth();
+    }
+  });
+
+  var user;
+  
   Cart.auth = {
   	cart: [],
     total: 0,
@@ -117,38 +131,28 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
     }
   };
 
-  var cartFactory = {};
-  var loggedIn = false;
-
-  function setCartUnauth(){
-  	Cart.unauth.fetch();
-  	angular.copy(Cart.unauth, cartFactory);
-  	console.log('unauth', cartFactory);
-  }
-
-  function setCartAuth(){
-    Cart.auth.fetch("56ddb0cc24a858528b16acc6").then(res =>{
-	    angular.copy(Cart.auth, cartFactory);
-	    console.log('auth', cartFactory);
-    });
-  };
-
-  //check upon page load
-  if(loggedIn) {
-  	setCartAuth();
-  }
-  else {
-  	setCartUnauth();
-  }
-
-  //on broadcasting login/logout, toggle cart
   $rootScope.$on('auth-login-success', function(event, data) {
     setCartAuth();
+    loggedIn = true;
   });
 
   $rootScope.$on('auth-logout-success', function(event, data) {
     setCartUnauth();
+    loggedIn = false;
   });
+
+  function setCartUnauth(){
+    Cart.unauth.fetch();
+    angular.copy(Cart.unauth, cartFactory);
+    console.log('unauth', cartFactory);
+  }
+
+  function setCartAuth(){
+    Cart.auth.fetch("56ddb0cc24a858528b16acc6").then(res =>{
+      angular.copy(Cart.auth, cartFactory);
+      console.log('auth', cartFactory);
+    });
+  }
 
   return cartFactory;
 });

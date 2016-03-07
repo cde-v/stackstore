@@ -42,6 +42,28 @@ router.post('/', function(req, res, next) {
     }, next);
 });
 
+router.put('/:id/:itemId', function(req, res) {
+    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity)
+      .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart));
+});
+
+router.delete('/:id/:itemId/:size', function(req, res, next) {
+    req.cart.removeItem(req.params.itemId, req.params.size)
+    .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart))
+    .catch(next);
+});
+
+router.delete('/:id', function(req, res, next) {
+    req.cart.items = [];
+    req.cart.save().then(saved => res.json(saved), next);
+});
+
 router.post('/checkout', function(req, res, next){
   //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
   var productPromises = [];
@@ -92,11 +114,10 @@ router.post('/checkout/:id', function(req, res, next) {
   // var price = 0;
   Cart.findById(req.params.id)
     .populate('items.product')
-    .exec((error, cart) => cart)
     .then(cart => {
       cart1 = cart;
       cart.items.forEach(item => {
-        if (item.product.sizes[item.size]) {
+        if (item.product.sizes[item.size] <= item.quantity) {
           // price += item.product.price;
           toPurchase.push({
             itemId: item.product.itemId,
@@ -117,8 +138,7 @@ router.post('/checkout/:id', function(req, res, next) {
         orderStatus: 'created',
         shipAddress: shipAddress,
         billAddress: billAddress,
-        userId: req.user._id
-        //userId?
+        userId: cart1.user
       });
     }).then(order => {
       res.json(order);
@@ -127,26 +147,5 @@ router.post('/checkout/:id', function(req, res, next) {
     }).catch(next);
 });
 
-router.put('/:id/:itemId', function(req, res) {
-    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity)
-      .then(saved => {
-        return Cart.findById(saved._id)
-        .populate('items.product');
-      }).then(popCart => res.json(popCart));
-});
-
-router.delete('/:id/:itemId/:size', function(req, res, next) {
-    req.cart.removeItem(req.params.itemId, req.params.size)
-    .then(saved => {
-        return Cart.findById(saved._id)
-        .populate('items.product');
-      }).then(popCart => res.json(popCart))
-    .catch(next);
-});
-
-router.delete('/:id', function(req, res, next) {
-    req.cart.items = [];
-    req.cart.save().then(saved => res.json(saved), next);
-});
 
 module.exports = router;

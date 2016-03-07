@@ -11,6 +11,14 @@ var cartSchema = new mongoose.Schema({
   }]
 });
 
+cartSchema.methods.addLocalCart = function(itemsFromLocal){
+  var cart = this;
+  itemsFromLocal.forEach(function(item){
+    cart.editQuantity(item.product._id, item.size, item.qty);
+  });
+  return cart.save();
+};
+
 cartSchema.methods.editQuantity = function(id, size, qty) {
   var cart = this;
   var found = false;
