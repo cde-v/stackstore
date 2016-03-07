@@ -12,6 +12,9 @@ module.exports = function (app) {
     var strategyFn = function (email, password, done) {
         User.findOne({ email: email })
             .then(function (user) {
+                // console.log(user);
+                // console.log(!user.correctPassword(password));
+                // console.log(!user);
                 // user.correctPassword is a method from the User schema.
                 if (!user || !user.correctPassword(password)) {
                     done(null, false);

@@ -83,6 +83,11 @@
 
   // local authentication security
   function correctPassword(candidatePassword) {
+    console.log(candidatePassword);
+    console.log(this.salt);
+    console.log(this.password);
+    console.log(encryptPassword(candidatePassword, this.salt));
+
     return encryptPassword(candidatePassword, this.salt) === this.password;
   }
 
