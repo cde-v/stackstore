@@ -890,3 +890,11 @@ div + .no-items{
         display:none;
     }
 }
+
+#loginForm {
+    padding-top: 25px;
+    padding-bottom: 50px;
+    height: 105%;
+}
+
+

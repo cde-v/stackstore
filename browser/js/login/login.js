@@ -22,10 +22,9 @@ app.controller('LoginCtrl', function($scope, AuthService, $state) {
         .then(function(user) {
           if(user.needsPasswordReset) $state.go('reset');
           else $state.go('home');
-        }).catch(function() {
-          $scope.error = 'Invalid login credentials.';
         });
-
+    }).catch(function() {
+      $scope.error = 'Invalid login credentials.';
     });
-  }
+  };
 });
