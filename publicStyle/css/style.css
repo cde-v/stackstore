@@ -553,6 +553,11 @@ tr:nth-child(even) {background: rgba(100,100,100,0.4)}
 	width:50px;
 }
 
+#payment-info {
+	padding: 20px;
+	background: rgba(255,255,255,0.4)
+}
+
 /* Icon colour styles */
 
 .icon-cornflower-blue{
