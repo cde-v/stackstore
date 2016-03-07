@@ -1,17 +1,48 @@
-<nav class="navbar navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+<!-- Navigation Bloc -->
+<nav id="b-nav" class="bloc-container">
+  <div id="bloc-nav" class="d-mode">
+    <div class="bloc bgc-outer-space d-bloc" id="nav-bloc">
+      <div class="container">
+        <nav class="navbar row">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo" width="40" />KickStack</a>
+            <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse navbar-1">
+            <ul class="site-navigation nav navbar-nav">
+              <li ng-repeat="item in items" ng-if="item.alwaysShow || (item.showToLoggedOut === !isLoggedIn())">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
+              </li>
+              <li ng-if="isLoggedIn()">
+                <a ui-sref-active="active" ng-click="logout()">Logout</a>
+                Welcome, {{ user.firstName + " " + user.lastName }}
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
+  </div>
 </nav>
+<!-- Navigation Bloc END -->
+
+<!-- <nav class="navbar navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <fullstack-logo></fullstack-logo>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+        <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+      </li>
+    </ul>
+    <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+    <div ng-show="user" class="welcome">
+      <span>Welcome, {{ user.email }}!</span>
+      <a ng-click="logout()">Logout</a>
+    </div>
+  </div>
+</nav>
+ -->
