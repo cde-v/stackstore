@@ -31,7 +31,19 @@
 					ADMINNY STUFF
 
 				</h1>
-				<order order="order" ng-repeat="order in orders"></order>
+				<h3>
+					<div ng-show="!user.isAdmin">
+						<label>Filter By Order Status:</label>
+						<select name="status" ng-model="order.status">
+							<option>Created</option>
+							<option>Processing</option>
+							<option>Shipped</option>
+							<option>Fulfilled</option>
+							<option>Canceled</option>
+						</select>
+					</div>
+				</h3>
+				<order order="order" ng-repeat="order in orders | orderFilter:order.status"></order>
 				<ul class="list-unstyled">
 				</ul>
 			</div>

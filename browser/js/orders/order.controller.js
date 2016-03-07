@@ -1,4 +1,4 @@
-app.controller('OrderController', function($scope, OrderFactory) {
+app.controller('OrderController', function($scope, OrderFactory, AuthService) {
 
   $scope.getAllOrders = function() {
     return OrderFactory.fetchAll()
@@ -6,6 +6,9 @@ app.controller('OrderController', function($scope, OrderFactory) {
         $scope.orders = orders;
       });
   };
+	AuthService.getLoggedInUser().then(function(user){
+		$scope.user = user;
+	})
 
   $scope.getTotal = function(order) {
     $scope.total = 0;
@@ -14,5 +17,28 @@ app.controller('OrderController', function($scope, OrderFactory) {
     });
     return $scope.total;
   };
+
+  $scope.getShipDate = function(order){
+  	$scope.shipDate = order.shipDate;
+  }
+
+   $scope.status = [
+        'Created',
+        'Processing',
+        'Shipped',
+        'Fulfilled',
+        'Canceled'
+    ];
+
+  $scope.changeStatus = function(order, status){	
+  	OrderFactory.updateOrder(order._id, status);
+	order.status = status; 
+  }
+
+// $scope.filteredByStatus = $scope.orders.filter(function (status) {
+//   	return order.status === status;
+//   })
+  
   $scope.getAllOrders();
+
 })
