@@ -1,5 +1,5 @@
 	Stripe.setPublishableKey('pk_test_OAYbGBOJ1PSBsUJBf8We5KHP');
-app.controller("paymentController", function($scope, paymentFactory){
+app.controller("paymentController", function($scope, paymentFactory, CartFactory){
 	$scope.ccn = null
 	$scope.cvc = null
 	$scope.exp = null
@@ -23,6 +23,7 @@ app.controller("paymentController", function($scope, paymentFactory){
 		   		console.log('payment error')
 			} else {
 	  			info.token = response.id
+	  			info.cart = CartFactory.cart;
 	  			paymentFactory.checkout(info)
 	  		}
 		})

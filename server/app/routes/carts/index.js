@@ -5,7 +5,7 @@
 // Set your secret key: remember to change this to your live secret key in production
 // See your keys here https://dashboard.stripe.com/account/apikeys
 var stripe = require("stripe")("sk_test_LZflzAqVPpPjfSo0c9rXPMLZ");
-
+var chalk=require('chalk')
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 var Order = require('mongoose').model('Order');
@@ -63,90 +63,107 @@ router.delete('/:id', function(req, res, next) {
 router.post('/checkout', function(req, res, next){
   //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
   var productPromises = [];
+  var token = req.body.token;
   var cart = req.body.cart;
-  cart.items.forEach(function(item){
-    productPromises.push(Product.findById(item.product._id));
+  var toPurchase = [];
+
+  cart.forEach(function(item){
+    productPromises.push(Product.findById(item.product._id).exec());
   });
+
   Promise.all(productPromises)
     .then(promiseArray => {
-      var toPurchase = [];
+      var price = 0;
       promiseArray.forEach(function(product, ind){
-        if(product.sizes[cart.items[ind].size]){
+        console.log(product.sizes[cart[ind].size], +cart[ind].quantity)
+        if(product.sizes[cart[ind].size] >= +cart[ind].quantity){
           toPurchase.push({
             itemId: product.itemId,
             brand: product.brand,
             name: product.name,
             price: +product.price,
-            size: +cart.items[ind].size,
-            quantity: +cart.items[ind].quantity
+            size: +cart[ind].size,
+            quantity: +cart[ind].quantity
           });
-          product.sizes[cart.items[ind].size] -= cart.items[ind].quantity;
+          price += product.price;
+          product.sizes[cart[ind].size] -= +cart[ind].quantity;
           product.save();
         }
       });
-      return toPurchase;
-    }).then(toPurchase => {
+
+      //Promise.join(price, arrayOfSaved)
+        
+      return price;
+    }).then(price =>{
+      return stripe.charges.create({
+        amount: price, // amount in cents, again
+        currency: "usd",
+        source: token,
+        description: "Example charge"
+      })
+    }).then(charge => {
       return Order.create({
         items: toPurchase,
         orderStatus: 'created',
         shipAddress: req.body.shipAddress,
         billAddress: req.body.billAddress
         });
-    }).then(newOrder => res.json(newOrder)
+    }, next).then(newOrder => res.json(newOrder)
     ).then(null, next);
 });
 /* IN PROGRESS */
 // (Assuming you're using express - expressjs.com)
 // Get the credit card details submitted by the form
 
-router.post('/checkout/:id', function(req, res, next) {
-  //processing payment info
-  var shipAddress = req.body.shipAddress;
-  var billAddress = req.body.billAddress;
-  var token = req.body.token;
-  var toPurchase = [];
-  var cart1;
+// router.post('/checkout/:id', function(req, res, next) {
+//   //processing payment info
+//   var shipAddress = req.body.shipAddress;
+//   var billAddress = req.body.billAddress;
+//   var token = req.body.token;
+//   var toPurchase = [];
+//   var cart1 = req.b;
 
-  console.log(shipAddress,billAddress,token)
-  var price = 0;
-  Cart.findById(req.params.id)
-    .populate('items.product')
-    .then(cart => {
-      cart1 = cart;
-      cart.items.forEach(item => {
-        if (item.product.sizes[item.size] <= item.quantity) {
-          price += item.product.price;
-          toPurchase.push({
-            itemId: item.product.itemId,
-            brand: item.product.brand,
-            name: item.product.name,
-            price: +item.product.price,
-            size: +item.size,
-            quantity: +item.quantity
-          });
-          item.product.sizes[item.size]-=item.quantity;
-          item.product.save();
-        }
-      });
+//   var price = 0;
+//   Cart.findById(req.params.id)
+//     .populate('items.product')
+//     .then(cart => {
+//       console.log(cart)
+//       cart1 = cart;
+//       cart.items.forEach(item => {
+//         if (item.product.sizes[item.size] >= +item.quantity) {
+//           console.log(item);
+//           price += item.product.price;
+//           toPurchase.push({
+//             itemId: item.product.itemId,
+//             brand: item.product.brand,
+//             name: item.product.name,
+//             price: +item.product.price,
+//             size: +item.size,
+//             quantity: +item.quantity
+//           });
+//           item.product.sizes[item.size] -= (+item.quantity);
+//           item.product.save();
+//         }
+//       });
 
-      return stripe.charges.create({
-        amount: price*100, // amount in cents, again
-        currency: "usd",
-        source: token,
-        description: "Example charge"
-      })
-    }).then((charge)=>{
-      return Order.create({
-        items: toPurchase,
-        orderStatus: 'Created',
-        shipAddress: shipAddress,
-        billAddress: billAddress,
-        userId: cart1.user
-      });
-    },next).then(order => {
-      res.json(order);
-      cart1.items = [];
-      return cart1.save();
-    }).catch(next);
-});
+//       return stripe.charges.create({
+//         amount: price, // amount in cents, again
+//         currency: "usd",
+//         source: token,
+//         description: "Example charge"
+//       })
+//     }).then((charge)=>{
+//       return Order.create({
+//         items: toPurchase,
+//         orderStatus: 'Created',
+//         shipAddress: shipAddress,
+//         billAddress: billAddress,
+//         userId: cart1.user
+//       });
+//     },next).then(order => {
+//       res.json(order);
+//       cart1.items = [];
+//       return cart1.save();
+//     }).catch(next);
+// });
 module.exports = router;

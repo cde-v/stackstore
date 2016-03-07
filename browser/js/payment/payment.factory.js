@@ -1,21 +1,16 @@
-app.factory('paymentFactory', function($http, $state, CartFactory, AuthService, $rootScope){
+app.factory('paymentFactory', function($http, $state, CartFactory, $rootScope){
 	
 	var payment = {
 
 		checkout: function(info){
-			AuthService.getLoggedInUser()
-			.then(function(user){
-				if(user){
-					return $http.post('checkout/'+user.cart, info)
-					.then(function(data){
-						//payment success
-						$state.go('home')
+				return $http.post('api/cart/checkout/', info)
+				.then(function(data){
+					//payment success
+					CartFactory.clearCart()
+					$state.go('home')
 
-					}, function(err){console.log(err)})
-				}
-			})
+				}, function(err){console.log(err)})
 		}
-
 	};
 
 	

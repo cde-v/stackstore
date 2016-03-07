@@ -28,12 +28,12 @@
 								<li>
 									<a ng-click="brand('')" class="a-btn a-block">None</a>
 								</li>
-								<li>
-									<a ng-click="brand('Nike')" class="a-btn a-block">Nike</a>
+								<li ng-repeat="brandName in brands">
+									<a ng-click="brand(brandName)" class="a-btn a-block">{{brandName}}</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a ng-click="brand('Adidas')" class="a-btn a-block">Adidas</a>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>

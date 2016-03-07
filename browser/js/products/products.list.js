@@ -12,7 +12,10 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('productCtrl', function ($scope, products,$rootScope) {
+	$scope.brands=Object.keys(_.groupBy(products, 'brand'));
+
 	$scope.catalog = products;
+
 	$scope.search={};
 	$scope.brand = function(brand){
 		$scope.search.brand = brand;
