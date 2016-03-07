@@ -34,7 +34,7 @@
   userSchema.add({ facebook: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ google: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ paymentProfiles: [{ ccCardholder: { type: String, required: true }, ccType: { type: String, required: true }, ccNum: { type: String, required: true }, ccBillingAddress: { type: String, required: true } }] });
-  userSchema.add({ currentCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }] });
+  userSchema.add({ currentCart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } });
   userSchema.add({ isAdmin: { type: Boolean, default: false } });
   userSchema.add({ needsPasswordReset: { type: Boolean, default: false } });
 
@@ -96,6 +96,9 @@
     if(this.isModified('password')) {
       this.salt = this.constructor.generateSalt();
       this.password = this.constructor.encryptPassword(this.password, this.salt);
+    }
+    if(!this.currentCart){
+      Cart.create({}).then(cart => this.currentCart = cart);
     }
     next();
   }
