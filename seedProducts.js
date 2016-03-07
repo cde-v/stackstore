@@ -3,12 +3,14 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var Product = Promise.promisifyAll(mongoose.model('Product'));
+var Reviews = Promise.promisifyAll(mongoose.model('Reviews'));
 
 var seedProducts = function () {
 
     var shoes = [
         {
             itemId: 'ADYB350B',
+            department:'mens',
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 Black',
@@ -30,6 +32,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'ADYB350T',
+            department:'mens',
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 Tan',
@@ -51,6 +54,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'ADYB350W',
+            department:'mens',
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 350 White',
@@ -72,6 +76,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'ADYB750B',
+            department:'mens',
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 750 Black',
@@ -93,6 +98,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'ADYB750G',
+            department:'mens',
             brand:'Adidas',
             style:'sneaker',
             name:'Yeezy Boost 750 Gray',
@@ -114,6 +120,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'NKAYB',
+            department:'mens',
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Black',
@@ -135,6 +142,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'NKAYT',
+            department:'mens',
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Tan',
@@ -156,6 +164,7 @@ var seedProducts = function () {
             description: 'Made of pure gold'
         },{
             itemId: 'NKAYG',
+            department:'mens',
             brand:'Nike',
             style:'sneaker',
             name:'Air Yeezy Gray',
@@ -199,3 +208,5 @@ connectToDb.then(function () {
         process.kill(1);
     });
 });
+
+

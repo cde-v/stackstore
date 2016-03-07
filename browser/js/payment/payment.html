@@ -1,10 +1,76 @@
 <div class="bloc l-bloc bgc-white bg-maxresdefault">
-	<div class = "container bloc-lg">
-		<div class = "col-lg-9" id = "payment-info">
-			<h2>Payment Info</h2>
-			<input-group>
-				<input type = "text" class = "form-control"/>
-			</input-group>
+	<div class = "container bloc-lg" id = "payment-info">
+		<div class = "row col-lg-12">
+			<div class = "col-lg-6">
+					<h2>Shipping Address</h2>
+					<input-group>
+					<fieldset class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="email" class="form-control" ng-model = "firstName" id="firstName" placeholder="First Name">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="email" class="form-control" ng-model = "lastName" id="lastName" placeholder="Last Name">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="address1">Address</label>
+						<input type="email" class="form-control" ng-model = "address1" id="address1" placeholder="Address">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="address2">Address</label>
+						<input type="email" class="form-control" ng-model = "address2" id="address2" placeholder="Address">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="city">City</label>
+						<input type="email" class="form-control" ng-model = "city" id="city" placeholder="City">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="state">State</label>
+						<input type="email" class="form-control" ng-model = "state" id="state" placeholder="State">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="zip">ZIP Code</label>
+						<input type="email" class="form-control" ng-model = "zip" id="zip" placeholder="ZIP Code">
+					</fieldset>
+				</input-group>
+			</div>
+			<div class = "col-lg-6">
+				<h2>Billing Address</h2>
+				<input-group>
+					<fieldset class="form-group">
+						<label for="firstName">First Name</label>
+						<input type="email" class="form-control" ng-model = "paymentFirstName" id="firstName" placeholder="First Name">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="lastName">Last Name</label>
+						<input type="email" class="form-control" ng-model = "paymentLastName" id="lastName" placeholder="Last Name">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="address1">Address</label>
+						<input type="email" class="form-control" ng-model = "paymentAddress1" id="address1" placeholder="Address">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="address2">Address</label>
+						<input type="email" class="form-control" ng-model = "paymentAddress2" id="address2" placeholder="Address">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="city">City</label>
+						<input type="email" class="form-control" ng-model = "paymentCity" id="city" placeholder="City">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="state">State</label>
+						<input type="email" class="form-control" ng-model = "paymentState" id="state" placeholder="State">
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="zip">ZIP Code</label>
+						<input type="email" class="form-control" ng-model = "paymentZip" id="zip" placeholder="ZIP Code">
+					</fieldset>
+				</input-group>
+			</div>
 		</div>
+		<div class = "row col-lg-12">
+			
+		</div>
+		<button class = "btn btn-primary" type = "submit">Checkout</button>
 	</div>
 </div>

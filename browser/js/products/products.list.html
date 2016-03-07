@@ -101,8 +101,9 @@
 		<div class="row voffset">
 			<div ng-repeat="shoe in catalog | sizeSelect: selectedSize | filter:search:strict | orderBy:predicate:reverse" class="col-sm-6">
 				<a ui-sref="productsDetail({itemId: shoe.itemId})"><img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated img-frame" /></a>
-				<h3 class="mg-md">
-					<span class="fa fa-jpy pull-right">{{shoe.price}}</span>{{shoe.name}}
+				<h3 class="mg-md lato">
+					<!-- <span class="fa fa-jpy pull-right"> -->
+					<span class="pull-right">${{shoe.price}}</span>{{shoe.name}}
 				</h3>
 			</div>
 			<div class="no-items col-sm-12">

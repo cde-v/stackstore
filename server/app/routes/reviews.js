@@ -10,19 +10,16 @@ router.get('/user/:userId', function (req, res, next) {
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
 		else res.send(data);
-	}, err=>{
-		next(err)
-	})
+	}, next(err))
 });
 
 //------ GET ALL REVIEWS BY ITEM
 router.get('/item/:itemId', function (req, res, next) {
-	Reviews.find({itemId: req.params.itemId})
+	Reviews.find({product: req.params.itemId})
+	.populate('author', 'email')
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
 		else res.send(data);
-	}, err=>{
-		next(err)
 	})
 });
 
@@ -31,9 +28,7 @@ router.post('/', function(req, res, next){
 	Reviews.create(req.body)
 	.then(data=>{
 		res.status(201).send(data)
-	}, err=>{
-		next(err)
-	})
+	}, next(err))
 });
 
 //------ EDIT REVIEW
@@ -46,9 +41,7 @@ router.put('/:id', function(req, res, next){
 			data[0].save()
 			res.send(data[0])
 		}
-	}, err=>{
-		next(err)
-	})
+	}, next(err))
 });
 
 //------ DELETE REVIEW
@@ -60,7 +53,5 @@ router.delete('/:id', function(req, res, next){
 			data[0].remove()
 			res.send(data[0])
 		}
-	}, err=>{
-		next(err)
-	})
+	}, next(err))
 });

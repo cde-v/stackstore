@@ -12,14 +12,18 @@ app.config(function($stateProvider) {
 });
 
 app.controller('adminProductCtrl', function($scope, $state, products, ProductList) {
+
   $scope.editProduct = {};
+
   $scope.catalog = products;
+
   $scope.removeProduct = function(shoe) {
     ProductList.destroy(shoe.itemId)
       .then(function() {
         $state.reload();
       });
   };
+  
   $scope.updateProduct = function(shoe) {
     console.log(shoe);
     console.dir($scope, {depth: null});

@@ -11,8 +11,8 @@ var reviewSchema = new mongoose.Schema({
     ref: 'User'
   },
   rating: {
-    type: [Boolean],
-    default: [false, false, false, false, false],
+    type: Number,
+    default: 0,
     required: true
   },
   body: {

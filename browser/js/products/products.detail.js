@@ -20,13 +20,19 @@ app.controller('productDetailCtrl', function ($scope, shoe, ProductList, $state,
 	$scope.selectSize = function(size){
 		$scope.selSize = size;
 	}
-	// $scope.test=function(){
-	// 	if($scope.selSize!=='Size'){
-	// 		$state.go('cart') 
-	// 		console.log('added to cart')
-	// 		$scope.selSize = 'Size'
-	// 	}
-	// }
+
 	$scope.addItem = CartFactory.addItem;
+
+	function getReviews(){
+		ProductList.getReviews(shoe).then(function(data){
+			$scope.reviews = data
+			console.log($scope.reviews)
+			
+		})
+	}
+
+	getReviews()
+	
+		
 })
 

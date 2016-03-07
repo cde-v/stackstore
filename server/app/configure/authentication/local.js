@@ -12,6 +12,9 @@ module.exports = function (app) {
     var strategyFn = function (email, password, done) {
         User.findOne({ email: email })
             .then(function (user) {
+                // console.log(user);
+                // console.log(!user.correctPassword(password));
+                // console.log(!user);
                 // user.correctPassword is a method from the User schema.
                 if (!user || !user.correctPassword(password)) {
                     done(null, false);
@@ -34,7 +37,7 @@ module.exports = function (app) {
             if (err) return next(err);
 
             if (!user) {
-                var error = new Error('Invalid login credentials.');
+                var error = new Error('Invalid login credentials b/c !user in local.js .');
                 error.status = 401;
                 return next(error);
             }

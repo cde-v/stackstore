@@ -58,14 +58,51 @@
 				</div>
 			</div>
 			<div class="col-sm-2">
-				<button ng-disabled="selSize === 'Size'" ng-click="addItem(shoe, selSize, 1)" class="btn  btn-d  btn-lg btn-block fadeIn animated"><span class="fa fa-shopping-cart icon-spacer pull-right"></span>Add</button>
+				<button ui-sref="cart" ng-disabled="selSize === 'Size'" ng-click="addItem(shoe, selSize, 1)" class="btn  btn-d  btn-lg btn-block fadeIn animated"><span class="fa fa-shopping-cart icon-spacer pull-right"></span>Add</button>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- bloc-8 END -->
 
+<!-- bloc-9.5 -->
+<div class="bloc l-bloc bgc-white" id="bloc-9.5">
+	<div class="container bloc-sm b-divider">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1 class="mg-md text-center  sm-shadow">
+					Reviews
+				</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<ul class="list-unstyled lato">
+					<li ng-repeat="review in reviews">
+						<h3 class="mg-md lato">
+							By: {{review.author.email}}
+							<span class="fa fa-star icon-aqua icon-md"></span>
+							<span class="fa fa-star icon-aqua icon-md"></span>
+							<span class="fa fa-star icon-aqua icon-md"></span>
+							<span class="fa fa-star icon-aqua icon-md"></span>
+							<span class="fa fa-star icon-aqua icon-md"></span>
+						</h3>
+
+						<p>
+							<br /><h4 class="lato">"{{review.body}}"</h4>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-10.5 END -->
+
+
+
 <!-- bloc-9 -->
+
 <div class="bloc bgc-gray-x11-gray l-bloc" id="bloc-9">
 	<div class="container">
 		<div class="row">

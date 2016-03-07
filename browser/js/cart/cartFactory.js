@@ -1,11 +1,11 @@
 //use auth services?
 
-app.factory('CartFactory', function($http, $localStorage, $rootScope) {
+app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
   var Cart = {
     auth: {},
     unauth: {}
   };
-
+  
   $rootScope.$storage = $localStorage.items;
 
   Cart.auth = {
@@ -14,24 +14,25 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
     fetch: function(cartId) {
     	//be able to take find id using user's cart ID
       return $http.get('/api/cart/' + cartId).then(res => {
-        // angular.copy(res.data.items, Cart.auth.cart);
+        angular.copy(res.data.items, Cart.auth.cart);
         Cart.auth.id = res.data._id;
         return res.data.items;
       });
     },
     getTotal: function() {
-      Cart.auth.total = 0;
+      var total = 0;
       if (Cart.auth.cart) {
         Cart.auth.cart.forEach(function(item) {
-          Cart.auth.total += item.product.price * item.quantity;
+          total += item.product.price * item.quantity;
         });
       }
-      return Cart.auth.total;
+      return total;
     },
     addItem: function(product, size, qty) {
       return $http.put('/api/cart/' + Cart.auth.id + '/' + product._id.toString(), { size: size, quantity: qty })
         .then(res => {
 	        angular.copy(res.data.items, Cart.auth.cart);
+          $state.go('cart');
         });
     },
     editQty: function(id, size, qty) {
@@ -62,11 +63,21 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
     fetch: function() {
       if (!$localStorage.items) $localStorage.items = [];
       Cart.unauth.cart = $localStorage.items;
-      return Cart.unauth.cart;
+      return Promise.resolve(Cart.unauth.cart);
     },
     addItem: function(product, size, qty) {
-      Cart.unauth.cart.push({ product: product, size: size, quantity: qty });
-      return Cart.unauth.cart;
+      var found = false;
+      if (!qty) Cart.unauth.removeItem(product._id, size);
+      else {
+        Cart.unauth.cart.forEach(function(item, ind) {
+          if (item.product._id === product._id && item.size === size) {
+            item.quantity += qty;
+            found = true;
+          }
+        });
+      }
+      if(!found) Cart.unauth.cart.push({product:product, size: size, quantity:qty});
+      $state.go('cart');
     },
     removeItem: function(id, size) {
       //using index of to find index of property id
@@ -105,22 +116,25 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
   };
 
   var cartFactory = {};
+  var loggedIn = false;
 
+  //cart is set in resolve block, set cart factory functions to unauth/auth
   function setCartUnauth(){
   	Cart.unauth.fetch();
-  	cartFactory = Cart.unauth;
-  	// angular.copy(Cart.unauth, cartFactory);
+    // cartFactory = Cart.unauth;
+  	angular.copy(Cart.unauth, cartFactory);
   	console.log('unauth', cartFactory);
   }
 
   function setCartAuth(){
-    Cart.auth.fetch("56d8a65596446dcb5eb7c221").then(res =>{
+    Cart.auth.fetch("56dc33fddd900c7b81cc1156").then(res =>{
     	// cartFactory = Cart.auth;
 	    angular.copy(Cart.auth, cartFactory);
 	    console.log('auth', cartFactory);
     });
   };
 
+  //check upon page load
   if(loggedIn) {
   	setCartAuth();
   }
@@ -128,6 +142,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope) {
   	setCartUnauth();
   }
 
+  //on broadcasting login/logout, toggle cart
   $rootScope.$on('auth-login-success', function(event, data) {
     setCartAuth();
   });
