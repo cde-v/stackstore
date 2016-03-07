@@ -56,7 +56,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
     }
   };
 
-  //add total and cart and addtotal to main object
   Cart.unauth = {
     total: 0,
     cart: [],
@@ -81,7 +80,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
       $state.go('cart');
     },
     removeItem: function(id, size) {
-      //using index of to find index of property id
       var idx = -1;
       Cart.unauth.cart.forEach(function(item, ind) {
         if (item.product._id.toString() === id && item.size === size) idx = ind;
@@ -122,17 +120,14 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state) {
   var cartFactory = {};
   var loggedIn = false;
 
-  //cart is set in resolve block, set cart factory functions to unauth/auth
   function setCartUnauth(){
   	Cart.unauth.fetch();
-    // cartFactory = Cart.unauth;
   	angular.copy(Cart.unauth, cartFactory);
   	console.log('unauth', cartFactory);
   }
 
   function setCartAuth(){
     Cart.auth.fetch("56ddb0cc24a858528b16acc6").then(res =>{
-    	// cartFactory = Cart.auth;
 	    angular.copy(Cart.auth, cartFactory);
 	    console.log('auth', cartFactory);
     });

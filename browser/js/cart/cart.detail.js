@@ -3,17 +3,11 @@ app.config(function ($stateProvider) {
         url: '/cart',
         templateUrl: 'js/cart/cart.detail.html',
         controller: 'CartController'
-        // resolve: {
-        //     cart: function(CartFactory){
-        //         return CartFactory.fetch("56ddb0cc24a858528b16acc6");
-        //     }
-        // }
     });
 });
 
 app.controller('CartController', function($rootScope, $scope, CartFactory){
     $scope.CartFactory = CartFactory;
-    // $scope.CartFactory.cart = cart;
 
     var login = true;
     $scope.toggleUser = function(){
