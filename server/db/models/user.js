@@ -18,6 +18,8 @@
   userSchema.method('sanitize', sanitize);
   userSchema.method('getUserReviews', getUserReviews);
   userSchema.method('getUserOrders', getUserOrders);
+  userSchema.method('toggleAdmin', toggleAdmin);
+  userSchema.method('toggleNeedsPasswordReset', toggleNeedsPasswordReset);
   userSchema.pre('save', preSave);
 
   userSchema.add({ email: { type: String } });
@@ -34,6 +36,7 @@
   userSchema.add({ paymentProfiles: [{ ccCardholder: { type: String, required: true }, ccType: { type: String, required: true }, ccNum: { type: String, required: true }, ccBillingAddress: { type: String, required: true } }] });
   userSchema.add({ currentCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }] });
   userSchema.add({ isAdmin: { type: Boolean, default: false } });
+  userSchema.add({ needsPasswordReset: { type: Boolean, default: false } });
 
   function getUserOrders() {
     /*jshint validthis:true */
@@ -45,6 +48,18 @@
     /*jshint validthis:true */
     return Review
       .find({ author: this._id });
+  }
+
+  function toggleAdmin() {
+    /*jshint validthis:true */
+    this.isAdmin = !this.isAdmin;
+    return this.save();
+  }
+
+  function toggleNeedsPasswordReset() {
+    /*jshint validthis:true */
+    this.isAdmin = !this.isAdmin;
+    return this.save();
   }
 
   // remove sensitive information from user objects before sending
