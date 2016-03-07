@@ -35,7 +35,7 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     getTotal: function() {
       var total = 0;
       if (cartFactory.cart) {
-        Cart.auth.cart.forEach(function(item) {
+        cartFactory.cart.forEach(function(item) {
           total += item.product.price * item.quantity;
         });
       }
