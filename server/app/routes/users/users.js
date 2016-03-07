@@ -3,15 +3,17 @@
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 var Order = require('mongoose').model('Order');
+var User = require('mongoose').model('User');
 
 router.param('userId', routerParamUserId);
-router.get('/', getAllUsers); //admin?
+router.get('/', getAllUsers);
 router.post('/', postNewUser);
 router.get('/:userId', getUserById);
-router.delete('/:userId', deleteUserById); //admin?
+router.delete('/:userId', deleteUserById);
 router.get('/:userId/orders', getUserOrders);
 router.get('/:userId/reviews', getUserReviews);
 router.get('/:userId/cart', getUserCart);
+router.put('/toggleAdmin/:userId', putToggleAdminUser);
 
 function routerParamUserId(req, res, next, userId) {
   User.findById(userId).exec()
@@ -31,7 +33,7 @@ function getAllUsers(req, res, next) {
     .then(null, next);
 }
 
-function getAllUsers(req, res, next) {
+function postNewUser(req, res, next) {
   User.create(req.body)
     .then(function(user) {
       res.status(201).json(user);
@@ -69,6 +71,14 @@ function getUserReviews(req, res, next) {
 
 function getUserCart(req, res, next) {
   res.json(req.requestedUser.currentCart);
+}
+
+function putToggleAdminUser(req, res, next) {
+  req.requestedUser.toggleAdmin()
+    .then(function(user) {
+      res.json(user);
+    })
+    .then(null, next);
 }
 
 module.exports = router;

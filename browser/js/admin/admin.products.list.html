@@ -87,9 +87,7 @@
       <div ng-repeat="shoe in catalog">
         <div class="col-sm-12">
           <div class="col-sm-4">
-            <a ui-sref="productsDetail({itemId: shoe.itemId})">
               <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />
-            </a>
             <h3 class="mg-md">
               <span class="fa pull-left">{{shoe.name}}</span>
               <!-- <a ng-if="$root.isAdmin()" ng-click="removeProduct(shoe)"> -->
