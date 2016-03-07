@@ -2,12 +2,15 @@
 /*	    Stackstore
 /*      Built with Blocs
 /*-----------------------------------------------------------------------------------*/
-
-body{
+html{
 	min-height: 100vh;
+
+}
+body{
+	/*min-height: 100vh;*/
 	margin:0;
 	padding:0;
-    background:#FFF;
+    background:#47454B;
     overflow-x:hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,17 +26,32 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 }
 
 #main{
-	min-height: 100%;
+	/*min-height: 100%;*/
 }
 /* Site container width */
 .page-container{
-	height: 100%;
+	min-height: 100%;
 }
 .container{
 	width:100%;
 	min-height: 100%;
 	padding-left:15px;
 	padding-right:15px;
+}
+
+.vh{
+	height:100vh;
+}
+
+.vh5{
+	height:50vh;
+}
+.vh4{
+	height:40vh;
+}
+
+.vh6{
+	height:60vh;
 }
 
 /* = Blocs
@@ -70,6 +88,7 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 .bloc-sm{
 	padding:20px 50px;
 }
+
 
 
 /* Background Effects */
@@ -190,6 +209,10 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 	font-family: Helvetica;
 }
 #bloc-9 h1{
+	font-family: Lato;
+	font-weight: 300;
+}
+#bloc-9.5 h1{
 	font-family: Lato;
 	font-weight: 300;
 }
@@ -592,7 +615,16 @@ tr:nth-child(even) {background: rgba(100,100,100,0.4)}
 }
 
 .bg-maxresdefault{
-	background-image:url("../img/maxresdefault.jpg");
+	background-image:url("../img/maxresdefault.jpg"), url(../img/logo.png);
+	background-size: cover,400px 400px;
+	background-attachment: fixed, local;
+}
+.bg-dub{
+	background-blend-mode: multiply;
+}
+
+.bg-yeezy-red{
+	background-image:url("../img/nike-air-yeezy-2-red-october.jpg");
 }
 .bg-Yeezy-Boost{
 	background-image:url("../img/Yeezy-Boost.jpg");
@@ -613,20 +645,24 @@ tr:nth-child(even) {background: rgba(100,100,100,0.4)}
 .bg-opaq{
 	background-color: rgba(0, 0, 0, .4);
 }
+
+.login-row{
+	height:360px;
+}
 .fill{
 	height:100%;
 }
-.home-splash{
-	/*height:300px;*/
-	/*box-sizing: border-box;*/
-}
+/*.padding-sm{
+	padding-left:10px;
+	padding-right:10px;
+}*/
 .home-a{
 	height:100%;
 	padding-top: 40px;
 
 }
 .home-b{
-	padding:50px 0px;
+	padding:50px 15px;
 }
 .home-c{
 	height:100%;
@@ -635,9 +671,72 @@ tr:nth-child(even) {background: rgba(100,100,100,0.4)}
 
 div + .no-items{
 	display: none;
+}
+.text-jumbo{
+	/*font-size: 150px;*/
+	text-align: center;
+	text-shadow: 1px 1px black;
+	color: #bcbcbc!important;
+}
+.red-grad{
+  background: #3e0001; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #560202 , #3e0001); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #560202, #3e0001); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #560202, #3e0001); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #560202 , #3e0001); /* Standard syntax */
 
 }
+#splash .empty-column{
+	height: 650px;
+}
+#splash div{
+	padding:0;
+	text-align: center;
+}
+#splash-title{
 
+}
+.times{
+	font-family: Times!important;
+	font-size: 80px !important;
+	text-shadow: 3px 3px rgba(0,0,0,.5) !important;
+}
+.splash6{
+	background-repeat: no-repeat;
+	background-size: 600% auto;
+	padding-top: 
+}
+
+.splash-1{
+	background-position: 0 center;
+}
+.splash-2{
+	background-position: 20% center;
+}
+.splash-3{
+
+	background-position: 40% center;
+}
+.splash-4{
+	background-position: 60% center;
+}
+.splash-5{
+	background-position: 80% center;
+}
+.splash-6{
+	background-position: 100% center;
+	/*color:#373737 !important;*/
+}
+.text-90{
+	-webkit-transform: rotate(90deg);
+	-webkit-transform-origin: left;
+	width:350px;
+	height:133px;
+	position: relative;
+	top:0%;
+
+}
+/*-----------------------------------------*/
 
 /* = Mobile adjustments 
 -------------------------------------------------------------- */
@@ -676,10 +775,10 @@ div + .no-items{
     .bloc{
         padding-left: 0; 
         padding-right: 0;  
-        -webkit-background-size: auto 200%;
+        -webkit-background-size: cover, 400px 400px;
         -moz-background-size: auto 200%;
         -o-background-size: auto 200%;
-        background-size: auto 200%;
+        background-size: cover, 200px 200px;
     }
     .b-parallax{
         background-attachment:scroll;
