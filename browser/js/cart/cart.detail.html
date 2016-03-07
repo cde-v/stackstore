@@ -1,72 +1,59 @@
-<div class="bloc bgc-white d-bloc" id="bloc-6">
-		<div class="row voffset-lg cartAllProducts">
-
-			<table class='table'>
-			    <thead>
-			      <tr>
-			        <th>Product</th>
-			        <th>Details</th>
-			        <th>Price</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			    	<tr>
-			    		<td>
-			    			picture
-			    		</td>
-			    		<td> 
-			    			<p><b>Shoe Name</b></p>
-							<p>Shoe Size</p>
-							<p>Some details</p>
-						</td>
-						<td>
-							<p>$500</p>
-						</td>
-			    	</tr>
-			    </tbody>
-		    </table>
-		    
-			<div class = "col-sm-12">
-				<h1 id = "cartTitle">Wow, Cart!</h1>
-			</div>
-			<div class="col-sm-12" id ="cartProduct">
-				<div class = "col-sm-2">
-					<img src = "img/adidas-yeezy-boost-350-giveaway-00.jpg" class = "img-responsive">
-				</div>
-				<div class = "col-sm-4" >
-					<p><b>Shoe Name</b></p>
-					<p>Shoe Size</p>
-					<p>Some details</p>
-				</div>
-				<div class = "col-sm-1" >
-					<p>$500</p>
-				</div>
-			</div>
-			<div class="col-sm-12" id ="cartProduct">
-				<div class = "col-sm-2">
-					<img src = "img/adidas-yeezy-boost-350-giveaway-00.jpg" class = "img-responsive">
-				</div>
-				<div class = "col-sm-4" >
-					<p><b>Shoe Name</b></p>
-					<p>Shoe Size</p>
-					<p>Some details</p>
-				</div>
-				<div class = "col-sm-1" >
-					<p>$500</p>
-				</div>
-			</div>
-			<div class="col-sm-12" id ="cartProduct">
-				<div class = "col-sm-2">
-					<img src = "img/adidas-yeezy-boost-350-giveaway-00.jpg" class = "img-responsive">
-				</div>
-				<div class = "col-sm-4" >
-					<p><b>Shoe Name</b></p>
-					<p>Shoe Size</p>
-					<p>Some details</p>
-				</div>
-				<div class = "col-sm-1" >
-					<p>$500</p>
-				</div>
-			</div>
-		</div>
+<div class="bloc l-bloc bgc-white bg-maxresdefault">
+    <div class="container bloc-lg">
+        <div class="row">
+            <div class="col-lg-12" id="cartView">
+                <div class="col-lg-9" id="cartAllProducts">
+                    <h1 ng-click = "toggleUser()">Your Cart</h1>
+                    <table class='table table-responsive'>
+                        <thead>
+                            <tr>
+                                <th class="prod-img">Product</th>
+                                <th>Details</th>
+                                <th class="prod-qty">Quantity</th>
+                                <th class="prod-price">Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in cart">
+                                <td class="prod-img">
+                                    <a ui-sref="productsDetail({itemId:item.product.itemId})"><img src="{{item.product.images[0]}}" class="img-responsive img-frame table-image" /></a>
+                                </td>
+                                <td>
+                                    <p><b>{{item.product.name}}</b></p>
+                                    <p>Size: {{item.size}}</p>
+                                </td>
+                                <td class="prod-qty">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" 
+                                                    ng-click = "editQty(item.product._id, item.size, +item.quantity-1)" 
+                                                    type="button">-</button>
+                                        </span>
+                                        <input id = "qty-form" type="text" class="form-control" ng-model="item.quantity"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" ng-click = "editQty(item.product._id, item.size, +item.quantity+1)"  type="button">+</button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="prod-price">
+                                    <p>${{item.product.price}}</p>
+                                </td>
+                                <td id="delete">
+                                    <a ng-click="removeItem(item.product._id, item.size)" type="button">X</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td/>
+                                <td/>
+                                <td/>
+                                <td class="prod-price"><b>Total: ${{getTotal()}}</b></td>
+                                <td/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

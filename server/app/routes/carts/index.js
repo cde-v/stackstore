@@ -5,35 +5,32 @@
 var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 var Order = require('mongoose').model('Order');
+var Product = require('mongoose').model('Product');
+var Promise = require('Bluebird');
 
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
     .then(function(cart) {
-      if (!cart) res.sendStatus(500);
+      if (!cart) next(new Error("Cart Not Found!"));
       req.cart = cart;
       next();
     })
-    .then(null, function(err) {
-      throw new Error(err);
-    });
+    .then(null, next);
 });
 
 //should be admin only
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
   Cart.find({})
     .then(results => res.json(results))
-    .catch(console.error);
+    .then(null, next);
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res, next) {
   Cart.findById(req.params.id)
     .populate('items.product')
-    .exec(function(error, popCart){
-      return popCart;
-    })
     .then(cart => {
       res.json(cart);
-    });
+    }, next);
 });
 
 // changing from local cart to db cart
@@ -41,13 +38,52 @@ router.post('/', function(req, res) {
   var items = req.body.items;
   Cart.create({ user: req.user._id, items: items })
     .then(result => {
-      result.save();
       res.json(result);
-    });
+    }, next);
+});
+
+router.post('/checkout', function(req, res, next){
+  //req.body = {shipAddress: ..., billAddress: ..., cart: ...}
+  var productPromises = [];
+  var cart = req.body.cart;
+
+  cart.items.forEach(function(item){
+    productPromises.push(Product.findById(item.product._id));
+  });
+
+  Promise.all(productPromises)
+    .then(promiseArray => {
+      var toPurchase = []
+      promiseArray.forEach(function(product, ind){
+        if(product.sizes[cart.items[ind].size]){
+          toPurchase.push({
+            itemId: product.itemId,
+            brand: product.brand,
+            name: product.name,
+            price: +product.price,
+            size: +size,
+            quantity: +quantity
+          });
+
+          product.sizes[cart.items[ind].size] -= cart.items[ind].quantity;
+          product.save();
+        }
+      });
+      return toPurchase;
+    }).then(toPurchase => {
+      return Order.create({
+        items: toPurchase,
+        orderStatus: 'created',
+        shipAddress: req.body.shipAddress,
+        billAddress: req.body.billAddress
+        });
+    }).then(newOrder => res.json(newOrder)
+    ).then(null, next);
+
 });
 
 /* IN PROGRESS */
-router.post('/:id/checkout', function(req, res) {
+router.post('/checkout/:id', function(req, res) {
   //processing payment info
   var shipAddress = req.body.shipAddress;
   var billAddress = req.body.billAddress;
@@ -71,7 +107,7 @@ router.post('/:id/checkout', function(req, res) {
             quantity: +item.quantity
           });
 
-          item.product.sizes[item.size]--;
+          item.product.sizes[item.size]-=item.quantity;
           item.product.save();
         }
       });
@@ -80,29 +116,36 @@ router.post('/:id/checkout', function(req, res) {
         items: toPurchase,
         orderStatus: 'created',
         shipAddress: shipAddress,
-        billAddress: billAddress
+        billAddress: billAddress,
+        userId: req.user._id
+        //userId?
       });
     }).then(order => {
-      cart1.items = [];
-      cart1.save();
       res.json(order);
+      cart1.items = [];
+      return cart1.save();
     }).catch(err => res.sendStatus(500));
 });
 
 router.put('/:id/:itemId', function(req, res) {
-    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity);
-    res.json(req.cart);
+    req.cart.editQuantity(req.params.itemId, req.body.size, req.body.quantity)
+      .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart));
 });
 
-router.delete('/:id/:itemId/:size', function(req, res) {
-    req.cart.removeItem(req.params.itemId, req.params.size);
-    res.json(req.cart);
+router.delete('/:id/:itemId/:size', function(req, res, next) {
+    req.cart.removeItem(req.params.itemId, req.params.size)
+    .then(saved => {
+        return Cart.findById(saved._id)
+        .populate('items.product');
+      }).then(popCart => res.json(popCart));
 });
 
 router.delete('/:id', function(req, res) {
     req.cart.items = [];
-    cart.save();
-    res.json(cart);
+    cart.save().then(saved => res.json(cart), next);
 });
 
 module.exports = router;
