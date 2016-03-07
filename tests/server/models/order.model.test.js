@@ -16,41 +16,41 @@ describe('Order Model:', function() {
   });
 
 
-  describe('statics', function() {
-    var id;
-    beforeEach(function() {
-      return Order.create({
-        orderStatus: 'processing'
-      }).then(function(order) {
-        id = order._id;
-      })
-    });
+  // describe('statics', function() {
+  //   var id;
+  //   beforeEach(function() {
+  //     return Order.create({
+  //       orderStatus: 'processing'
+  //     }).then(function(order) {
+  //       id = order._id;
+  //     })
+  //   });
 
-    describe('getOneOrder', function() {
+  //   describe('getOneOrder', function() {
 
-      it('gets one order by id from the database', function(done) {
-        Order.getOneOrder(id)
-          .then(function(order) {
-            expect(order.orderStatus).to.equal('processing');
-            done();
-          })
-          .then(null, done); // catch test errors
-      });
+  //     it('gets one order by id from the database', function(done) {
+  //       Order.getOneOrder(id)
+  //         .then(function(order) {
+  //           expect(order.orderStatus).to.equal('processing');
+  //           done();
+  //         })
+  //         .then(null, done); // catch test errors
+  //     });
 
-    });
+  //   });
 
-    describe('getAllOrders', function() {
+  //   describe('getAllOrders', function() {
 
-      it('gets all orders in the database', function(done) {
-        Order.getAllOrders()
-          .then(function(orders) {
-            expect(orders).to.have.length(2);
-            done();
-          })
-          .then(null, done); // catch test errors
-      });
-    });
-  });
+  //     it('gets all orders in the database', function(done) {
+  //       Order.getAllOrders()
+  //         .then(function(orders) {
+  //           expect(orders).to.have.length(2);
+  //           done();
+  //         })
+  //         .then(null, done); // catch test errors
+  //     });
+  //   });
+  // });
 
   describe('methods', function() {
 
@@ -58,20 +58,20 @@ describe('Order Model:', function() {
 
     beforeEach(function(done) {
       order = new Order({
-        orderStatus: 'created'
+        status: 'created'
       });
       order.save(done);
     });
 
     it('has an instance method change order status', function(done) {
       Order.findOne({
-        orderStatus: 'created'
+        status: 'created'
       }).exec().then(function(order) {
-        expect(order.orderStatus).to.equal('created');
+        expect(order.status).to.equal('created');
         order.changeOrderStatus('shipped')
           .then(function(order) {
             expect(order.shipDate).to.not.be.an('undefined');
-            expect(order.orderStatus).to.equal('shipped');
+            expect(order.status).to.equal('shipped');
           })
         done();
       }).then(null, done);
