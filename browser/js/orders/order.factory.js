@@ -13,6 +13,15 @@ app.factory('OrderFactory', function ($http) {
     		.then(function (res) {
     			return res.data;
     		})
+    	},
+    	updateOrder: function(id, status){
+    		return $http.put('/api/orders/' + id, {status: status})
+    		.then(function (order) {
+    			if(status === 'Shipped'){
+    				order.shipDate = Date.now();
+    			}
+    			return order.data;
+    		})
     	}
     }		
 });
