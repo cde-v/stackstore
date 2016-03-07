@@ -6,8 +6,10 @@
 
   var mongoose = require('mongoose');
   require('./order');
+  require('./cart');
   require('./review');
   var Order = mongoose.model('Order');
+  var Cart = mongoose.model('Cart');
   var Review = mongoose.model('Reviews');
 
   var userSchema = new mongoose.Schema();
@@ -34,8 +36,7 @@
   userSchema.add({ twitter: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ facebook: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ google: { id: String, username: String, token: String, tokenSecret: String } });
-  // userSchema.add({ paymentProfiles: [{ ccCardholder: { type: String, required: true }, ccType: { type: String, required: true }, ccNum: { type: String, required: true }, ccBillingAddress: { type: String, required: true } }] });
-  userSchema.add({ currentCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }] });
+  userSchema.add({ currentCart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } });
   userSchema.add({ isAdmin: { type: Boolean, default: false } });
   userSchema.add({ needsPasswordReset: { type: Boolean, default: false } });
 
