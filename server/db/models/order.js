@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 
 var orderSchema = new mongoose.Schema({
   userId: {
-    type: Number
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
-  shipAddress: { 
+  shipAddress: {
     name: String,
     address1: String,
     address2: String,
@@ -12,7 +13,7 @@ var orderSchema = new mongoose.Schema({
     state: String,
     zip: String
   },
-  billAddress:{
+  billAddress: {
     name: String,
     address1: String,
     address2: String,
@@ -55,19 +56,19 @@ var orderSchema = new mongoose.Schema({
 orderSchema.methods.changeOrderStatus = function(status) {
   this.status = status;
 
-  if (status === 'Shipped') {
+  if(status === 'Shipped') {
     this.shipDate = Date.now();
   }
   return this.save();
 }
 
-function date (type){
-  return function(){
+function date(type) {
+  return function() {
     var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
     ];
 
     var day = new Date(this[type]).getDate();
