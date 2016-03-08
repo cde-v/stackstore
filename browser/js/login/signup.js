@@ -3,7 +3,11 @@ app.config(function($stateProvider) {
   $stateProvider.state('signup', {
     url: '/signup',
     templateUrl: 'js/login/signup.html',
-    controller: 'signupCtrl'
+    controller: 'signupCtrl',
+            data: {
+            adminOnly: false,
+            authenticatedOnly: false
+        },
   });
 
 });

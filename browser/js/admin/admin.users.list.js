@@ -3,6 +3,10 @@ app.config(function($stateProvider) {
     url: '/admin/users',
     templateUrl: 'js/admin/admin.users.list.html',
     controller: 'adminUserCtrl',
+    data: {
+      adminOnly: true,
+      authenticatedOnly: true
+    },
     resolve: {
       users: function(UserList) {
         return UserList.getAll();
