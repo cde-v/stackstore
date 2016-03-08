@@ -10,11 +10,10 @@ app.factory('paymentFactory', function($http, $state, CartFactory, $rootScope){
 						CartFactory.clearCart();
 						$state.go('home');
 					}
-
 				}, function(err){
 					payment.error = err.data;
-					$rootScope.$evalAsyn();
-					console.log('err', err);
+					$rootScope.$evalAsync();
+					console.log('checkout error', err);
 				});
 		}
 	};

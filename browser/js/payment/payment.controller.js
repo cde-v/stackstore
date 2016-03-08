@@ -1,10 +1,12 @@
 	Stripe.setPublishableKey('pk_test_OAYbGBOJ1PSBsUJBf8We5KHP');
 app.controller("paymentController", function($scope, paymentFactory, CartFactory){
-	$scope.ccn = null
-	$scope.cvc = null
-	$scope.exp = null
+	$scope.ccn = null;
+	$scope.cvc = null;
+	$scope.exp = null;
 
-	$scope.errorMsg = paymentFactory.error;
+	$scope.errorMsg = function(){
+		return paymentFactory.error;
+	}
 
 	$scope.checkout = function(){
 		var creditCard = {

@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/cart/cart.detail.html',
         data: {
             adminOnly: false,
-            authenticatedOnly: true
+            authenticatedOnly: false
         },
         controller: 'CartController'
     });
