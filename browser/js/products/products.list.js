@@ -3,6 +3,10 @@ app.config(function ($stateProvider) {
         url: '/products',
         templateUrl: 'js/products/products.list.html',
         controller: 'productCtrl',
+                data: {
+            adminOnly: false,
+            authenticatedOnly: false
+        },
 		resolve: {
 			products: function (ProductList) {
 				return ProductList.getAll();

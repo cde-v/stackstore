@@ -3,7 +3,11 @@ app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: 'js/login/login.html',
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+            data: {
+            adminOnly: false,
+            authenticatedOnly: false
+        },
   });
 
 });
@@ -22,10 +26,9 @@ app.controller('LoginCtrl', function($scope, AuthService, $state) {
         .then(function(user) {
           if(user.needsPasswordReset) $state.go('reset');
           else $state.go('home');
-        }).catch(function() {
-          $scope.error = 'Invalid login credentials.';
         });
-
+    }).catch(function() {
+      $scope.error = 'Invalid login credentials.';
     });
-  }
+  };
 });

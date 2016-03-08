@@ -2,7 +2,11 @@ app.config(function($stateProvider) {
   $stateProvider.state('adminProductsList', {
     url: '/admin/products',
     templateUrl: 'js/admin/admin.products.list.html',
-    controller: 'productCtrl',
+    controller: 'adminProductCtrl',
+    data: {
+      adminOnly: true,
+      authenticatedOnly: true
+    },
     resolve: {
       products: function(ProductList) {
         return ProductList.getAll();
@@ -23,10 +27,10 @@ app.controller('adminProductCtrl', function($scope, $state, products, ProductLis
         $state.reload();
       });
   };
-  
+
   $scope.updateProduct = function(shoe) {
     console.log(shoe);
-    console.dir($scope, {depth: null});
+    console.dir($scope, { depth: null });
     ProductList.update(shoe.itemId, $scope.editProduct[shoe.name])
       .then(function() {
         $state.reload();

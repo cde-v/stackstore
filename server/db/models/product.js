@@ -37,26 +37,15 @@ var productSchema = new mongoose.Schema({
     default: 0
   },
   sizes: {
-    
-   
     6: { type: Number, default: 0 },
-   
     7: { type: Number, default: 0 },
-    
     8: { type: Number, default: 0 },
-    
     9: { type: Number, default: 0 },
-   
     10: { type: Number, default: 0 },
-    
     11: { type: Number, default: 0 },
-   
     12: { type: Number, default: 0 },
-    
     13: { type: Number, default: 0 },
-    
     14: { type: Number, default: 0 },
-    
     15: { type: Number, default: 0 }
   },
   tags: {
