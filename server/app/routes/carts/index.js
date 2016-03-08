@@ -118,8 +118,7 @@ router.post('/checkout', function(req, res, next){
         shipAddress: req.body.shipAddress,
         billAddress: req.body.billAddress
         });
-    }, next)
-    .then(newOrder => res.json(newOrder)
+    }).then(newOrder => res.json(newOrder)
     ).then(null, next);
 });
 
