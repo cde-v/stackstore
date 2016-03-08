@@ -31,7 +31,7 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 }
 /* Site container width */
 .page-container{
-	min-height: 100vh;
+	/*min-height: 100vh;*/
 }
 
 .container{
@@ -721,7 +721,7 @@ div + .no-items{
 
 .times{
 	font-family: Times!important;
-	font-size: 80px !important;
+	font-size: 8vw !important;
 	text-shadow: 3px 3px rgba(0,0,0,.5) !important;
 }
 .splash6{

@@ -13,6 +13,7 @@ app.config(function ($stateProvider) {
 
 app.controller('productCtrl', function ($scope, products,$rootScope) {
 	$scope.brands=Object.keys(_.groupBy(products, 'brand'));
+	$scope.styles=Object.keys(_.groupBy(products, 'style'));
 
 	$scope.catalog = products;
 
@@ -22,6 +23,9 @@ app.controller('productCtrl', function ($scope, products,$rootScope) {
 	}
 	$scope.style = function(style){
 		$scope.search.style = style;
+	}
+	$scope.department = function(department){
+		$scope.search.department = department;
 	}
 	
 	$scope.order = function(predicate, rev) {

@@ -10,12 +10,17 @@
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<div class="text-center">
-										<a href="index.html" class="a-btn">Mens</a>
+										<a ng-click="department('')" class="a-btn">None</a>
+									</div>	
+								</li>
+								<li>
+									<div class="text-center">
+										<a ng-click="department('mens')" class="a-btn">Mens</a>
 									</div>
 								</li>
 								<li>
 									<div class="text-center">
-										<a href="index.html" class="a-btn">Womens</a>
+										<a ng-click="department('womens')" class="a-btn">Womens</a>
 									</div>
 								</li>
 							</ul>
@@ -31,9 +36,7 @@
 								<li ng-repeat="brandName in brands">
 									<a ng-click="brand(brandName)" class="a-btn a-block">{{brandName}}</a>
 								</li>
-								<!-- <li>
-									<a ng-click="brand('Adidas')" class="a-btn a-block">Adidas</a>
-								</li> -->
+								
 							</ul>
 						</div>
 					</div>
@@ -44,12 +47,10 @@
 								<li>
 									<a ng-click="style('')"  class="a-btn a-block">None</a>
 								</li>
-								<li>
-									<a ng-click="style('boots')"  class="a-btn a-block">Boots</a>
+								<li ng-repeat="styleName in styles">
+									<a ng-click="style(styleName)" class="a-btn a-block">{{styleName}}</a>
 								</li>
-								<li>
-									<a ng-click="style('sneaker')"  class="a-btn a-block">Sneakers</a>
-								</li>
+								
 							</ul>
 						</div>
 					</div>
@@ -65,6 +66,27 @@
 								</li>
 								<li>
 									<a ng-click="sizes(7)"class="a-btn a-block">7</a>
+								</li>
+								<li>
+									<a ng-click="sizes(8)"class="a-btn a-block">8</a>
+								</li>
+								<li>
+									<a ng-click="sizes(9)"class="a-btn a-block">9</a>
+								</li>
+								<li>
+									<a ng-click="sizes(10)"class="a-btn a-block">10</a>
+								</li>
+								<li>
+									<a ng-click="sizes(11)"class="a-btn a-block">11</a>
+								</li>
+								<li>
+									<a ng-click="sizes(12)"class="a-btn a-block">12</a>
+								</li>
+								<li>
+									<a ng-click="sizes(13)"class="a-btn a-block">13</a>
+								</li>
+								<li>
+									<a ng-click="sizes(14)"class="a-btn a-block">14</a>
 								</li>
 							</ul>
 						</div>
