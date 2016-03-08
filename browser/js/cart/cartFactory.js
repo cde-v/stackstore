@@ -42,7 +42,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
       return total;
     },
     addItem: function(product, size, qty) {
-      console.log('product', product);
       return $http.put('/api/cart/' + Cart.auth.id + '/' + product._id.toString(), { size: size, quantity: qty })
         .then(res => {
 	        angular.copy(res.data.items, cartFactory.cart);
@@ -144,14 +143,15 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
   function setCartUnauth(){
     Cart.unauth.fetch();
     angular.copy(Cart.unauth, cartFactory);
-    console.log('unauth', cartFactory);
   }
 
   function setCartAuth(cart){
-    console.log(cart);
+    var oldCart = cartFactory.cart || [];
     Cart.auth.fetch(cart.toString()).then(res =>{
       angular.copy(Cart.auth, cartFactory);
-      console.log('auth', cartFactory);
+      oldCart.forEach(function(item){
+        cartFactory.addItem(item.product, item.size, item.quantity);
+      });
     });
   }
 

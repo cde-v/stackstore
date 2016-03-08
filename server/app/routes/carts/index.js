@@ -81,7 +81,6 @@ router.post('/checkout', function(req, res, next){
     .then(promiseArray => {
       var price = 0;
       promiseArray.forEach(function(product, ind){
-        console.log(product.sizes[cart[ind].size], +cart[ind].quantity)
         if(product.sizes[cart[ind].size] >= +cart[ind].quantity){
           toPurchase.push({
             itemId: product.itemId,
