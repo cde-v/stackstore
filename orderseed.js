@@ -27,7 +27,7 @@ var Order = Promise.promisifyAll(mongoose.model('Order'));
 var seedOrders = function() {
 
   var orders = [{
-    userId: 1,
+    userId: "56ddf4315601f7074ba7563c",
     shipAddress: {
      name: 'Jane Brown',
      address1: '123 Bridge Ln',
@@ -62,7 +62,7 @@ var seedOrders = function() {
 },
 
 {
-  userId: 1,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
    name: 'Jane Brown',
    address1: '123 Bridge Ln',
@@ -94,7 +94,7 @@ var seedOrders = function() {
   })
 }]
 }, {
-  userId: 1,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
    name: 'Jane Brown',
    address1: '123 Bridge Ln',
@@ -142,7 +142,7 @@ orderDate: 'February 1, 2016',
 },
 
 {
-  userId: 1,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
     name: 'Ann Doe',
     address1: '343 Dog Dr',
@@ -178,7 +178,7 @@ orderDate: 'February 1, 2016',
 },
 
 {
-  userId: 1,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
    name: 'Jane Brown',
    address1: '123 Bridge Ln',
@@ -211,7 +211,7 @@ orderDate: 'February 1, 2016',
 orderDate: 'January 10, 2016',
 shipDate: 'January 14, 2016'
 }, {
-  userId: 2,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress:{
     name: 'Alex Green',
     address1: '456 Hollow St',
@@ -246,7 +246,7 @@ shipDate: 'January 14, 2016'
   orderDate: 'January 20, 2016',
   shipDate: 'January 22, 2016'
 }, {
-  userId: 2,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
     name: 'Alex Green',
     address1: '456 Hollow St',
@@ -281,7 +281,7 @@ shipDate: 'January 14, 2016'
   orderDate: 'February 28, 2016',
   shipDate: 'March 1, 2016'
 }, {
-  userId: 2,
+  userId: "56ddf4315601f7074ba7563c",
   shipAddress: {
     name: 'Ryan Green',
     address1: '7588 Hello Ln',
