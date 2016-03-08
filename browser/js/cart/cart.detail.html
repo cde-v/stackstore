@@ -43,6 +43,13 @@
                                     <a ng-click="CartFactory.removeItem(item.product._id, item.size)" type="button">X</a>
                                 </td>
                             </tr>
+                            <tr id = "empty-cart" ng-if="CartFactory.cart.length === 0">
+                                <td/>
+                                <td>Start Shopping!</td>
+                                <td/>
+                                <td/>
+                                <td/>
+                            </tr>
                             <tr>
                                 <td/>
                                 <td/>

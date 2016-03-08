@@ -575,6 +575,11 @@ iframe{
     max-width: 200px;
 }
 
+#empty-cart{
+    text-align: center;
+    height: 30vh;
+}
+
 .prod-img{
     width: 200px;
 }
