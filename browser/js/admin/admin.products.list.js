@@ -2,7 +2,7 @@ app.config(function($stateProvider) {
   $stateProvider.state('adminProductsList', {
     url: '/admin/products',
     templateUrl: 'js/admin/admin.products.list.html',
-    controller: 'adminProductCtrl',
+    controller: 'productCtrl',
     resolve: {
       products: function(ProductList) {
         return ProductList.getAll();
