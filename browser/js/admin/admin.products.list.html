@@ -83,10 +83,47 @@
         </div>
       </div>
     </div>
+
+
+<div class="container bloc-sm">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="panel">
+          <div class="panel-heading bgc-outer-space">
+            <h3 class="mg-clear text-center tc-white sm-shadow">
+              Admin
+            </h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-unstyled">
+              <li>
+                <div class="btn-group btn-block">
+                  <a ui-sref="admin" class="btn btn-block btn-sq btn-d btn-clean btn-lg" aria-expanded="false"><span class="fa fa-cubes icon-spacer"></span>Orders</a>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group btn-block">
+                  <a ui-sref="adminUsersList" class="btn btn-d  btn-clean btn-sq btn-lg btn-block"  aria-expanded="true"><span class="fa fa-group icon-spacer"></span>Users</a>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group btn-block">
+                <a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+
+
+
     <div class="row voffset">
       <div ng-repeat="shoe in catalog">
         <div class="col-sm-12">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
               <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />
             <h3 class="mg-md">
               <span class="fa pull-left">{{shoe.name}}</span>
@@ -96,7 +133,7 @@
               </a>
             </h3>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <form name="editForm" class="form-inline" ng-submit="updateProduct(shoe)">
               <div class="form-group" ng-repeat="(key, value) in shoe">
                 <label>{{ key }}</label>
