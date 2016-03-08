@@ -32,15 +32,7 @@
 						<ul class="list-unstyled">
 							<li>
 								<div class="btn-group btn-block">
-									<a href="#" class="btn dropdown-toggle  btn-block btn-sq btn-d btn-clean btn-lg" data-toggle="dropdown" aria-expanded="false"><span class="fa fa-cubes icon-spacer"></span>Orders<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">
-										<li>
-											<a href="index.html" class="a-btn a-block">New Orders</a>
-										</li>
-										<li>
-											<a href="index.html" class="a-btn a-block">Options 2</a>
-										</li>
-									</ul>
+									<a ui-sref="admin" class="btn btn-block btn-sq btn-d btn-clean btn-lg" aria-expanded="false"><span class="fa fa-cubes icon-spacer"></span>Orders</a>
 								</div>
 							</li>
 							<li>
@@ -57,7 +49,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-9 center-block">
 				<h3>
 					<div ng-show="!user.isAdmin">
 						<label>Filter Order By Status:</label>
