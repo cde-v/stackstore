@@ -112,9 +112,9 @@ router.post('/checkout', function(req, res, next){
       }else throw new Error("Empty Cart");
     }).then(charge => {
       return Order.create({
-        // userId: user,
+        userId: user,
         items: toPurchase,
-        orderStatus: 'created',
+        status: 'Created',
         shipAddress: req.body.shipAddress,
         billAddress: req.body.billAddress
         });
