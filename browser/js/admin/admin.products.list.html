@@ -4,7 +4,104 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="row">
+
+
+<div class="col-sm-2">
+            <div class="btn-group btn-block">
+              <a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-md btn-block" data-toggle="dropdown" aria-expanded="false">Department<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <div class="text-center">
+                    <a href="index.html" class="a-btn">Mens</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="text-center">
+                    <a href="index.html" class="a-btn">Womens</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div class="col-sm-2">
+            <div class="btn-group btn-block">
+              <a href="#" class="btn dropdown-toggle   btn-sq btn-wire btn-md btn-block" data-toggle="dropdown" aria-expanded="false">Brand<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a ng-click="brand('')" class="a-btn a-block">None</a>
+                  <a ng-click="brand('Adidas')" class="a-btn a-block">Adidas</a>
+                  <a ng-click="brand('Nike')" class="a-btn a-block">Nike</a>
+                </li>
+                <!-- <li ng-repeat="brandName in brands">
+                  <a ng-click="brand(brandName)" class="a-btn a-block">{{brandName}}</a>
+                </li> -->
+                <!-- <li>
+                  <a ng-click="brand('Adidas')" class="a-btn a-block">Adidas</a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn-group btn-block">
+              <a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Style<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a ng-click="style('')"  class="a-btn a-block">None</a>
+                </li>
+                <li>
+                  <a ng-click="style('boots')"  class="a-btn a-block">Boots</a>
+                </li>
+                <li>
+                  <a ng-click="style('sneaker')"  class="a-btn a-block">Sneakers</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn-group btn-block">
+              <a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Size<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a ng-click="sizes(null)" class="a-btn a-block">None</a>
+                </li>
+                <li>
+                  <a ng-click="sizes(6)" class="a-btn a-block">6</a>
+                </li>
+                <li>
+                  <a ng-click="sizes(7)"class="a-btn a-block">7</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="btn-group btn-block">
+              <a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Sort<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a ng-click="order('')" class="a-btn a-block">None</a>
+                </li>
+                <li>
+                  <a ng-click="order('price', false)" class="a-btn a-block">Price: Lo to Hi</a>
+                </li>
+                <li>
+                  <a ng-click="order('price', true)"class="a-btn a-block">Price: Hi to Lo</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <form id="search" novalidate>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1">
+                  <i class="fa fa-search"></i>
+                </span>
+                <input ng-model="search.$" class="form-control" placeholder="Search" id="searchbar" aria-describedby="sizing-addon1"/>
+              </div>
+            </form>
+          </div>
+
+
+  <!--         <div class="col-sm-2">
             <div class="btn-group btn-block">
               <a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-lg btn-block" data-toggle="dropdown" aria-expanded="false">Gender<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -29,7 +126,7 @@
                   <a href="index.html" class="a-btn a-block">Nike</a>
                 </li>
                 <li>
-                  <a href="index.html" class="a-btn a-block">Options 2</a>
+                  <a href="index.html" class="a-btn a-block">Adidas</a>
                 </li>
               </ul>
             </div>
@@ -79,7 +176,7 @@
                 <input class="form-control" placeholder="Search" id="searchbar" data-validation-required-message="searchbar is required." />
               </div><span class="fa fa-search icon-md pull-left"></span>
             </form>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -112,7 +209,7 @@
           </div>
         </div>
       </div>
-      <div ng-repeat="shoe in catalog">
+      <div ng-repeat="shoe in catalog | sizeSelect: selectedSize | filter:search:strict | orderBy:predicate:reverse">
         <div class="col-sm-9 pull-right">
           <div class="col-sm-4">
             <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />

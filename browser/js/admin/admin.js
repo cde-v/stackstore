@@ -14,9 +14,12 @@ app.config(function ($stateProvider) {
         	orders: function(OrderFactory){
         		return OrderFactory.fetchAll();
         	}
+
         }
+
     });
 });
+
 
 // Product management
 //  Create and edit products with name, description, price and one or more photos

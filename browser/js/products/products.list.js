@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('productCtrl', function ($scope, products,$rootScope) {
+app.controller('productCtrl', function ($scope, $state, products, $rootScope, ProductList) {
 	$scope.brands=Object.keys(_.groupBy(products, 'brand'));
 
 	$scope.catalog = products;
@@ -37,7 +37,27 @@ app.controller('productCtrl', function ($scope, products,$rootScope) {
 	}
 	$scope.selectedSize = null; 
 	
-	$rootScope.$on('$stateChange', scrollToTarget('1'))
+	$rootScope.$on('$stateChange', scrollToTarget('1'));
+
+	 $scope.editProduct = {};
+
+  $scope.catalog = products;
+
+  $scope.removeProduct = function(shoe) {
+    ProductList.destroy(shoe.itemId)
+      .then(function() {
+        $state.reload();
+      });
+  };
+
+  $scope.updateProduct = function(shoe) {
+    console.log(shoe);
+    console.dir($scope, { depth: null });
+    ProductList.update(shoe.itemId, $scope.editProduct[shoe.name])
+      .then(function() {
+        $state.reload();
+      });
+  };
 })
 
 app.filter('sizeSelect', function(){

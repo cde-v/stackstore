@@ -25,7 +25,6 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 
 var seedUsers = function() {
-
   var users = [{
     email: 'testing@fsa.com',
     firstName: 'Tester',
@@ -44,6 +43,7 @@ var seedUsers = function() {
     lastName: 'Obama',
     password: 'potus'
   }];
+>>>>>>> master
 
   for(var i = 0; i < 30; i++) {
     users.push({
