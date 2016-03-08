@@ -7,25 +7,20 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
   };
 
   var cartFactory = {};
-  var loggedIn;
 
   AuthService.getLoggedInUser().then(user => {
     if(user){
-      loggedIn = true;
       setCartAuth(user.currentCart);
     }else{
-      loggedIn = false;
       setCartUnauth();
     }
 
     $rootScope.$on('auth-login-success', function(event, data) {
       setCartAuth(user.currentCart);
-      loggedIn = true;
     });
 
     $rootScope.$on('auth-logout-success', function(event, data) {
       setCartUnauth();
-      loggedIn = false;
     });
 
   });
