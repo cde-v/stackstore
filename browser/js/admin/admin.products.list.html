@@ -209,7 +209,6 @@
           </div>
         </div>
       </div>
-      <pre>{{ catalog | json }}</pre>
       <div ng-repeat="shoe in catalog | sizeSelect: selectedSize | filter:search:strict | orderBy:predicate:reverse">
         <div class="col-sm-9 pull-right">
           <div class="col-sm-4">
