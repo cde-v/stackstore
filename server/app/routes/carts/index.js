@@ -93,19 +93,23 @@ router.post('/checkout', function(req, res, next){
           price += product.price;
           product.sizes[cart[ind].size] -= +cart[ind].quantity;
           product.save();
-        }
+        }else {
+          next(new Error("User quantity exceeds stock: " + product.name));
+        };
       });
 
       //Promise.join(price, arrayOfSaved)
         
       return price;
     }).then(price =>{
-      return stripe.charges.create({
-        amount: price, // amount in cents, again
-        currency: "usd",
-        source: token,
-        description: "Example charge"
-      })
+      if(price > 0){
+        return stripe.charges.create({
+          amount: price, // amount in cents, again
+          currency: "usd",
+          source: token,
+          description: "Example charge"
+        });
+      }else next(new Error("Empty Cart"));
     }).then(charge => {
       return Order.create({
         userId: user,

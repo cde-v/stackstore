@@ -4,6 +4,8 @@ app.controller("paymentController", function($scope, paymentFactory, CartFactory
 	$scope.cvc = null
 	$scope.exp = null
 
+	$scope.errorMsg = paymentFactory.error;
+
 	$scope.checkout = function(){
 		var creditCard = {
 			number: $scope.ccn,

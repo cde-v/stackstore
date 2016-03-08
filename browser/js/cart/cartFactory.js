@@ -74,10 +74,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     },
     clearCart: function() {
       return $http.delete('/api/cart/' + Cart.auth.id);
-    },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/' + Cart.auth.id + '/checkout', { shipAddress: shipAddress, billAddress: billAddress })
-        .then(res => res.data);
     }
   };
 
@@ -126,14 +122,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     clearCart: function() {
       Cart.unauth.cart = [];
       angular.copy(Cart.unauth.cart, cartFactory.cart);
-    },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/checkout', {
-          shipAddress: shipAddress,
-          billAddress: billAddress,
-          cart: Cart.unauth.cart
-        })
-        .then(res => res.data);
     },
     getTotal: function() {
       return cartFactory.cart.reduce(function(prev, curr, ind) {
