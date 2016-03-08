@@ -1,0 +1,9 @@
+<li>
+	<h3 class="mg-md lato">
+		By: {{review.author.firstName}}
+		<span ng-repeat="star in review.stars track by $index"class="fa fa-star icon-aqua icon-md"></span>
+	</h3>
+	<p>
+		<br /><h4 class="lato">"{{review.body}}"</h4>
+	</p>
+</li>

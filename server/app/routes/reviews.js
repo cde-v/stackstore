@@ -16,11 +16,10 @@ router.get('/user/:userId', function (req, res, next) {
 //------ GET ALL REVIEWS BY ITEM
 router.get('/item/:itemId', function (req, res, next) {
 	Reviews.find({product: req.params.itemId})
-	.populate('author', 'email')
+	.populate('author', 'firstName')
 	.then(data=>{
-		if(!data.length) res.sendStatus(404);
-		else res.send(data);
-	})
+		res.send(data);
+	},next)
 });
 
 //------ CREATE REVIEW
@@ -28,7 +27,7 @@ router.post('/', function(req, res, next){
 	Reviews.create(req.body)
 	.then(data=>{
 		res.status(201).send(data)
-	}, next(err))
+	}, next)
 });
 
 //------ EDIT REVIEW
