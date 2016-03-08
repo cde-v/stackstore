@@ -33,6 +33,7 @@
       <div class="col-sm-12 pull-right" style="border-bottom:1px solid black;">
         <h1 class="mg-md">User Management</span></h1>
       </div>
+
     </div>
     <div class="row">
       <div class="col-sm-12 pull-right center-block" ng-repeat="user in users" style="border-bottom:1px solid black;">
@@ -41,6 +42,8 @@
             <span>{{ user.email }}  {{ user.password }}</span>
           </h4>
         </div>
+
+
         <div class="col-sm-2">
           <a ng-click="toggleAdmin(user)">
             <h5 ng-if="!user.isAdmin">
@@ -52,17 +55,27 @@
           </a>
         </div>
         <div class="col-sm-2">
+          <a ng-click="toggleNeedsPasswordReset(user)">
+            <h5 ng-if="!user.needsPasswordReset">
+              <span class="fa fa-fire text-muted">Trigger Password Reset</span>
+            </h5>
+            <h5 ng-if="user.needsPasswordReset">
+              <span class="fa fa-fire-extinguisher text-success">Un-trigger Password Reset</span>
+            </h5>
+          </a>
+        </div>
+        <div class="col-sm-2">
           <a ng-click="removeUser(user)">
             <h5 ng-if="!user.isAdmin">
               <span class="fa fa-ban text-danger">Delete User</span>
             </h5>
           </a>
+
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <!-- bloc-5 END -->
 
 <!-- ScrollToTop Button -->

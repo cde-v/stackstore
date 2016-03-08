@@ -6,8 +6,10 @@
 
   var mongoose = require('mongoose');
   require('./order');
+  require('./cart');
   require('./review');
   var Order = mongoose.model('Order');
+  var Cart = mongoose.model('Cart');
   var Review = mongoose.model('Reviews');
 
   var userSchema = new mongoose.Schema();
@@ -20,6 +22,7 @@
   userSchema.method('getUserOrders', getUserOrders);
   userSchema.method('toggleAdmin', toggleAdmin);
   userSchema.method('toggleNeedsPasswordReset', toggleNeedsPasswordReset);
+  userSchema.method('updatePW', updatePW);
   userSchema.pre('save', preSave);
 
   userSchema.add({ email: { type: String } });
@@ -34,7 +37,7 @@
   userSchema.add({ facebook: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ google: { id: String, username: String, token: String, tokenSecret: String } });
   userSchema.add({ paymentProfiles: [{ ccCardholder: { type: String, required: true }, ccType: { type: String, required: true }, ccNum: { type: String, required: true }, ccBillingAddress: { type: String, required: true } }] });
-  userSchema.add({ currentCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cart' }] });
+  userSchema.add({ currentCart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } });
   userSchema.add({ isAdmin: { type: Boolean, default: false } });
   userSchema.add({ needsPasswordReset: { type: Boolean, default: false } });
 
@@ -58,7 +61,14 @@
 
   function toggleNeedsPasswordReset() {
     /*jshint validthis:true */
-    this.isAdmin = !this.isAdmin;
+    this.needsPasswordReset = !this.needsPasswordReset;
+    return this.save();
+  }
+
+  function updatePW(newPW) {
+    /*jshint validthis:true */
+    this.password = newPW.password;
+    this.needsPasswordReset = false;
     return this.save();
   }
 
@@ -83,11 +93,6 @@
 
   // local authentication security
   function correctPassword(candidatePassword) {
-    console.log(candidatePassword);
-    console.log(this.salt);
-    console.log(this.password);
-    console.log(encryptPassword(candidatePassword, this.salt));
-
     return encryptPassword(candidatePassword, this.salt) === this.password;
   }
 
@@ -97,7 +102,13 @@
       this.salt = this.constructor.generateSalt();
       this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-    next();
+    if(!this.currentCart){
+      Cart.create({}).then(cart => {
+        this.currentCart = cart;
+        next();
+      });
+    }else next();
+    
   }
 
   mongoose.model('User', userSchema);

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var cartSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  session: { type: String },
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  // session: { type: String },
   items: [{
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     size: {type: Number},
@@ -10,6 +10,14 @@ var cartSchema = new mongoose.Schema({
     _id: false
   }]
 });
+
+cartSchema.methods.addLocalCart = function(itemsFromLocal){
+  var cart = this;
+  itemsFromLocal.forEach(function(item){
+    cart.editQuantity(item.product._id, item.size, item.qty);
+  });
+  return cart.save();
+};
 
 cartSchema.methods.editQuantity = function(id, size, qty) {
   var cart = this;
