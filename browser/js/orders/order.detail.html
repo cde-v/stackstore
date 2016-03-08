@@ -1,70 +1,66 @@
-<div class="bloc l-bloc bgc-white" id="bloc-16">
-	<div class="container border-top" ng-controller="OrderController">
-		<div class="row">
-			<div class="col-sm-9">
-				<h2>Order Details</h2>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3><strong>{{order.status}}</strong></h3>
-						<h5>Order placed on {{order.formattedOrderDate}}</h5>
-						<h5 ng-show="order.status === 'Shipped' || order.status === 'Fulfilled'">Order shipped on {{order.formattedShipDate}}</h5>
-						<h5>Order ID: {{order._id}}</h5>
-						<div ng-show="!user.isAdmin">
-							<label>Change Order Status:</label>
-							<select name="status" ng-model="order.status" ng-change="changeStatus(order, order.status)">
-								<option>Created</option>
-								<option>Processing</option>
-								<option>Shipped</option>
-								<option>Fulfilled</option>
-								<option>Canceled</option>
-							</select>
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="pull-left">
-							<h4 class="mg-md ">
-								<span class="fa fa-truck"></span>
-								Shipping Address
-							</h4>
-							<h5>{{order.shipAddress.name}}</h5>
-							<h5>{{order.shipAddress.address1}} {{order.shipAddress.address2}}</h5>
-							<h5>{{order.shipAddress.city}}, {{order.shipAddress.state}} {{order.shipAddress.zip}}</h5>
-						</div>
-						<div class="pull-right">
-							<h4 class="mg-md ">
-								<span class="fa fa-credit-card"></span>
-								Billing Address
-							</h4>
-							<h5>{{order.billAddress.name}}</h5>
-							<h5>{{order.billAddress.address1}} {{order.billAddress.address2}}</h5>
-							<h5>{{order.billAddress.city}}, {{order.billAddress.state}} {{order.billAddress.zip}}</h5>
-						</div>
+<div class="row" ng-controller="OrderController">
+	<div class="col-sm-12">
+		<h2>Order Details</h2>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3><strong>{{order.status}}</strong></h3>
+				<h5>Order placed on {{order.formattedOrderDate}}</h5>
+				<h5 ng-show="order.status === 'Shipped' || order.status === 'Fulfilled'">Order shipped on {{order.formattedShipDate}}</h5>
+				<h5>Order ID: {{order._id}}</h5>
+				<div ng-show="user.isAdmin">
+					<label>Change Order Status:</label>
+					<select name="status" ng-model="order.status" ng-change="changeStatus(order, order.status)">
+						<option>Created</option>
+						<option>Processing</option>
+						<option>Shipped</option>
+						<option>Fulfilled</option>
+						<option>Canceled</option>
+					</select>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="pull-left">
+					<h4 class="mg-md ">
+						<span class="fa fa-truck"></span>
+						Shipping Address
+					</h4>
+					<h5>{{order.shipAddress.name}}</h5>
+					<h5>{{order.shipAddress.address1}} {{order.shipAddress.address2}}</h5>
+					<h5>{{order.shipAddress.city}}, {{order.shipAddress.state}} {{order.shipAddress.zip}}</h5>
+				</div>
+				<div class="pull-right">
+					<h4 class="mg-md ">
+						<span class="fa fa-credit-card"></span>
+						Billing Address
+					</h4>
+					<h5>{{order.billAddress.name}}</h5>
+					<h5>{{order.billAddress.address1}} {{order.billAddress.address2}}</h5>
+					<h5>{{order.billAddress.city}}, {{order.billAddress.state}} {{order.billAddress.zip}}</h5>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="row">
-									<div class="col-sm-12">
-										<table class="table table-striped">
-											<tr>
-												<th>Product</th>
-												<th>Size</th>
-												<th>Price</th>
-												<th>Quantity</th>
-											</tr>
-											<tr ng-repeat="item in order.items">
-												<td class="text-left"><strong>{{item.brand}} {{item.name}}</strong></td>
-												<td>{{item.size}}</td>
-												<td>${{item.price}}</td>
-												<td>{{item.quantity}}</td>
-											</tr>
-											<br>
-										</table>
-										<h4 class="pull-right">
-											<strong>
-												Total: ${{getTotal(order)}}
-											</strong>
-										</h4>
-									</div>
-								</div>
+								<table class="table table-striped">
+									<tr>
+										<th>Product</th>
+										<th>Size</th>
+										<th>Price</th>
+										<th>Quantity</th>
+									</tr>
+									<tr ng-repeat="item in order.items">
+										<td class="text-left"><strong>{{item.brand}} {{item.name}}</strong></td>
+										<td>{{item.size}}</td>
+										<td>${{item.price}}</td>
+										<td>{{item.quantity}}</td>
+									</tr>
+									<br>
+								</table>
+								<h4 class="pull-right">
+									<strong>
+										Total: ${{getTotal(order)}}
+									</strong>
+								</h4>
 							</div>
 						</div>
 					</div>
@@ -73,6 +69,3 @@
 		</div>
 	</div>
 </div>
-
-
-

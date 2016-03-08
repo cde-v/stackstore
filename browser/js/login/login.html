@@ -1,82 +1,35 @@
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
-
-<!-- <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input  ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
-
-
-
-
 <div class="bloc bgc-white bg-Yeezy-Boost d-bloc" id="bloc-11">
-    <div class="container bloc-xxl">
-        <div class="row login-row">
-            <div class="col-sm-4 fill ">
-                <div class="bg-opaq home-b fill">
-
-                    <h1 class="mg-md text-center">
-                        Login with Facebook
-                    </h1>
-                    <div class="text-center">
-                        <span class="fa fa-facebook sm-shadow icon-cornflower-blue icon-xl icon-semi-rounded-a"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 fill ">
-                <div class="bg-opaq home-b padding-sm fill">
-                    <form id="form-2" novalidate class="fadeIn animated">
-                        <h1 class="mg-md text-center">
-                            Login
-                        </h1>
-                        <div class="form-group">
-                            <label>
-                                Email
-                            </label>
-                            <input id="email" class="form-control" type="email" required />
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                Password
-                            </label>
-                            <input id="name" class="form-control" required type="password" />
-                        </div> <a class="btn btn-d btn-lg btn-block" href="user.html">Submit</a>
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-4 fill">
-                <div class=" home-b fill">
-                </div>                
-                <!-- <span class="empty-column"></span> -->
-            </div>
-        </div>
-    </div>
+  <div class="container bloc-xxl">
+    <div class="row login-row">
+      <div class="col-sm-4 fill ">
+          <div class="bg-opaq home-b fill">
+           <h1 class="mg-md text-center">
+               Login with Google
+           </h1>
+           <div class="text-center">
+               <a href="/auth/google"><span class="fa fa-google sm-shadow icon-aqua icon-xl icon-semi-rounded-a"></span></a>
+           </div>
+       </div>
+   </div>
+   <div class="col-sm-4 fill ">
+    <div id="loginForm" class="bg-opaq home-b padding-sm fill">
+      <form id="form-2" class="fadeIn animated" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+        <h1 class="mg-md text-center">Login</h1>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="email" class="form-control" type="email" ng-model="login.email" placeholder="Enter email" required />
+      </div>
+      <div class="form-group">
+          <label>Password</label>
+          <input id="name" class="form-control" type="password" ng-model="login.password" placeholder="Password" required/>
+      </div>
+      <button type="submit" class="btn btn-d btn-lg btn-block">Submit</button>
+      <alert type="danger" ng-show="error">
+          {{ error }}
+      </alert>
+  </form>
 </div>
-
- -->
+</div>
+</div>
+</div>
+</div>

@@ -7,16 +7,22 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
   };
 
   var cartFactory = {};
-  var loggedIn;
 
   AuthService.getLoggedInUser().then(user => {
     if(user){
-      loggedIn = true;
       setCartAuth(user.currentCart);
     }else{
-      loggedIn = false;
       setCartUnauth();
     }
+
+    $rootScope.$on('auth-login-success', function(event, data) {
+      setCartAuth(user.currentCart);
+    });
+
+    $rootScope.$on('auth-logout-success', function(event, data) {
+      setCartUnauth();
+    });
+
   });
 
   var user;
@@ -27,7 +33,8 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     fetch: function(cartId) {
     	//be able to take find id using user's cart ID
       return $http.get('/api/cart/' + cartId).then(res => {
-        angular.copy(res.data.items, Cart.auth.cart);
+        // angular.copy(res.data.items, Cart.auth.cart);
+        Cart.auth.cart = res.data.items;
         Cart.auth.id = res.data._id;
         return res.data.items;
       });
@@ -62,10 +69,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     },
     clearCart: function() {
       return $http.delete('/api/cart/' + Cart.auth.id);
-    },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/' + Cart.auth.id + '/checkout', { shipAddress: shipAddress, billAddress: billAddress })
-        .then(res => res.data);
     }
   };
 
@@ -115,14 +118,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
       Cart.unauth.cart = [];
       angular.copy(Cart.unauth.cart, cartFactory.cart);
     },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/checkout', {
-          shipAddress: shipAddress,
-          billAddress: billAddress,
-          cart: Cart.unauth.cart
-        })
-        .then(res => res.data);
-    },
     getTotal: function() {
       return cartFactory.cart.reduce(function(prev, curr, ind) {
         return prev + curr.product.price * curr.quantity;
@@ -130,27 +125,17 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     }
   };
 
-  $rootScope.$on('auth-login-success', function(event, data) {
-    setCartAuth();
-    loggedIn = true;
-  });
-
-  $rootScope.$on('auth-logout-success', function(event, data) {
-    setCartUnauth();
-    loggedIn = false;
-  });
-
   function setCartUnauth(){
     Cart.unauth.fetch();
     angular.copy(Cart.unauth, cartFactory);
   }
 
   function setCartAuth(cart){
-    var oldCart = cartFactory.cart || [];
     Cart.auth.fetch(cart.toString()).then(res =>{
+      Cart.auth.cart = res;
       angular.copy(Cart.auth, cartFactory);
-      oldCart.forEach(function(item){
-        cartFactory.addItem(item.product, item.size, item.quantity);
+      Cart.unauth.cart.forEach(function(item){
+        Cart.auth.editQty(item.product._id, item.size, item.quantity);
       });
     });
   }
