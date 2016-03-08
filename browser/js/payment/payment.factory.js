@@ -6,10 +6,16 @@ app.factory('paymentFactory', function($http, $state, CartFactory, $rootScope){
 				return $http.post('api/cart/checkout/', info)
 				.then(function(data){
 					//payment success
-					CartFactory.clearCart()
-					$state.go('home')
-
-				}, function(err){console.log(err)})
+					console.log('data', data);
+					if(data.status === 200){
+						CartFactory.clearCart();
+						$state.go('home');
+					}
+				}, function(err){
+					payment.error = err.data;
+					$rootScope.$evalAsync();
+					console.log('checkout error', err);
+				});
 		}
 	};
 

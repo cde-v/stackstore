@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/payment/payment.html',
                 data: {
             adminOnly: false,
-            authenticatedOnly: true
+            authenticatedOnly: false
         },
         controller:'paymentController'
     });
