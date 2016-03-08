@@ -7,25 +7,20 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
   };
 
   var cartFactory = {};
-  var loggedIn;
 
   AuthService.getLoggedInUser().then(user => {
     if(user){
-      loggedIn = true;
       setCartAuth(user.currentCart);
     }else{
-      loggedIn = false;
       setCartUnauth();
     }
 
     $rootScope.$on('auth-login-success', function(event, data) {
       setCartAuth(user.currentCart);
-      loggedIn = true;
     });
 
     $rootScope.$on('auth-logout-success', function(event, data) {
       setCartUnauth();
-      loggedIn = false;
     });
 
   });
@@ -74,10 +69,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     },
     clearCart: function() {
       return $http.delete('/api/cart/' + Cart.auth.id);
-    },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/' + Cart.auth.id + '/checkout', { shipAddress: shipAddress, billAddress: billAddress })
-        .then(res => res.data);
     }
   };
 
@@ -126,14 +117,6 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     clearCart: function() {
       Cart.unauth.cart = [];
       angular.copy(Cart.unauth.cart, cartFactory.cart);
-    },
-    checkout: function(shipAddress, billAddress) {
-      return $http.post('/api/cart/checkout', {
-          shipAddress: shipAddress,
-          billAddress: billAddress,
-          cart: Cart.unauth.cart
-        })
-        .then(res => res.data);
     },
     getTotal: function() {
       return cartFactory.cart.reduce(function(prev, curr, ind) {
