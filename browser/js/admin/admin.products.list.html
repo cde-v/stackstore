@@ -83,11 +83,8 @@
         </div>
       </div>
     </div>
-
-
-<div class="container bloc-sm">
-    <div class="row">
-      <div class="col-sm-3">
+    <div class="row voffset">
+      <div class="col-sm-3 pull-left">
         <div class="panel">
           <div class="panel-heading bgc-outer-space">
             <h3 class="mg-clear text-center tc-white sm-shadow">
@@ -108,32 +105,26 @@
               </li>
               <li>
                 <div class="btn-group btn-block">
-                <a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
+                  <a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      </div>
-      </div>
-
-
-
-    <div class="row voffset">
       <div ng-repeat="shoe in catalog">
-        <div class="col-sm-12">
-          <div class="col-sm-5">
-              <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />
+        <div class="col-sm-9 pull-right">
+          <div class="col-sm-4">
+            <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />
             <h3 class="mg-md">
               <span class="fa pull-left">{{shoe.name}}</span>
               <!-- <a ng-if="$root.isAdmin()" ng-click="removeProduct(shoe)"> -->
               <a ng-click="removeProduct(shoe)">
-                <span class="fa fa-ban text-danger pull-right"> Remove Item</span>
+                <span class="fa fa-ban text-danger"> Remove Item</span>
               </a>
             </h3>
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-8">
             <form name="editForm" class="form-inline" ng-submit="updateProduct(shoe)">
               <div class="form-group" ng-repeat="(key, value) in shoe">
                 <label>{{ key }}</label>
@@ -147,8 +138,9 @@
       </div>
     </div>
   </div>
-  <!-- bloc-5 END -->
+</div>
+<!-- bloc-5 END -->
 
-  <!-- ScrollToTop Button -->
-  <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
-  <!-- ScrollToTop Button END-->
+<!-- ScrollToTop Button -->
+<a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
+<!-- ScrollToTop Button END-->

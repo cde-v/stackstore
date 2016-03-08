@@ -42,7 +42,7 @@
 							</li>
 							<li>
 								<div class="btn-group btn-block">
-								<a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
+									<a ui-sref="adminProductsList" class="btn  btn-d  btn-lg btn-block btn-clean btn-sq" aria-expanded="false"><span class="fa fa-tag icon-spacer"></span>Inventory</a>
 								</div>
 							</li>
 						</ul>
@@ -50,21 +50,29 @@
 				</div>
 			</div>
 			<div class="col-sm-9 center-block">
-				<h3>
-					<div ng-show="!user.isAdmin">
-						<label>Filter Order By Status:</label>
-						<select name="status" ng-model="order.status">
-							<option>Created</option>
-							<option>Processing</option>
-							<option>Shipped</option>
-							<option>Fulfilled</option>
-							<option>Canceled</option>
-						</select>
+				<div class="bloc l-bloc bgc-white" id="bloc-16">
+					<div class="container border-top" >
+						<div class="row">
+							<div class="col-sm-9">
+								<h3>
+									<div ng-show="!user.isAdmin">
+										<label>Filter Order By Status:</label>
+										<select name="status" ng-model="order.status">
+											<option>Created</option>
+											<option>Processing</option>
+											<option>Shipped</option>
+											<option>Fulfilled</option>
+											<option>Canceled</option>
+										</select>
+									</div>
+								</h3>
+								<order order="order" ng-repeat="order in orders | orderFilter:order.status"></order>
+								<ul class="list-unstyled">
+								</ul>
+							</div>
+						</div>
 					</div>
-				</h3>
-				<order order="order" ng-repeat="order in orders | orderFilter:order.status"></order>
-				<ul class="list-unstyled">
-				</ul>
+				</div>
 			</div>
 		</div>
 	</div>

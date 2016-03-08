@@ -61,34 +61,24 @@ orderSchema.methods.changeOrderStatus = function(status) {
   return this.save();
 }
 
-orderSchema.virtual('formattedShipDate').get(function(){
-  var monthNames = [
+function date (type){
+  return function(){
+    var monthNames = [
     "January", "February", "March",
     "April", "May", "June", "July",
     "August", "September", "October",
     "November", "December"
-  ];
+    ];
 
-  var day = new Date(this.shipDate).getDate();
-  var monthIndex = new Date(this.shipDate).getMonth();
-  var year = new Date(this.shipDate).getFullYear();
+    var day = new Date(this[type]).getDate();
+    var monthIndex = new Date(this[type]).getMonth();
+    var year = new Date(this[type]).getFullYear();
 
-  return monthNames[monthIndex] + ' ' + day + ', ' + year;
-})
+    return monthNames[monthIndex] + ' ' + day + ', ' + year;
+  }
+}
 
-orderSchema.virtual('formattedOrderDate').get(function(){
-  var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-  ];
-
-  var day = new Date(this.orderDate).getDate();
-  var monthIndex = new Date(this.orderDate).getMonth();
-  var year = new Date(this.orderDate).getFullYear();
-
-  return monthNames[monthIndex] + ' ' + day + ', ' + year;
-})
+orderSchema.virtual('formattedOrderDate').get(date('orderDate'));
+orderSchema.virtual('formattedShipDate').get(date('shipDate'));
 
 mongoose.model('Order', orderSchema);
