@@ -6,7 +6,6 @@ html{
 }
 
 body{
-	/*min-height: 100vh;*/
 	margin:0;
 	padding:0;
     background:#47454B;
@@ -32,7 +31,7 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 }
 /* Site container width */
 .page-container{
-	min-height: 100%;
+	min-height: 100vh;
 }
 
 .container{
@@ -214,7 +213,7 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
     font-family: Lato;
     font-weight: 300;
 }
-#bloc-9.5 h1{
+#bloc-9-5 h1{
 	font-family: Lato;
 	font-weight: 300;
 }
@@ -534,8 +533,25 @@ iframe{
 }
 .tc-outer-space{
     color:#47454B!important;
-    !important}/* Button colour styles */
+    !important
+}/* Button colour styles */
 
+.btn-gray-x11-gray{
+    background:#BEBEBE;
+    color:rgba(0,0,0,.5)!important;
+}
+.btn-gray-x11-gray:hover{
+    background:#989898;
+    color:rgba(0,0,0,.5)!important;
+}
+.btn-electric-blue{
+    background:#6DFCF7;
+    color:rgba(0,0,0,.5)!important;
+}
+.btn-electric-blue:hover{
+    background:#57cac6;
+    color:rgba(0,0,0,.5)!important;
+}
 .wire-btn-white{
     color:#ffffff!important;
     border-color:#ffffff!important;

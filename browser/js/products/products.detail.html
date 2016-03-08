@@ -66,7 +66,7 @@
 <!-- bloc-8 END -->
 
 <!-- bloc-9.5 -->
-<div class="bloc l-bloc bgc-white" id="bloc-9.5">
+<div class="bloc l-bloc bgc-white" id="bloc-9-5">
 	<div class="container bloc-sm b-divider">
 		<div class="row">
 			<div class="col-sm-12">
@@ -77,27 +77,54 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<ul class="list-unstyled lato">
-					<li ng-repeat="review in reviews">
-						<h3 class="mg-md lato">
-							By: {{review.author.email}}
-							<span class="fa fa-star icon-aqua icon-md"></span>
-							<span class="fa fa-star icon-aqua icon-md"></span>
-							<span class="fa fa-star icon-aqua icon-md"></span>
-							<span class="fa fa-star icon-aqua icon-md"></span>
-							<span class="fa fa-star icon-aqua icon-md"></span>
-						</h3>
-
-						<p>
-							<br /><h4 class="lato">"{{review.body}}"</h4>
-						</p>
-					</li>
+			<h3 ng-hide="reviews.length"class="text-center lato sm-shadow">No reviews.</h3>
+				<ul ng-show="reviews.length" class="list-unstyled lato">
+					<review review="review" ng-repeat="review in reviews"></review>
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- bloc-10.5 END -->
+
+<!-- bloc-11 -->
+<div class="bloc bgc-outer-space d-bloc" id="bloc-11-5">
+	<div class="container bloc-sm">
+		<div class="row">
+			<div class="col-sm-12">
+				<form id="form-2395" novalidate>
+					<span class="fa fa-pencil pull-left sm-shadow icon-sm"></span>
+					<div class="form-group">
+						<label>
+							Write a review.
+						</label><textarea ng-model="body" class="form-control" rows="4" cols="50"></textarea>
+					</div>
+					<div class="btn-group">
+						<a href="#" class="btn dropdown-toggle  btn-sq btn-gray-x11-gray" data-toggle="dropdown" aria-expanded="false">Rating<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a ng-click="setRating(1)" class="a-btn a-block">1</a>
+							</li>
+							<li>
+								<a ng-click="setRating(2)" class="a-btn a-block">2</a>
+							</li>
+							<li>
+								<a ng-click="setRating(3)" class="a-btn a-block">3</a>
+							</li>
+							<li>
+								<a ng-click="setRating(4)" class="a-btn a-block">4</a>
+							</li>
+							<li>
+								<a ng-click="setRating(5)" class="a-btn a-block">5</a>
+							</li>
+						</ul>
+					</div><a ng-click="writeReview()" class="btn  btn-sq btn-electric-blue">Submit</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-11 END -->
 
 
 
