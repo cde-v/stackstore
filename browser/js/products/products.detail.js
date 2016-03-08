@@ -3,6 +3,10 @@ app.config(function ($stateProvider) {
         url: '/products/:itemId',
         templateUrl: 'js/products/products.detail.html',
         controller: 'productDetailCtrl',
+                data: {
+            adminOnly: false,
+            authenticatedOnly: false
+        },
 		resolve: {
 			shoe: function (ProductList, $stateParams) {
 				return ProductList.getOne($stateParams.itemId);

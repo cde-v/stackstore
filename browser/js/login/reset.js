@@ -3,7 +3,11 @@ app.config(function($stateProvider) {
   $stateProvider.state('reset', {
     url: '/resetPW',
     templateUrl: 'js/login/reset.html',
-    controller: 'resetCtrl'
+    controller: 'resetCtrl',
+            data: {
+            adminOnly: false,
+            authenticatedOnly: false
+        },
   });
 
 });
