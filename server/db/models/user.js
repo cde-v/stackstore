@@ -42,13 +42,14 @@ userSchema.add({ needsPasswordReset: { type: Boolean, default: false } });
 function getUserOrders() {
   /*jshint validthis:true */
   return Order
-    .find({ user: this._id });
+    .find({ userId: this._id });
 }
 
 function getUserReviews() {
   /*jshint validthis:true */
   return Review
-    .find({ author: this._id });
+    .find({ author: this._id })
+    .populate('author');
 }
 
 function toggleAdmin() {
