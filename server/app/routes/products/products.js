@@ -43,13 +43,14 @@ router.put('/:itemId', function(req, res, next){
 	.then(data=>{
 		if(!data.length) res.sendStatus(404);
 		else {
+			console.log(req.body)
 			for(var key in req.body){
-				if(key === 'sizes'){
-					var size = Object.keys(req.body.sizes)
-					data[0].sizes[size]= req.body.sizes[size]
-				}else{
+				// if(key === 'sizes'){
+					// var size = Object.keys(req.body.sizes)
+					// data[0].sizes[size]= req.body.sizes[size]
+				// }else{
 					data[0][key] = req.body[key];
-				}
+				// }
 			}
 			data[0].save()
 			res.send(data[0])

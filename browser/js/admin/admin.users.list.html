@@ -36,15 +36,15 @@
 
     </div>
     <div class="row">
-      <div class="col-sm-12 pull-right center-block" ng-repeat="user in users" style="border-bottom:1px solid black;">
-        <div class="col-sm-6">
-          <h4>
-            <span>{{ user.email }}  {{ user.password }}</span>
-          </h4>
+      <div class="col-sm-12 pull-right center-block" ng-repeat="user in users | orderBy:'email'" style="border-bottom:1px solid black;">
+        <div class="col-sm-3">
+          <h5>
+            <span> {{ user.email }} </span>
+          </h5>
         </div>
 
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <a ng-click="toggleAdmin(user)">
             <h5 ng-if="!user.isAdmin">
               <span class="fa fa-bolt text-primary">Make Admin</span>
@@ -54,7 +54,7 @@
             </h5>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <a ng-click="toggleNeedsPasswordReset(user)">
             <h5 ng-if="!user.needsPasswordReset">
               <span class="fa fa-fire text-muted">Trigger Password Reset</span>
@@ -64,13 +64,12 @@
             </h5>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <a ng-click="removeUser(user)">
             <h5 ng-if="!user.isAdmin">
               <span class="fa fa-ban text-danger">Delete User</span>
             </h5>
           </a>
-
         </div>
       </div>
     </div>

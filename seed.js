@@ -43,7 +43,6 @@ var seedUsers = function() {
     lastName: 'Obama',
     password: 'potus'
   }];
->>>>>>> master
 
   for(var i = 0; i < 30; i++) {
     users.push({

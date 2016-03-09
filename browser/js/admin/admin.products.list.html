@@ -5,8 +5,7 @@
       <div class="col-sm-12">
         <div class="row">
 
-
-<div class="col-sm-2">
+          <div class="col-sm-2">
             <div class="btn-group btn-block">
               <a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-md btn-block" data-toggle="dropdown" aria-expanded="false">Department<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -46,13 +45,13 @@
               <a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Style<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a ng-click="style('')"  class="a-btn a-block">None</a>
+                  <a ng-click="style('')" class="a-btn a-block">None</a>
                 </li>
                 <li>
-                  <a ng-click="style('boots')"  class="a-btn a-block">Boots</a>
+                  <a ng-click="style('boots')" class="a-btn a-block">Boots</a>
                 </li>
                 <li>
-                  <a ng-click="style('sneaker')"  class="a-btn a-block">Sneakers</a>
+                  <a ng-click="style('sneaker')" class="a-btn a-block">Sneakers</a>
                 </li>
               </ul>
             </div>
@@ -68,7 +67,7 @@
                   <a ng-click="sizes(6)" class="a-btn a-block">6</a>
                 </li>
                 <li>
-                  <a ng-click="sizes(7)"class="a-btn a-block">7</a>
+                  <a ng-click="sizes(7)" class="a-btn a-block">7</a>
                 </li>
               </ul>
             </div>
@@ -84,7 +83,7 @@
                   <a ng-click="order('price', false)" class="a-btn a-block">Price: Lo to Hi</a>
                 </li>
                 <li>
-                  <a ng-click="order('price', true)"class="a-btn a-block">Price: Hi to Lo</a>
+                  <a ng-click="order('price', true)" class="a-btn a-block">Price: Hi to Lo</a>
                 </li>
               </ul>
             </div>
@@ -95,13 +94,12 @@
                 <span class="input-group-addon" id="sizing-addon1">
                   <i class="fa fa-search"></i>
                 </span>
-                <input ng-model="search.$" class="form-control" placeholder="Search" id="searchbar" aria-describedby="sizing-addon1"/>
+                <input ng-model="search.$" class="form-control" placeholder="Search" id="searchbar" aria-describedby="sizing-addon1" />
               </div>
             </form>
           </div>
 
-
-  <!--         <div class="col-sm-2">
+          <!--         <div class="col-sm-2">
             <div class="btn-group btn-block">
               <a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-lg btn-block" data-toggle="dropdown" aria-expanded="false">Gender<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -197,7 +195,7 @@
               </li>
               <li>
                 <div class="btn-group btn-block">
-                  <a ui-sref="adminUsersList" class="btn btn-d  btn-clean btn-sq btn-lg btn-block"  aria-expanded="true"><span class="fa fa-group icon-spacer"></span>Users</a>
+                  <a ui-sref="adminUsersList" class="btn btn-d  btn-clean btn-sq btn-lg btn-block" aria-expanded="true"><span class="fa fa-group icon-spacer"></span>Users</a>
                 </div>
               </li>
               <li>
@@ -209,13 +207,12 @@
           </div>
         </div>
       </div>
-      <div ng-repeat="shoe in catalog | sizeSelect: selectedSize | filter:search:strict | orderBy:predicate:reverse">
+      <div ng-repeat="shoe in catalog | sizeSelect: selectedSize | filter:search:strict | orderBy:predicate:reverse" style="">
         <div class="col-sm-9 pull-right">
           <div class="col-sm-4">
             <img src="{{shoe.images[0]}}" class="img-responsive fadeIn animDelay02 animated" />
             <h3 class="mg-md">
               <span class="fa pull-left">{{shoe.name}}</span>
-              <!-- <a ng-if="$root.isAdmin()" ng-click="removeProduct(shoe)"> -->
               <a ng-click="removeProduct(shoe)">
                 <span class="fa fa-ban text-danger"> Remove Item</span>
               </a>
@@ -223,12 +220,20 @@
           </div>
           <div class="col-sm-8">
             <form name="editForm" class="form-inline" ng-submit="updateProduct(shoe)">
-              <div class="form-group" ng-repeat="(key, value) in shoe">
+              <div class="form-group" ng-repeat="(key, value) in shoe" ng-if="key != 'sizes' && key != '_id' && key != '__v'">
                 <label>{{ key }}</label>
                 <input type="text" ng-model="editProduct[shoe.name][key]" ng-init="editProduct[shoe.name][key] = shoe[key]" class="form-control">
               </div>
               <br>
-              <button type="submit" class="btn btn-success">Update</button>
+              <button type="submit" class="btn btn-success">Update Details</button>
+            </form>
+            <form name="editSizesForm" class="form-inline" ng-submit="updateSizes(shoe)">
+              <div class="form-group" ng-repeat="(key, value) in shoe.sizes">
+                <label>{{ key }}</label>
+                <input type="number" ng-model="editSizes[shoe.name][key]" ng-init="editSizes[shoe.name][key] = shoe.sizes[key]" class="form-control">
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Update Sizes</button>
             </form>
           </div>
         </div>

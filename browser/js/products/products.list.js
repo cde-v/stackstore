@@ -39,7 +39,8 @@ app.controller('productCtrl', function ($scope, $state, products, $rootScope, Pr
 	
 	$rootScope.$on('$stateChange', scrollToTarget('1'));
 
-	 $scope.editProduct = {};
+	$scope.editProduct = {};
+  $scope.editSizes = {};
 
   $scope.catalog = products;
 
@@ -50,9 +51,15 @@ app.controller('productCtrl', function ($scope, $state, products, $rootScope, Pr
       });
   };
 
+  $scope.updateSizes = function(shoe) {
+    var temp = shoe;
+    ProductList.update(shoe.itemId, temp)
+      .then(function() {
+        $state.reload();
+      });
+  };
+
   $scope.updateProduct = function(shoe) {
-    console.log(shoe);
-    console.dir($scope, { depth: null });
     ProductList.update(shoe.itemId, $scope.editProduct[shoe.name])
       .then(function() {
         $state.reload();
