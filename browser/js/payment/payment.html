@@ -1,44 +1,51 @@
 <div class="bloc l-bloc bgc-white bg-maxresdefault">
 	<div class = "container bloc-lg" id = "payment-info">
+	<input-group>
 		<div class = "row col-lg-12">
 			<div class = "col-lg-6">
 				<h2>Shipping Address</h2>
-				<input-group>
+						<label for="email">Email</label>
+						<input type="email" class="form-control payment-form" ng-model="shipAddress.email" id="email" placeholder="Name">
 						<label for="name">Name</label>
-						<input type="text" class="form-control" ng-model="shipAddress.name" id="name" placeholder="Name">
-					
+						<input type="text" class="form-control payment-form" ng-model="shipAddress.name" id="name" placeholder="Name">
 						<label for="address1">Address</label>
-						<input type="text" class="form-control" ng-model="shipAddress.address1" id="address1" placeholder="Address">
+						<input type="text" class="form-control payment-form" ng-model="shipAddress.address1" id="address1" placeholder="Address">
 						<label for="address2">Address</label>
-						<input type="text" class="form-control" ng-model = "shipAddress.address2" id="address2" placeholder="Address">
+						<input type="text" class="form-control payment-form" ng-model = "shipAddress.address2" id="address2" placeholder="Address">
 						<label for="city">City</label>
-						<input type="text" class="form-control" ng-model = "shipAddress.city" id="city" placeholder="City">
+						<input type="text" class="form-control payment-form" ng-model = "shipAddress.city" id="city" placeholder="City">
 						<label for="state">State</label>
-						<input type="text" class="form-control" ng-model = "shipAddress.state" id="state" placeholder="State">
+						<input type="text" class="form-control payment-form" ng-model = "shipAddress.state" id="state" placeholder="State">
 						<label for="zip">ZIP Code</label>
-						<input type="text" class="form-control" ng-model = "shipAddress.zip" id="zip" placeholder="ZIP Code">
-				</input-group>
+						<input type="text" class="form-control payment-form" ng-model = "shipAddress.zip" id="zip" placeholder="ZIP Code">
+				<!-- </input-group> -->
 			</div>
 			<div class = "row col-lg-12">
 			<h2>Payment Information</h2>
-				<input-group>
+				<!-- <input-group> -->
 					<form class="form-inline">
 						<fieldset class="form-group">
 							<label for="ccn">CC Number</label>
-							<input type="" class="form-control" ng-model = "ccn" id="ccn" placeholder="4444 4444 4444 4444">
+							<input maxlength="16" type="" class="form-control payment-form" ng-model = "ccn" id="ccn" placeholder="4444 4444 4444 4444">
 						</fieldset>
 						<fieldset class="form-group">
 							<label for="cvc">cvc</label>
-							<input type="" class="form-control" ng-model = "cvc" id="cvc" placeholder="123">
+							<input maxlength="3" class="form-control payment-form" ng-pattern="/\d\d\d/" ng-model = "cvc" id="cvc" placeholder="123">
 						</fieldset>
 						<fieldset class="form-group">
 							<label for="exp">Exp. MM/YY</label>
-							<input type="" class="form-control" ng-model = "exp" id="exp" placeholder="01/16">
+							<input type="" class="form-control payment-form" ng-pattern="/\d\d\\\d\d/" ng-model = "exp" id="exp" placeholder="01/16">
 						</fieldset>
 					</form>
-				</input-group>
+				
 		</div>
-		<button class = 'btn btn-danger' ng-show="errorMsg()">HEY</div>
-		<button class = "btn btn-primary" type = "submit" ng-click="checkout()">Checkout</button>
+		<br>
+		<div class = "col-lg-12">
+			<div class = 'alert alert-danger' ng-show="errorMsg()">{{errorMsg()}}</button>
+		</div>
+		<div class = "col-lg-12">
+			<button class = "btn btn-primary" type = "submit" ng-click="checkout()">Checkout</button>
+		</div>
 	</div>
+	</input-group>
 </div>
