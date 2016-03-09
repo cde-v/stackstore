@@ -26,12 +26,11 @@
 					<div class="container border-top" >
 						<div class="row">
 							<div class="col-sm-9">
-								<order order="order" ng-repeat="order in orders | orderFilter:order.status"></order>
-								<ul class="list-unstyled">
-								</ul>
+								<order order="order" ng-repeat="order in orders"></order>
 							</div>
 							<div class="col-sm-3">
-								<review></review>
+							<h2><strong>Reviews<strong></h2>
+								<review review="review" ng-repeat="review in reviews"></review>
 							</div>
 						</div>
 					</div>

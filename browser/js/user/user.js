@@ -2,8 +2,9 @@ app.config(function ($stateProvider) {
     $stateProvider.state('user', {
         url: '/member/:id',
         templateUrl: 'js/user/user.detail.html',
-        controller: function($scope, orders){
+        controller: function($scope, orders, reviews){
             $scope.orders = orders;
+            $scope.reviews = reviews;
         },
         data: {
             adminOnly: false,
@@ -12,21 +13,23 @@ app.config(function ($stateProvider) {
         resolve: {
         	orders: function($stateParams, $http){
                 console.log('/api/users/' + $stateParams.id + '/orders')
-        		return $http.get('/api/users/' + $stateParams.id + '/orders')
+                return $http.get('/api/users/' + $stateParams.id + '/orders')
                 .then(function(orders){
-                    console.log(orders);
                     return orders.data;
                 })
-        	}
-            // reviews: function($stateParams) {
-            //     return $http.get('/api/users/' + $stateParam.id + '/orders')
-            // }
+            },
+            reviews: function($stateParams, $http) {
+                return $http.get('/api/users/' + $stateParams.id + '/reviews')
+                .then(function(res){
+                    console.log(res.data);
+                    return res.data;
+                })
+
+            }
 
         }
-
     });
 });
-
 // app.factory('userFactory', function($http){
 //     return {
 //         getUserOrders: function(){
