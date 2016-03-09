@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
     <link rel="stylesheet" id="ppstyle" type="text/css" href="css/style.css">
     <link rel='stylesheet' href='./css/animate.css' />
+    <link rel='stylesheet' href='./css/anim.css' />
     <link rel='stylesheet' href='./css/font-awesome.min.css'/>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <!-- IMPORTED CSS -->
@@ -38,34 +39,33 @@
 </head>
 <body ng-app="StackStore">
     <navbar></navbar>
-<!-- Main container -->
-<div class="page-container">
-        <div id="main" ui-view>
-    </div>
-    <!-- Footer - bloc-16 -->
-<div class="bloc bgc-outer-space d-bloc" id="bloc-16">
-    <div class="container bloc-sm">
-        <div class="row">
-            <div class="col-xs-12 col-md-8 col-md-offset-2">
-                <div class="col-xs-3 col-sm-3 text-center">
-                    <a class="social-lg" href="#"><span class="fa fa-twitter icon-lg icon-aqua"></span></a>
-                </div>
-                <div class="col-xs-3 col-sm-3 text-center">
-                    <a class="social-lg" href="#"><span class="fa fa-facebook-square icon-lg"></span></a>
-                </div>
-                <div class=" col-xs-3 col-sm-3 text-center">
-                    <a class="social-lg" href="#"><span class="fa fa-tumblr-square icon-lg"></span></a>
-                </div>
-                <div class="col-xs-3 col-sm-3 text-center">
-                    <a class="social-lg" href="#"><span class="fa fa-instagram icon-lg"></span></a>
+    <!-- Main container -->
+    <div class="page-container">
+        <div id="main" ui-view autoscroll="true" class="anim-in-out anim-fade" data-anim-speed="300">
+        </div>
+        <!-- Footer - bloc-16 -->
+        <div class="bloc bgc-outer-space d-bloc" id="bloc-16">
+            <div class="container bloc-sm">
+                <div class="row">
+                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                        <div class="col-xs-3 col-sm-3 text-center">
+                            <a class="social-lg" href="#"><span class="fa fa-twitter icon-lg icon-aqua"></span></a>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 text-center">
+                            <a class="social-lg" href="#"><span class="fa fa-facebook-square icon-lg"></span></a>
+                        </div>
+                        <div class=" col-xs-3 col-sm-3 text-center">
+                            <a class="social-lg" href="#"><span class="fa fa-tumblr-square icon-lg"></span></a>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 text-center">
+                            <a class="social-lg" href="#"><span class="fa fa-instagram icon-lg"></span></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Footer - bloc-16 END -->
     </div>
-</div>
-<!-- Footer - bloc-16 END -->
-</div>
-<!-- Main container END -->
-
+    <!-- Main container END -->
 </body>
 </html>

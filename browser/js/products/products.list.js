@@ -9,7 +9,18 @@ app.config(function ($stateProvider) {
         },
 		resolve: {
 			products: function (ProductList) {
-				return ProductList.getAll();
+				return ProductList.getAll()
+				.then(function(shoes){
+					var catalog=[];
+					shoes.forEach(function(shoe){
+						var available=false;
+						for(var size in shoe.sizes){
+							if (shoe.sizes[size]>0) available=true;  
+						}
+						if(available)catalog.push(shoe)
+					})
+					return catalog;
+				});
 			}
 		}
     });

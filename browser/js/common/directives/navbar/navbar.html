@@ -13,7 +13,8 @@
           <div class="collapse navbar-collapse navbar-1">
             <ul class="site-navigation nav navbar-nav">
               <li ng-repeat="item in items" ng-if="item.alwaysShow || (item.showToLoggedOut === !isLoggedIn())">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}
+                <span ng-show="item.label==='Cart'" class="icon-aqua badge">{{cartTotal()}}</span></a>
               </li>
               <li ng-if="isLoggedIn()">
                 <a ui-sref-active="active" ng-click="logout()">Logout</a>
