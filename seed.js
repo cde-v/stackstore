@@ -42,6 +42,13 @@ var seedUsers = function() {
     firstName: 'Barack',
     lastName: 'Obama',
     password: 'potus'
+  },{
+    email: 'kanye@west.com',
+    firstName: 'Kanye',
+    lastName: 'West',
+    password: 'yeezus',
+    isAdmin: true,
+    photoUrl: 'img/kanye-west.jpg'
   }];
 
   for(var i = 0; i < 30; i++) {

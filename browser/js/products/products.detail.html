@@ -7,8 +7,11 @@
 				<h1 class="mg-md text-right tc-outer-space ">
 					{{shoe.name}}
 				</h1>
-				<h1 class="mg-md text-right tc-outer-space ">
+				<h1 ng-show="shoe.available" class="mg-md text-right tc-outer-space ">
 					${{shoe.price}}.00
+				</h1>
+				<h1 ng-hide="shoe.available" class="mg-md text-right tc-outer-space ">
+					SOLD OUT
 				</h1>
 			</div>
 		</div>

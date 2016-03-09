@@ -9,7 +9,18 @@ app.config(function ($stateProvider) {
         },
 		resolve: {
 			products: function (ProductList) {
-				return ProductList.getAll();
+				return ProductList.getAll()
+				.then(function(shoes){
+					var catalog=[];
+					shoes.forEach(function(shoe){
+						var available=false;
+						for(var size in shoe.sizes){
+							if (shoe.sizes[size]>0) available=true;  
+						}
+						if(available)catalog.push(shoe)
+					})
+					return catalog;
+				});
 			}
 		}
     });
@@ -17,6 +28,7 @@ app.config(function ($stateProvider) {
 
 app.controller('productCtrl', function ($scope, $state, products, $rootScope, ProductList) {
 	$scope.brands=Object.keys(_.groupBy(products, 'brand'));
+	$scope.styles=Object.keys(_.groupBy(products, 'style'));
 
 	$scope.catalog = products;
 
@@ -26,6 +38,9 @@ app.controller('productCtrl', function ($scope, $state, products, $rootScope, Pr
 	}
 	$scope.style = function(style){
 		$scope.search.style = style;
+	}
+	$scope.department = function(department){
+		$scope.search.department = department;
 	}
 	
 	$scope.order = function(predicate, rev) {

@@ -9,7 +9,15 @@ app.config(function ($stateProvider) {
         },
 		resolve: {
 			shoe: function (ProductList, $stateParams) {
-				return ProductList.getOne($stateParams.itemId);
+				return ProductList.getOne($stateParams.itemId)
+				.then(function(shoe){
+						var available=false;
+						for(var size in shoe.sizes){
+							if (shoe.sizes[size]>0) available=true;  
+						}
+						shoe.available=available;
+						return shoe
+				});
 			},
 			reviews: function(ProductList, shoe){
 				return ProductList.getReviews(shoe)
@@ -57,7 +65,7 @@ app.controller('productDetailCtrl', function ($scope, shoe, AuthService, Product
 
 })
 
-app.factory('ReviewFactory', function ($http) {
+app.factory('ReviewFactory', function ($http, $state) {
 	return {
 		add:function(author, rating, body, product){
 			var data = {
@@ -66,8 +74,12 @@ app.factory('ReviewFactory', function ($http) {
 				body:body,
 				product:product
 			}
-			console.log(data)
+			// console.log(data)
 			return $http.post('api/reviews', data)
+			.then(data=>{
+				$state.reload()
+				// productDetailCtrl.reviews.push(data)
+			})
 		}
 	};
 })

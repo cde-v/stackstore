@@ -6,16 +6,21 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="btn-group btn-block">
-							<a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-md btn-block" data-toggle="dropdown" aria-expanded="false">Department<span class="caret"></span></a>
+							<a href="#" class="btn dropdown-toggle   btn-wire btn-sq wire-btn-outer-space btn-md btn-block" data-toggle="dropdown" aria-expanded="false">{{search.department||'Department'}}<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<div class="text-center">
-										<a href="index.html" class="a-btn">Mens</a>
+										<a ng-click="department('')" class="a-btn">None</a>
+									</div>	
+								</li>
+								<li>
+									<div class="text-center">
+										<a ng-click="department('mens')" class="a-btn">Mens</a>
 									</div>
 								</li>
 								<li>
 									<div class="text-center">
-										<a href="index.html" class="a-btn">Womens</a>
+										<a ng-click="department('womens')" class="a-btn">Womens</a>
 									</div>
 								</li>
 							</ul>
@@ -23,7 +28,7 @@
 					</div>
 					<div class="col-sm-2">
 						<div class="btn-group btn-block">
-							<a href="#" class="btn dropdown-toggle   btn-sq btn-wire btn-md btn-block" data-toggle="dropdown" aria-expanded="false">Brand<span class="caret"></span></a>
+							<a href="#" class="btn dropdown-toggle   btn-sq btn-wire btn-md btn-block" data-toggle="dropdown" aria-expanded="false">{{search.brand||'Brand'}}<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<a ng-click="brand('')" class="a-btn a-block">None</a>
@@ -31,31 +36,27 @@
 								<li ng-repeat="brandName in brands">
 									<a ng-click="brand(brandName)" class="a-btn a-block">{{brandName}}</a>
 								</li>
-								<!-- <li>
-									<a ng-click="brand('Adidas')" class="a-btn a-block">Adidas</a>
-								</li> -->
+								
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="btn-group btn-block">
-							<a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Style<span class="caret"></span></a>
+							<a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">{{search.style||'Style'}}<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<a ng-click="style('')"  class="a-btn a-block">None</a>
 								</li>
-								<li>
-									<a ng-click="style('boots')"  class="a-btn a-block">Boots</a>
+								<li ng-repeat="styleName in styles">
+									<a ng-click="style(styleName)" class="a-btn a-block">{{styleName}}</a>
 								</li>
-								<li>
-									<a ng-click="style('sneaker')"  class="a-btn a-block">Sneakers</a>
-								</li>
+								
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="btn-group btn-block">
-							<a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">Size<span class="caret"></span></a>
+							<a href="#" class="btn dropdown-toggle   btn-md btn-wire btn-sq btn-block" data-toggle="dropdown" aria-expanded="true">{{selectedSize||'Size'}}<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
 									<a ng-click="sizes(null)" class="a-btn a-block">None</a>
@@ -65,6 +66,27 @@
 								</li>
 								<li>
 									<a ng-click="sizes(7)"class="a-btn a-block">7</a>
+								</li>
+								<li>
+									<a ng-click="sizes(8)"class="a-btn a-block">8</a>
+								</li>
+								<li>
+									<a ng-click="sizes(9)"class="a-btn a-block">9</a>
+								</li>
+								<li>
+									<a ng-click="sizes(10)"class="a-btn a-block">10</a>
+								</li>
+								<li>
+									<a ng-click="sizes(11)"class="a-btn a-block">11</a>
+								</li>
+								<li>
+									<a ng-click="sizes(12)"class="a-btn a-block">12</a>
+								</li>
+								<li>
+									<a ng-click="sizes(13)"class="a-btn a-block">13</a>
+								</li>
+								<li>
+									<a ng-click="sizes(14)"class="a-btn a-block">14</a>
 								</li>
 							</ul>
 						</div>
@@ -106,7 +128,7 @@
 					<span class="pull-right">${{shoe.price}}</span>{{shoe.name}}
 				</h3>
 			</div>
-			<div class="no-items col-sm-12">
+			<div class="no-items bloc-xxl col-sm-12">
 				<h1 class="mg-xxl lato text-center fadeIn animated">
 					No matching products found.
 				</h1>			
