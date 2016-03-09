@@ -26,6 +26,8 @@
 					<div class="container border-top" >
 						<div class="row">
 							<div class="col-sm-9">
+							<h2><strong>Orders<strong></h2>
+							<h1 class='lato' ng-hide="orders.length"> No Orders.<br> Please buy something.</h1>
 								<order order="order" ng-repeat="order in orders"></order>
 							</div>
 							<div class="col-sm-3">

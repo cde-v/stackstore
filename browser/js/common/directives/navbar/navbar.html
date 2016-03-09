@@ -18,7 +18,9 @@
               </li>
               <li ng-if="isLoggedIn()">
                 <a ui-sref-active="active" ng-click="logout()">Logout</a>
-                Welcome, <a ui-sref="user({id: user._id})">{{ user.firstName + " " + user.lastName }}</a>
+              </li>
+                <li>
+                 <a ui-sref="user({id: user._id})"><span class="fa fa-group icon-spacer"></spane> Welcome, {{ user.firstName}}</a>
               </li>
             </ul>
           </div>
