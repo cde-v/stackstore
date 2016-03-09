@@ -18,9 +18,9 @@ var seedProducts = function () {
             price: 500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:99,
                 7:0,
-                8:2,
+                8:99,
                 9:4,
                 10:5,
                 11:9,
@@ -40,7 +40,7 @@ var seedProducts = function () {
             price: 500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:31,
                 7:0,
                 8:2,
                 9:4,
@@ -62,7 +62,7 @@ var seedProducts = function () {
             price: 500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:32,
                 7:0,
                 8:2,
                 9:4,
@@ -84,7 +84,7 @@ var seedProducts = function () {
             price: 800,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:33,
                 7:0,
                 8:2,
                 9:4,
@@ -106,7 +106,7 @@ var seedProducts = function () {
             price: 800,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:34,
                 7:0,
                 8:2,
                 9:4,
@@ -128,7 +128,7 @@ var seedProducts = function () {
             price: 1500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:35,
                 7:0,
                 8:2,
                 9:4,
@@ -150,7 +150,7 @@ var seedProducts = function () {
             price: 1500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:36,
                 7:0,
                 8:2,
                 9:4,
@@ -172,7 +172,7 @@ var seedProducts = function () {
             price: 1500,
             prevOrders: 2,
             sizes: {
-                6:3,
+                6:37,
                 7:0,
                 8:2,
                 9:4,
