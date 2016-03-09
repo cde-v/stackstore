@@ -19,7 +19,7 @@
               <li ng-if="isLoggedIn()">
                 <a ui-sref-active="active" ng-click="logout()">Logout</a>
               </li>
-                <li>
+                <li ng-if="isLoggedIn()">
                  <a ui-sref="user({id: user._id})"><span class="fa fa-group icon-spacer"></spane> Welcome, {{ user.firstName}}</a>
               </li>
             </ul>
