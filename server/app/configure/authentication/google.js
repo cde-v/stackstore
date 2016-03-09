@@ -42,6 +42,8 @@ module.exports = function (app) {
 
     };
 
+    console.log(googleCredentials);
+
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
     app.get('/auth/google', passport.authenticate('google', {
