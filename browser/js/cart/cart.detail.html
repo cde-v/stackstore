@@ -61,7 +61,7 @@
                                 <td/>
                                 <td/>
                                 <td/>
-                                <td class="prod-price"><button ui-sref = "payment" class = "btn btn-primary">Checkout</button></td>
+                                <td class="prod-price"><button ng-disabled="CartFactory.cart.length === 0" ui-sref = "payment" class = "btn btn-primary">Checkout</button></td>
                                 <td/>
                             </tr>
                         </tbody>
