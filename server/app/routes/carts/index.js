@@ -10,7 +10,7 @@ var router = require('express').Router();
 var Cart = require('mongoose').model('Cart');
 var Order = require('mongoose').model('Order');
 var Product = require('mongoose').model('Product');
-var Promise = require('Bluebird');
+var Promise = require('bluebird');
 router.param('id', function(req, res, next, id) {
   Cart.findById(id).exec()
     .then(function(cart) {
@@ -71,7 +71,6 @@ router.post('/checkout', function(req, res, next){
   var cart = req.body.cart;
   var toPurchase = [];
   var user = "";
-  if(req.user) user = req.user;
 
   cart.forEach(function(item){
     productPromises.push(Product.findById(item.product._id).exec());
@@ -111,13 +110,23 @@ router.post('/checkout', function(req, res, next){
         });
       }else throw new Error("Empty Cart");
     }).then(charge => {
-      return Order.create({
-        userId: user,
-        items: toPurchase,
-        status: 'Created',
-        shipAddress: req.body.shipAddress,
-        billAddress: req.body.billAddress
-        });
+      if(req.user){
+        return Order.create({
+          userId: user,
+          items: toPurchase,
+          status: 'Created',
+          shipAddress: req.body.shipAddress,
+          billAddress: req.body.billAddress
+          });
+      }
+        else{
+          return Order.create({
+            items: toPurchase,
+            status: 'Created',
+            shipAddress: req.body.shipAddress,
+            billAddress: req.body.billAddress
+            });
+        }
     }).then(newOrder => res.json(newOrder)
     ).then(null, next);
 });
