@@ -70,7 +70,6 @@ router.post('/checkout', function(req, res, next){
   var token = req.body.token;
   var cart = req.body.cart;
   var toPurchase = [];
-  var user = "";
 
   cart.forEach(function(item){
     productPromises.push(Product.findById(item.product._id).exec());
@@ -112,7 +111,7 @@ router.post('/checkout', function(req, res, next){
     }).then(charge => {
       if(req.user){
         return Order.create({
-          userId: user,
+          userId: req.user._id,
           items: toPurchase,
           status: 'Created',
           shipAddress: req.body.shipAddress,
