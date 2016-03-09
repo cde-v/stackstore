@@ -2,9 +2,17 @@ app.config(function ($stateProvider) {
     $stateProvider.state('user', {
         url: '/member/:id',
         templateUrl: 'js/user/user.detail.html',
-        controller: function($scope, orders, reviews){
+        controller: function($scope, orders, reviews, AuthService){
             $scope.orders = orders;
             $scope.reviews = reviews;
+            var setUser = function() {
+                AuthService.getLoggedInUser()
+                .then(function(user) {
+                    $scope.user = user;
+                    $scope.user.photoUrl = (user.photoUrl === "#") ? '/img/kanye-west.jpg': user.photoUrl;
+                });
+            };
+            setUser();
         },
         data: {
             adminOnly: false,
@@ -12,18 +20,16 @@ app.config(function ($stateProvider) {
         },
         resolve: {
         	orders: function($stateParams, $http){
-                console.log('/api/users/' + $stateParams.id + '/orders')
                 return $http.get('/api/users/' + $stateParams.id + '/orders')
                 .then(function(orders){
                     return orders.data;
-                })
+                });
             },
             reviews: function($stateParams, $http) {
                 return $http.get('/api/users/' + $stateParams.id + '/reviews')
                 .then(function(res){
-                    console.log(res.data);
                     return res.data;
-                })
+                });
 
             }
 
