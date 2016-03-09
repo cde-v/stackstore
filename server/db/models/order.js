@@ -95,17 +95,13 @@ orderSchema.virtual('formattedShipDate').get(date('shipDate'));
 orderSchema.pre('save', function(next) {
   var User = mongoose.model('User');
   var self = this;
-  
-  console.log("hitting emailing.js pre save hook");
-  console.log("self" + self);
-  console.log(self.isModified('status'));
+
   if(self.isModified('status')) {
     User.findOne({ _id: self.userId })
       .then(function(user) {
-        console.log("user" + user);
         data.to = user.email;
-        data.subject = 'Kick Stack Order' + self.status;
-        data.text = 'Good News' + user.firstName + " " + user.lastName + ", \n" + "Your order has been " + self.status + " as requested";
+        data.subject = 'Kick Stack Order ' + self.status;
+        data.text = 'Good News ' + user.firstName + " " + user.lastName + ", \n" + "Your order has been " + self.status + " as requested";
         mailgun.messages().send(data, function(error, body) {
           if(error) console.err("Email error");
           else console.log("Email sent" + body);
@@ -114,7 +110,6 @@ orderSchema.pre('save', function(next) {
       })
       .then(null, next);
   }
-  console.log("end data" + data);
   next();
 });
 
