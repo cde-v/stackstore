@@ -68,7 +68,8 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
         });
     },
     clearCart: function() {
-      return $http.delete('/api/cart/' + Cart.auth.id);
+      return $http.delete('/api/cart/' + Cart.auth.id)
+        .then(res => angular.copy([], cartFactory.cart));
     }
   };
 
@@ -134,9 +135,10 @@ app.factory('CartFactory', function($http, $localStorage, $rootScope, $state, Au
     Cart.auth.fetch(cart.toString()).then(res =>{
       Cart.auth.cart = res;
       angular.copy(Cart.auth, cartFactory);
-      Cart.unauth.cart.forEach(function(item){
-        Cart.auth.editQty(item.product._id, item.size, item.quantity);
+      $localStorage.items.forEach(function(item){
+        Cart.auth.addItem(item.product, item.size, item.quantity);
       });
+      $localStorage.items = [];
     });
   }
 

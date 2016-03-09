@@ -4,8 +4,9 @@ app.controller("paymentController", function($scope, paymentFactory, CartFactory
 	$scope.cvc = null;
 	$scope.exp = null;
 
+	$scope.paymentError = null;
 	$scope.errorMsg = function(){
-		return paymentFactory.error;
+		return paymentFactory.error || $scope.paymentError;
 	}
 
 	$scope.checkout = function(){
@@ -24,11 +25,12 @@ app.controller("paymentController", function($scope, paymentFactory, CartFactory
 		// console.log(creditCard, info)
 		Stripe.card.createToken(creditCard, function(status, response) {
 			if (response.error) {
-		   		console.log('payment error')
+		   		$scope.paymentError = "Invalid Card Information";
+		   		$scope.$evalAsync();
 			} else {
-	  			info.token = response.id
+	  			info.token = response.id;
 	  			info.cart = CartFactory.cart;
-	  			paymentFactory.checkout(info)
+	  			paymentFactory.checkout(info);
 	  		}
 		})
 	}
