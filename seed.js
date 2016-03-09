@@ -54,7 +54,6 @@ var seedUsers = function() {
   }
 
   return User.createAsync(users);
-
 };
 
 connectToDb.then(function() {
