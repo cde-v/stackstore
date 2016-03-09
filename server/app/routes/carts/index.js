@@ -71,7 +71,7 @@ router.post('/checkout', function(req, res, next){
   var cart = req.body.cart;
   var toPurchase = [];
   var user = "";
-  if(req.user) user = req.user._id;
+  if(req.user) user = req.user;
 
   cart.forEach(function(item){
     productPromises.push(Product.findById(item.product._id).exec());
