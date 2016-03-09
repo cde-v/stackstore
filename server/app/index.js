@@ -11,6 +11,9 @@ require('./configure')(app);
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
+app.get('/github', function(req, res){
+	res.redirect("https://github.com/cde-v/stackstore");
+});
 
 
 /*
