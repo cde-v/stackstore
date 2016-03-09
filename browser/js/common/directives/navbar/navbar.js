@@ -21,6 +21,10 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, C
         return AuthService.isAuthenticated();
       };
 
+      scope.cartTotal = function(){
+        return (CartFactory.cart)? CartFactory.cart.length : 0;
+      }
+      
       scope.logout = function() {
         AuthService.logout().then(function() {
           $state.go('home');

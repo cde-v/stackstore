@@ -2,7 +2,7 @@
 /*      Built with Blocs
 /*-----------------------------------------------------------------------------------*/
 html{
-	min-height: 100vh;
+	/*min-height: 100vh;*/
 }
 
 body{
@@ -31,7 +31,8 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
 }
 /* Site container width */
 .page-container{
-	min-height: 100vh;
+	/*min-height: 100vh;*/
+    background-color: white;
 }
 
 .container{
@@ -40,20 +41,7 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
     padding-right:15px;
 }
 
-.vh{
-	height:100vh;
-}
 
-.vh5{
-	height:50vh;
-}
-.vh4{
-	height:40vh;
-}
-
-.vh6{
-	height:60vh;
-}
 
 /* = Blocs
 -------------------------------------------------------------- */
@@ -226,7 +214,18 @@ a,button{outline: none!important;} /* Prevent ugly blue glow on chrome and safar
     font-family: Lato;
     font-weight: 300;
 }
-
+#bloc-16 h1{
+    font-size: 80px;
+    font-family: Lato;
+    font-weight: 300;
+}
+#bloc-17 h1{
+    font-size: 50px;
+}
+.lato{
+    font-family: Lato;
+    font-weight: 300;
+}
 /* = NavBar
 -------------------------------------------------------------- */
 
@@ -448,8 +447,16 @@ button{
 .sm-shadow{
     text-shadow:0 1px 2px rgba(0,0,0,.3);
 }
-
-
+/* = Panels
+-------------------------------------------------------------- */
+.panel{
+    border:0!important;
+    box-shadow: 0 0 2px rgba(0,0,0,.4);
+}
+.panel-heading, .panel-footer{
+    background-color: inherit;
+    border-color: rgba(0,0,0,.1)!important;
+}
 .panel-sq, .panel-sq .panel-heading, .panel-sq .panel-footer{
     border-radius:0;
 }
@@ -462,7 +469,6 @@ button{
 .panel-rd .panel-footer{
     border-radius:0 0 29px 29px;
 }
-
 
 /* = Forms
 -------------------------------------------------------------- */
@@ -490,6 +496,30 @@ button{
 iframe{
     border:0;
 }
+/* = Carousel
+-------------------------------------------------------------- */
+
+.carousel-control span{
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+.carousel-control{
+    color:#FFF!important;
+    text-shadow: none;
+}
+.carousel-indicators li{
+    margin: 0 4px;
+}
+.carousel-indicators .active{
+    margin: 0 4px -1px;
+}
+
+.no-shadows .carousel-control.left, .no-shadows .carousel-control.right{
+    background-image: none;
+}
+
 
 
 /* ScrollToTop button */
@@ -720,7 +750,7 @@ div + .no-items{
 
 .times{
 	font-family: Times!important;
-	font-size: 80px !important;
+	font-size: 8vw !important;
 	text-shadow: 3px 3px rgba(0,0,0,.5) !important;
 }
 .splash6{

@@ -2,9 +2,17 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin', {
         url: '/admin',
         templateUrl: 'js/admin/admin.html',
-        controller: function($scope, orders){
+        controller: function($scope, orders, AuthService){
             $scope.orders = orders;
-            console.log(orders);
+            // console.log(orders);
+            var setUser = function() {
+                AuthService.getLoggedInUser()
+                .then(function(user) {
+                    $scope.user = user;
+                    console.log(user, $scope.user)
+                });
+            };
+            setUser();
         },
         data: {
             adminOnly: true,
